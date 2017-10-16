@@ -38,7 +38,7 @@ To set up the lab for Ansible training, follow these steps.
 
 6. Create a `boto` configuration file containing your AWS access key ID and secret access key.
 
-Use the quickstart directions provided here: [http://boto3.readthedocs.io/en/latest/guide/quickstart.html](http://boto3.readthedocs.io/en/latest/guide/quickstart.html)
+      Use the quickstart directions provided here: [http://boto3.readthedocs.io/en/latest/guide/quickstart.html](http://boto3.readthedocs.io/en/latest/guide/quickstart.html)
 
 7. Create a free [Sendgrid](http://sendgrid.com) account if you don't have one. Optionally, create an API key to use with this the playbook.
 
@@ -93,7 +93,7 @@ Use the quickstart directions provided here: [http://boto3.readthedocs.io/en/lat
 
         TRAINING-LAB-<student_username>-node1|2|3|haproxy|tower|control
 
-If successful all your students will be emailed the details of their hosts including addresses and credentials, and an `instructor_inventory.txt` file will be created listing all the student machines.
+      If successful all your students will be emailed the details of their hosts including addresses and credentials, and an `instructor_inventory.txt` file will be created listing all the student machines.
 
 
 ### AWS Teardown ###
