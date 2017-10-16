@@ -9,8 +9,9 @@ This is an automated lab setup for Ansible training. It creates five nodes per u
 
 **NOTE**: Because of [a bug introduced in Ansible v2.2.1](https://github.com/ansible/lightbulb/issues/112) you will need to run this provisioner with v2.3.2 or higher.
 
-## Usage ##
-
+## Table Of Contents
+- [AWS Setup](#aws-setup)
+- [AWS Teardown](#aws-teardown)
 
 ### AWS Setup ###
 
