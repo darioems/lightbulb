@@ -6,7 +6,7 @@ A playbook can have multiple plays and a play can have one or multiple tasks. Th
 
 For our first playbook, we will create a backup of our two routers.
 
-##Table of contents
+## Table of contents
 - [Section 1: Creating a Directory Structure and Files for your Playbook](#section-1-creating-a-directory-structure-and-files-for-your-playbook)
 - [Section 2: Defining Your Play](#section-2-defining-your-play)
 - [Section 3: Adding Tasks to Your Play](#section-3-adding-tasks-to-your-play)
