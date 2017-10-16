@@ -38,16 +38,7 @@ To set up the lab for Ansible training, follow these steps.
 
 6. Create a `boto` configuration file containing your AWS access key ID and secret access key.
 
-    ```bash
-    mkdir ~/.aws
-    touch ~/.aws/credentials
-    chmod 600 ~/.aws/credentials
-
-    # The file should contain the following:
-    [default]
-    aws_access_key_id = [access key ID]
-    aws_secret_access_key = [secret key]
-    ```
+Use the quickstart directions provided here: [http://boto3.readthedocs.io/en/latest/guide/quickstart.html](http://boto3.readthedocs.io/en/latest/guide/quickstart.html)
 
 7. Create a free [Sendgrid](http://sendgrid.com) account if you don't have one. Optionally, create an API key to use with this the playbook.
 
