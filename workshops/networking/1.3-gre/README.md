@@ -8,7 +8,13 @@ Before we go into creating the playbook, let’s look at what we’re trying to 
 - We’ll use the GigabitEthernet1 interface on both routers to configure the tunnel
 
 ## Table of Contents
-- [](#step-1-make-sure-youre-in-the-networking-workshop-directory)
+- [Step 1: Make sure you’re in the networking-workshop directory](#step-1-make-sure-youre-in-the-networking-workshop-directory)
+- [Step 2: Let’s create our playbook named gre.yml](#step-2-lets-create-our-playbook-named-greyml)
+- [Step 3: Setting up your playbook](#step-3-setting-up-your-playbook)
+- [Step 4: Adding the tasks for R1](#step-4-adding-the-tasks-for-r1)
+- [Step 5: Setting up the play for R2](#step-5-setting-up-the-play-for-r2)
+- [Step 6: Adding the tasks for R2](#step-6-adding-the-tasks-for-r2)
+- [Step 7: Running the playbook](#step-7-running-the-playbook)
 
 ## Step 1: Make sure you’re in the networking-workshop directory
 
@@ -87,4 +93,4 @@ ansible-playbook gre.yml
 
 ![Figure 1: GRE Playbook stdout](playbookrun.png)
 
-You’ve successfully created a playbook that targets both routers in sequential order. Woohoo!  The GRE Tunnel should be configured. Feel free to log into any of the routers and ping the other endpoint of the tunnel.  Check out the [ios_config](module(http://docs.ansible.com/ansible/latest/ios_config_module.html) for more information on different available knobs and parameters for the module.
+You’ve successfully created a playbook that targets both routers in sequential order. Woohoo!  The GRE Tunnel should be configured. Feel free to log into any of the routers and ping the other endpoint of the tunnel.  Check out the [ios_config module](http://docs.ansible.com/ansible/latest/ios_config_module.html) for more information on different available knobs and parameters for the module.
