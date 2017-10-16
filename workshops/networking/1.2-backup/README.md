@@ -1,4 +1,4 @@
-## Exercise 1.2 - Backing up Configurations
+# Exercise 1.2 - Backing up Configurations
 
 Now that you’ve gotten a sense of how ansible works, we are going to write our first ansible **playbook**. The playbook is where you can take some of those ad-hoc commands you just ran and put them into a repeatable set of plays and tasks.
 
@@ -6,7 +6,13 @@ A playbook can have multiple plays and a play can have one or multiple tasks. Th
 
 For our first playbook, we will create a backup of our two routers.
 
-# Section 1 - Creating a Directory Structure and Files for your Playbook
+##Table of contents
+- [Section 1: Creating a Directory Structure and Files for your Playbook](#section-1-creating-a-directory-structure-and-files-for-your-playbook)
+- [Section 2: Defining Your Play](#section-2-defining-your-play)
+- [Section 3: Adding Tasks to Your Play](#section-3-adding-tasks-to-your-play)
+- [Section 4: Review](#section-4-review)
+- [Section 5: Running your playbook](#section-5-running-your-playbook)
+## Section 1: Creating a Directory Structure and Files for your Playbook
 
 There is a [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) on the preferred directory structures for playbooks. We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills. That said, our playbook today is very basic and creating a complex structure will just confuse things.
 
@@ -26,7 +32,7 @@ cat lab_inventory/hosts
 
 You’ll notice that we are working with 3 groups. The control group, which is the node that we are currently ssh’d into. The routers group, which is a grouping of two routers (R1 and R2). And finally the hosts group, which has another linux node residing in a separate VPC.
 
-# Section 2 - Defining Your Play
+## Section 2: Defining Your Play
 
 Let’s create our first playbook and name it backup.yml.
 
@@ -48,7 +54,7 @@ Now that we are editing [backup.yml](backup.yml), let’s begin by defining the 
  - `name:` backup router configurations This describes our play
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
 
-# Section 3: Adding Tasks to Your Play
+## Section 3: Adding Tasks to Your Play
 
 Now that we’ve defined your play, let’s add the necessary tasks to backup our routers. Align (vertically) the t in `tasks` with the n in `name`.
 
@@ -91,7 +97,7 @@ The next three lines are calling the Ansible module ios_config and passing in th
     backup: yes
 ```
 
-# Section 4: Review
+## Section 4: Review
 
 Now that you’ve completed writing your playbook, it would be a shame not to keep it.
 
@@ -102,11 +108,11 @@ And that should do it. You should now have a fully written playbook called backu
 Ansible (well, YAML really) can be a bit particular about formatting especially around indentation/spacing. When you all get back to the office, read up on this YAML Syntax a bit more and it will save you some headaches later. In the meantime, your completed playbook should look like this. Take note of the spacing and alignment.
 ![Figure 1: Completed Playbook - w/Spacing](completed-playbook.png)
 
-# Section 5: Running your playbook
+## Section 5: Running your playbook
 
 We are now going to run your brand spankin' new playbook on your two routers. To do this, you are going to use the **ansible-playbook** command.
 
-## Step 1: From your playbook directory ( ~/networking-workshop ), run your playbook.
+### Step 1: From your playbook directory ( ~/networking-workshop ), run your playbook.
 
 ```bash
 ansible-playbook backup.yml
@@ -124,7 +130,7 @@ Feel free to scroll back up and take a look at the facts that the ios_facts modu
 
 Also, notice that the play and each task is named so that you can see what is being done and to which router it is being done to.
 
-## Step 2: List the files in the backup directory
+### Step 2: List the files in the backup directory
 You can view the backup files that were created by listing the backup directory.
 
 ```bash
