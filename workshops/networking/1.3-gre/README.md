@@ -7,6 +7,9 @@ Before we go into creating the playbook, let’s look at what we’re trying to 
 - We are going to bridge the two VPC’s via a GRE Tunnel between rtr1 and rtr2
 - We’ll use the GigabitEthernet1 interface on both routers to configure the tunnel
 
+## Table of Contents
+- [](#step-1-make-sure-youre-in-the-networking-workshop-directory)
+
 ## Step 1: Make sure you’re in the networking-workshop directory
 
 ```bash
