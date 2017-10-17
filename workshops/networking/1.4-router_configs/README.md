@@ -1,0 +1,84 @@
+# Exercise 1.4 - Additional router configurations
+
+Previous exercises showed you the basics of Ansible Core. In the exercise, let’s build upon that and introduce additional ansible concepts that allow you to add flexibility and power to your playbooks.
+
+Ansible exists to make tasks simple and repeatable. We also know that not all systems are exactly alike and often require some slight change to the way an Ansible playbook is run. Enter variables.
+
+- **Variables** are how we deal with differences between your systems, allowing you to account for a change in port, IP address or directory.
+- **Loops** enable us to repeat the same task over and over again. For example, lets say you want to install 10 packages. By using an ansible loop, you can do that in a single task.
+- **Blocks** allow for logical grouping of tasks and even in play error handling. Most of what you can apply to a single task can be applied at the block level, which also makes it much easier to set data or directives common to the tasks.
+- **When** clause: sometimes you will want to skip a particular step on a particular host. This could be something as simple as not installing a certain package if the operating system is a particular version, or it could be something like performing some cleanup steps if a filesystem is getting full.
+
+    This is easy to do in Ansible with the when clause, which contains a raw Jinja2 expression without double curly braces (see Variables).
+
+**jinja-who?** - Not to be confused with 2013’s blockbuster "Ninja II - Shadow of a Tear", jinja2 is used in Ansible to enable dynamic expressions and access to variables.
+
+For a full understanding of variables, loops, blocks, conditionals, and jinja2; check out our Ansible documentation on these subjects:
+- [Ansible Variables](http://docs.ansible.com/ansible/playbooks_variables.html)
+- [Ansible Loops](http://docs.ansible.com/ansible/playbooks_loops.html)
+- [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_blocks.html)
+- [Ansible Conditionals](http://docs.ansible.com/ansible/latest/playbooks_conditionals.html#the-when-statement)
+
+## Section 1 - Adding variables to your playbook
+
+To begin, we are going to create a new playbook, and call it router_configs.yml
+
+### Step 1: Navigate to the networking-workshop directory to create a new playbook
+
+```bash
+cd ~/networking-workshop
+vim router_configs.yml
+```
+
+### Step 2: Add the play definition and some variables to your playbook as shown below.
+
+![Figure 1: Step 2 - w/Spacing](spacing.png)
+
+### Step 3: Add the first task to capture the ios_facts. Make sure the **t** in tasks lines up with the **v** in vars.
+
+![Figure 2: Step 3 - w/Spacing](step3spacing.png)
+
+### Step 4: Create a block and add the tasks for rtr1 with conditionals. We’ll also add a comment for better documentation.
+The b in block should align with n in name of the previous task where we used ios_facts.
+
+For prefix: be sure to list the appropriate subnet of your HOST node.
+ - The prefix can be determined by private_ip=x.x.x.x in your inventory file @ ~/networking-workshop/lab_inventory/student(x).net-ws.hosts.
+ - Under the [hosts] group, the private_ip=172.16.x.x holds the private IP value.
+ - Our prefix would then be prefix: 172.16.x.0
+
+ ![Figure 3: Step 4 - w/Spacing](step4.png)
+
+ What the Helsinki is happening here!?
+ - `vars:` You’ve told Ansible the next thing it sees will be a variable name.
+ - `dns_servers` You are defining a list-type variable called dns_servers. What follows is a list of those the name servers.
+ - `{{ item }}` You are telling Ansible that this will expand into a list item like 8.8.8.8 and 8.8.4.4.
+ - `with_items: "{{ dns_servers }}` This is your loop which is instructing Ansible to perform this task on every `item` in `dns_servers`
+ - `register: version` With this statement, we’ve stored the values that ios_facts produces into a variable we can reference. We reference that variable in our **'when clause'**
+ - `block:` This block will have a number of tasks associated with it.
+ - `when:` We’re tying the when clause to the block. We’re telling ansible to run all the tasks within the block only when certain conditions are met.
+  - First condition - the IOS Version must be 15.6.1b
+  - Second condition - the hostname must contain 'rtr1' so we know we’re targeting router 1.
+
+### Step 5: Configuring R2.
+Make sure the b in block aligns with the b in block from the previous R1 configuration.
+For prefix: be sure to list the appropriate subnet of your CONTROL node.
+
+- The prefix can be determined by **private_ip=x.x.x.x** in your inventory file @ ~/networking-workshop/lab_inventory/student(x).net-ws.hosts.
+- Under the **[control]** group, the **private_ip=172.16.x.x** holds the private IP value.
+- Our prefix would then be prefix: `172.16.x.0`
+
+![Figure 4: Step 5 - w/Spacing](step5.png)
+
+**So…​ what’s going on?**
+ - `net_interface:` This module allows us to define the state of the interface (up, admin down, etc.) in an agnostic way. In this case, we are making sure that GigabitEthernet2 is up and has the correct description.
+ - `ios_config:` We’ve used this module in previous playbooks. We could technically combine the two tasks (ip addr + static route). However, it’s sometimes preferred to break out the tasks according to what is being accomplished.
+ - `net_system:` This module, similar to the net_interface allows us to manage the system attributes on network devices in an agnostic way. We’re utilizing this module along with loops to feed in the name_servers we want the router to have.
+ - `net_static_route:` This module is utilized for managing static IP routes on network devices. It provides declarative management of static IP routes on network devices.
+
+## Section 2: Review
+
+Your playbook is done! But don’t run it just yet, we’ll do that in our next exercise. For now, let’s take a second look to make sure everything looks the way you intended. If not, now is the time for us to fix it up. The figure below shows line counts and spacing.
+
+![Figure 5: Completed Playbook - w/Spacing](section5.png)
+
+To view and run the completed playbook move on to [Exercise 1.5!](../1.5-run_routing_configs)
