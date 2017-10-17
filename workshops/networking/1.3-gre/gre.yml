@@ -1,6 +1,6 @@
 ---
 - name: R1 gre configuration
-  hosts: student1-rtr1.net-ws.redhatgov.io
+  hosts: routers
   vars:
     ansible_network_os: ios
     ansible_connection: local
@@ -16,16 +16,8 @@
          - tunnel source GigabitEthernet1
          - tunnel destination {{rtr2_public_ip}}
         parents: interface Tunnel 0
-
-
-- name: R2 gre configuration
-  hosts: student1-rtr2.net-ws.redhatgov.io
-  vars:
-    ansible_network_os: ios
-    ansible_connection: local
-  gather_facts: no
-
-  tasks:
+      when:
+        - '"rtr1" in inventory_hostname'
 
     - name: create tunnel interface to R1
       ios_config:
@@ -34,3 +26,5 @@
          - tunnel source GigabitEthernet1
          - tunnel destination {{rtr1_public_ip}}
         parents: interface Tunnel 0
+        when:
+          - '"rtr2" in inventory_hostname'
