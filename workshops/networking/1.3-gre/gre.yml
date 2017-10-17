@@ -26,5 +26,5 @@
          - tunnel source GigabitEthernet1
          - tunnel destination {{rtr1_public_ip}}
         parents: interface Tunnel 0
-        when:
-          - '"rtr2" in inventory_hostname'
+      when:
+        - '"rtr2" in inventory_hostname'
