@@ -4,6 +4,11 @@ Congratulations! You just wrote a playbook that incorporates some key Ansible co
 
 So, lets do that now.
 
+## Table of Contents
+ - [Section 1 - Running your routing_configs playbook](#section-1---running-your-routing_configs-playbook)
+ - [Section 2: Review](#section-2-review)
+ - [Section 3: Test!](#section-3-test)
+
 ## Section 1 - Running your routing_configs playbook
 
 ### Step 1: Make sure you are in the right directory.

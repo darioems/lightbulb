@@ -2,6 +2,13 @@
 
 Previous exercises showed you the basics of Ansible Core. In the exercise, let’s build upon that and introduce additional ansible concepts that allow you to add flexibility and power to your playbooks.
 
+## Table of Contents
+ - [Intro](#intro)
+ - [Section 1 - Adding variables to your playbook](#section-1---adding-variables-to-your-playbook)
+ - [Section 2: Review](#section-2-review)
+ 
+## Intro
+
 Ansible exists to make tasks simple and repeatable. We also know that not all systems are exactly alike and often require some slight change to the way an Ansible playbook is run. Enter variables.
 
 - **Variables** are how we deal with differences between your systems, allowing you to account for a change in port, IP address or directory.
