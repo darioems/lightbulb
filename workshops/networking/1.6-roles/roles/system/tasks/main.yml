@@ -1,0 +1,10 @@
+- name: gather ios_facts
+  ios_facts:
+  register: version
+
+- name: configure name servers
+  net_system:
+    name_servers: "{{item}}"
+  with_items: "{{dns_servers}}"
+when:
+  - 'version.ansible_facts.ansible_net_version == "{{ios_version}}"'
