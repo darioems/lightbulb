@@ -14,6 +14,14 @@ ansible control -m ping
 ```
 We are going to be using the short-form options throughout this workshop
 
+## Table of Contents
+ - [Step 1: Ping](#step-1-ping)
+ - [Step 2: Command](#step-2-command)
+ - [Step 3: ios_facts](#step-3-ios_facts)
+ - [Step 4: ios_command](#step-4-ios_command)
+ - [Step 5: ios_banner](#step-5-ios_banner)
+ - [Step 6: ios_banner removal](#step-6-ios_banner-removal)
+
 ### Step 1: Ping
 
 Let’s start with something really basic - pinging a linux host. Note that this is not an ICMP ping but rather a python script being executed on the host.
@@ -22,7 +30,7 @@ Let’s start with something really basic - pinging a linux host. Note that this
 ansible control -m ping
 ```
 
-Step 2: Command
+### Step 2: Command
 Now let’s see how we can run a good ol' fashioned Linux command and format the output using the command module.
 ```bash
 ansible control -m command -a "uptime" -o
