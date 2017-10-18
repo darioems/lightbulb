@@ -55,7 +55,7 @@ $ vim deploy_network.yml
 
 ### Step 2: Add the play definition and the invocation of the single role system
 
-```bash
+```yml
 ---
 - name: Deploy the Router configurations
   hosts: routers
@@ -66,7 +66,7 @@ $ vim deploy_network.yml
 
 ### Step 3: Add some variables to your role in `roles/system/vars/main.yml`
 
-```bash
+```yml
 ---
 dns_servers:
   - 8.8.8.8
@@ -75,7 +75,7 @@ dns_servers:
 
 ### Step 4: Add some global variables for your roles in group_vars/all.yml
 
-```bash
+```yml
 ---
 ansible_network_os: ios
 ansible_connection: local
@@ -98,7 +98,7 @@ Bottom line, you need to read up on [variable precedence](http://docs.ansible.co
 
 ### Step 6: Add tasks to your role in roles/system/tasks/main.yml
 
-```bash
+```yml
 ---
 - name: gather ios_facts
   ios_facts:
