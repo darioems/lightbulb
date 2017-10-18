@@ -1,5 +1,5 @@
 ---
-- name: R1 gre configuration
+- name: Configure GRE Tunnel between rtr1 and rtr2
   hosts: routers
   vars:
     ansible_network_os: ios
@@ -7,24 +7,23 @@
     rtr1_public_ip: "34.236.147.137"
     rtr2_public_ip: "54.209.50.0"
   gather_facts: no
-
   tasks:
-    - name: create tunnel interface to R2
-      ios_config:
-        lines:
-         - ip address 10.0.0.1 255.255.255.0
-         - tunnel source GigabitEthernet1
-         - tunnel destination {{rtr2_public_ip}}
-        parents: interface Tunnel 0
-      when:
-        - '"rtr1" in inventory_hostname'
+  - name: create tunnel interface to R2
+    ios_config:
+      lines:
+       - 'ip address 10.0.0.1 255.255.255.0'
+       - 'tunnel source GigabitEthernet1'
+       - 'tunnel destination {{rtr2_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr1" in inventory_hostname'
 
-    - name: create tunnel interface to R1
-      ios_config:
-        lines:
-         - ip address 10.0.0.2 255.255.255.0
-         - tunnel source GigabitEthernet1
-         - tunnel destination {{rtr1_public_ip}}
-        parents: interface Tunnel 0
-      when:
-        - '"rtr2" in inventory_hostname'
+  - name: create tunnel interface to R1
+    ios_config:
+      lines:
+       - 'ip address 10.0.0.2 255.255.255.0'
+       - 'tunnel source GigabitEthernet1'
+       - 'tunnel destination {{rtr1_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr2" in inventory_hostname'

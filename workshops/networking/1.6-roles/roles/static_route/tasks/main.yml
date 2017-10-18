@@ -1,8 +1,8 @@
 ##Configuration for R1
 - name: Static route from R1 to R2
   net_static_route:
-    prefix: "{{prefix_host_subnet}}"
-    mask: 255.255.255.0
+    prefix: "{{host1_private_ip}"
+    mask: 255.255.255.255
     next_hop: 10.0.0.2
   when:
     - 'version.ansible_facts.ansible_net_version == "{{ios_version}}"'
@@ -11,8 +11,8 @@
 ##Configuration for R2
 - name: Static route from R2 to R1
   net_static_route:
-    prefix: "{{prefix_control_subnet}}"
-    mask: 255.255.255.0
+    prefix: "{{control_private_ip}}"
+    mask: 255.255.255.255
     next_hop: 10.0.0.1
   when:
     - 'version.ansible_facts.ansible_net_version == "{{ios_version}}"'
