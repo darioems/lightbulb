@@ -11,5 +11,5 @@
         - ip address dhcp
       parents: interface GigabitEthernet2
   when:
-    - 'version.ansible_facts.ansible_net_version == "{{ios_version}}"'
+    - ansible_net_version == ios_version
     - '"rtr2" in inventory_hostname'
