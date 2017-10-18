@@ -8,79 +8,82 @@ For this exercise, you are going to take the playbook you just wrote and refacto
 
 Let’s begin with seeing how your apache-basic-playbook will break down into a role.
 
+![Figure 1: playbook role directory structure](roles.png)
+
 Fortunately, you don’t have to create all of these directories and files by hand. That’s where Ansible Galaxy comes in.
 
 ## Section 1 - Using Ansible Galaxy to initialize a new role
 
 Ansible Galaxy is a free site for finding, downloading, and sharing roles. It’s also pretty handy for creating them which is what we are about to do here.
 
-### Step 1: Navigate to your apache-basic-playbook project
+### Step 1: Navigate to directory for this project
 
 ```bash
-% cd ~/apache-basic-playbook
+$ cd ~/test
 ```
 
 ### Step 2: Create a directory called roles and cd into it
 
 ```bash
-% mkdir roles
-% cd roles
+$ mkdir roles
+$ cd roles
 ```
 
-### Step 3: Use the ansible-galaxy command to initialize a new role called apache-simple
+### Step 3: Use the ansible-galaxy command to initialize a new role called system
 
 ```bash
-% ansible-galaxy init apache-simple
+$ ansible-galaxy init system
 ```
 
 ### Step 4: Remove the files and tests directories
 
 ```bash
-% cd ~/apache-basic-playbook/roles/apache-simple/
-% rm -rf files tests
+$ cd ~/test/roles/system/
+$ rm -rf files tests
 ```
 
-## Section 2: Breaking your site.yml playbook into the newly created apache-simple role
+## Section 2: Breaking your router_configs.yml playbook into the newly created system role
 
-In this section, we will separate out the major parts of your playbook including vars:, tasks:, template:, and handlers:
+In this section, we will separate out the major parts of your playbook including `vars:` and `tasks:`
 
-### Step 1: Make a backup copy of site.yml, then create a new site.yml
+### Step 1: Make a backup copy of router_configs.yml, then create a new deploy_network.yml
 
 ```bash
-% mv site.yml site.yml.bkup
-% vim site.yml
+% mv router_configs.yml router_configs.yml.bkup
+% vim deploy_network.yml
 ```
 
-### Step 2: Add the play definition and the invocation of a single role
+### Step 2: Add the play definition and the invocation of the single role system
 
 ```bash
 ---
-- hosts: web
-  name: This is my role-based playbook
-  become: yes
-
+- name: Deploy the Router configurations
+  hosts: routers
+  gather_facts: no
   roles:
-    - apache-simple
+    - system
 ```
 
-### Step 3: Add some default variables to your role in roles/apache-simple/defaults/main.yml
+### Step 3: Add some variables to your role in `roles/system/vars/main.yml`
 
 ```bash
 ---
-# defaults file for apache-simple
-apache_test_message: This is a test message
-apache_max_keep_alive_requests: 115
+dns_servers:
+  - 8.8.8.8
+  - 8.8.4.4
 ```
 
-### Step 4: Add some role-specific variables to your role in roles/apache-simple/vars/main.yml
+### Step 4: Add some global variables for your roles in group_vars/all.yml
 
 ```bash
 ---
-# vars file for apache-simple
-httpd_packages:
-  - httpd
-  - mod_wsgi
+ansible_network_os: ios
+ansible_connection: local
+host1_private_ip: "172.18.2.125"
+control_private_ip: "172.17.1.157"
+ios_version: "16.06.01"
 ```  
+Fill out host1_private_ip and control_private_ip from the lab_inventory
 
 **Hey, wait just a minute there buster…​ did you just have us put variables in two seperate places?**
 Yes…​ yes we did. Variables can live in quite a few places. Just to name a few:
@@ -93,64 +96,77 @@ Yes…​ yes we did. Variables can live in quite a few places. Just to name a f
 
 Bottom line, you need to read up on [variable precedence](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) to understand both where to define variables and which locations take precedence. In this exercise, we are using role defaults to define a couple of variables and these are the most malleable. After that, we defined some variables in `/vars` which have a higher precedence than defaults and can’t be overridden as a default variable.
 
-### Step 6: Create your role handler in roles/apache-simple/handlers/main.yml
+### Step 6: Add tasks to your role in roles/system/tasks/main.yml
 
 ```bash
 ---
-# handlers file for apache-simple
-- name: restart apache service
-  service:
-    name: httpd
-    state: restarted
-    enabled: yes
-```
+- name: gather ios_facts
+  ios_facts:
 
-### Step 7: Add tasks to your role in roles/apache-simple/tasks/main.yml
-
-```bash
-
----
-# tasks file for apache-simple
-- name: install httpd packages
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ httpd_packages }}"
-  notify: restart apache service
-
-- name: create site-enabled directory
-  file:
-    name: /etc/httpd/conf/sites-enabled
-    state: directory
-
-- name: copy httpd.conf
-  template:
-    src: templates/httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
-  notify: restart apache service
-
-- name: copy index.html
-  template:
-    src: templates/index.html.j2
-    dest: /var/www/html/index.html
-
-- name: start httpd
-  service:
-    name: httpd
-    state: started
-    enabled: yes    
+- name: configure name servers
+  net_system:
+    name_servers: "{{item}}"
+  with_items: "{{dns_servers}}"
 ```        
 
-### Step 8: Download a couple of templates into roles/apache-simple/templates/.
+### Step 7: Create two more roles: 1 called interface and 1 called static_route
 
-And right after that, let’s clean up from exercise 2.1 by removing the old templates directory.
+For `roles/interface/tasks/main.yml`:
 
-```bash
-% cd ~/apache-basic-playbook/roles/apache-simple/templates/
-% curl -O http://ansible-workshop.redhatgov.io/workshop-files/httpd.conf.j2
-% curl -O http://ansible-workshop.redhatgov.io/workshop-files/index.html.j2
-% rm -rf ~/apache-basic-playbook/templates/
+```yml
+- block:
+  - name: enable GigabitEthernet2 interface if compliant on r2
+    net_interface:
+      name: GigabitEthernet2
+      description: interface to host1
+      state: present
+
+  - name: dhcp configuration for GigabitEthernet2
+    ios_config:
+      lines:
+        - ip address dhcp
+      parents: interface GigabitEthernet2
+  when:
+    - ansible_net_version == ios_version
+    - '"rtr2" in inventory_hostname'
 ```
+
+For `roles/interfaces/tasks/static_route`:
+```yml
+##Configuration for R1
+- name: Static route from R1 to R2
+  net_static_route:
+    prefix: "{{host1_private_ip}}"
+    mask: 255.255.255.255
+    next_hop: 10.0.0.2
+  when:
+    - ansible_net_version == ios_version
+    - '"rtr1" in inventory_hostname'
+
+##Configuration for R2
+- name: Static route from R2 to R1
+  net_static_route:
+    prefix: "{{control_private_ip}}"
+    mask: 255.255.255.255
+    next_hop: 10.0.0.1
+  when:
+    - ansible_net_version == ios_version
+    - '"rtr2" in inventory_hostname'
+```
+
+### Step 8: Add roles to your master playbook deploy_network.yml
+
+```yml
+---
+- name: Deploy the Router configurations
+  hosts: routers
+  gather_facts: no
+  roles:
+    - system
+    - interface
+    - static_route
+```
+
 
 ## Section 3: Running your new role-based playbook
 Now that you’ve successfully separated your original playbook into a role, let’s run it and see how it works.
@@ -158,11 +174,9 @@ Now that you’ve successfully separated your original playbook into a role, let
 ### Step 1: Run the playbook
 
 ```bash
-% ansible-playbook -i ./hosts site.yml -k
+$ ansible-playbook deploy_network.yml
 ```
-
-If successful, your standard output should look similar to the figure below.
 
 ## Section 3: Review
 
-You should now have a completed playbook, site.yml with a single role called apache-simple. The advantage of structuring your playbook into roles is that you can now add new roles to the playbook using Ansible Galaxy or simply writing your own. In addition, roles simplify changes to variables, tasks, templates, etc.
+You should now have a completed playbook, deploy_network.yml with a three roles called system, interface and static_route. The advantage of structuring your playbook into roles is that you can now add new roles to the playbook using Ansible Galaxy or simply writing your own. In addition, roles simplify changes to variables, tasks, templates, etc.

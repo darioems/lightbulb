@@ -1,6 +1,5 @@
 - name: gather ios_facts
   ios_facts:
-  register: version
 
 - name: configure name servers
   net_system:
