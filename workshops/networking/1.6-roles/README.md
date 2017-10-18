@@ -49,8 +49,8 @@ In this section, we will separate out the major parts of your playbook including
 ### Step 1: Make a backup copy of router_configs.yml, then create a new deploy_network.yml
 
 ```bash
-% mv router_configs.yml router_configs.yml.bkup
-% vim deploy_network.yml
+$ mv router_configs.yml router_configs.yml.bkup
+$ vim deploy_network.yml
 ```
 
 ### Step 2: Add the play definition and the invocation of the single role system
