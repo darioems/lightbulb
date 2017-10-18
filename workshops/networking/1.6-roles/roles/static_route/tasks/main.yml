@@ -1,7 +1,7 @@
 ##Configuration for R1
 - name: Static route from R1 to R2
   net_static_route:
-    prefix: "{{host1_private_ip}"
+    prefix: "{{host1_private_ip}}"
     mask: 255.255.255.255
     next_hop: 10.0.0.2
   when:
