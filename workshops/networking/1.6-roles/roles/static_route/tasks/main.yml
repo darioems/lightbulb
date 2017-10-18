@@ -5,7 +5,7 @@
     mask: 255.255.255.255
     next_hop: 10.0.0.2
   when:
-    - 'version.ansible_facts.ansible_net_version == "{{ios_version}}"'
+    - ansible_net_version == ios_version
     - '"rtr1" in inventory_hostname'
 
 ##Configuration for R2
@@ -15,5 +15,5 @@
     mask: 255.255.255.255
     next_hop: 10.0.0.1
   when:
-    - 'version.ansible_facts.ansible_net_version == "{{ios_version}}"'
+    - ansible_net_version == ios_version
     - '"rtr2" in inventory_hostname'
