@@ -2,7 +2,7 @@
 
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
-## Exercises
+## Ansible Engine Networking Exercises
 
  - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)
  - [Exercise 1.2 - Backing up Configurations](1.2-backup)
@@ -10,6 +10,10 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
  - [Exercise 1.4 - Additional router configurations](1.4-router_configs)
  - [Exercise 1.5 - Executing your playbook and review](1.5-run-routing_configs)
  - [Exercise 1.6 - Roles: Making your playbooks reusable](1.6-roles)
+
+## Ansible Tower Networking Exercises
+
+- [Exercise 2.1 - Installing Ansible Tower](2.1-towerinstall)
 
 ## Additional information
  - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
