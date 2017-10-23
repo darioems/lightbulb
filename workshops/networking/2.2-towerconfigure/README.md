@@ -32,7 +32,7 @@ Back in the Tower UI, choose [BROWSE](browse.png) and upload your recently downl
 Select "I agree to the End User License Agreement"
 
 ## Step 5: Submit
-Click on [SUBMIT](submit.png)
+Click on ![SUBMIT](submit.png)
 
 # Creating a Credential
 
@@ -41,11 +41,11 @@ Credentials are utilized by Tower for authentication when launching jobs against
 There are many [types of credentials](http://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types) including machine, network, and various cloud providers. In this workshop, we are using a network credential.
 
 ## Step 1: Select the gear icon
-Click on the [GEAR](gear.png) icon in the top right of the browser window
+Click on the ![GEAR](gear.png) icon in the top right of the browser window
 
 ## Step 2: Select CREDENTIALS
 
-## Step 3: Click on [ADD](add.png) button
+## Step 3: Click on ![ADD](add.png) button
 
 ## Step 4: Complete the form using the following entries
 
@@ -56,16 +56,16 @@ Click on the [GEAR](gear.png) icon in the top right of the browser window
 - **USERNAME** ec2-user
 - **SSH Key** Copy paste in net-ws_key from control node @ ~/.ssh/net-ws_key
 
-[Figure 3: Adding a Credential](credential.png)
+![Figure 3: Adding a Credential](credential.png)
 
-## Step 5: Select [SAVE](save.png)
+## Step 5: Select ![SAVE](save.png)
 
 # Creating a Project
 A Project is a logical collection of Ansible playbooks, represented in Tower. You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
 
 ## Step 1: Click on PROJECTS
 
-## Step 2: Select [Add](add.png)
+## Step 2: Select ![Add](add.png)
 
 ## Step 3: Complete the form using the following entries
 
@@ -76,7 +76,7 @@ A Project is a logical collection of Ansible playbooks, represented in Tower. Yo
 - **SCM URL** https://github.com/gdykeman/networking-workshop
 - **SCM UPDATE OPTIONS** Check Clean, Uncheck Delete on Update, Check Update on Launch
 
-[Figure 4: Defining a Project](project.png)
+![Figure 4: Defining a Project](project.png)
 
 # Creating an Inventory
 
@@ -86,7 +86,7 @@ An Inventory can also be imported into Tower using the `tower-manage` command an
 
 ## Step 1: Click on INVENTORIES
 
-## Step 2: Select [Add](add.png)
+## Step 2: Select ![Add](add.png)
 
 ## Step 3: Complete the form using the following entries
 
@@ -94,9 +94,9 @@ An Inventory can also be imported into Tower using the `tower-manage` command an
 - **DESCRIPTION** Ansible Inventory
 - **ORGANIZATION** Default
 
-[Figure 5: Create an Inventory](inventory.png)
+![Figure 5: Create an Inventory](inventory.png)
 
-## Step 4: Select [Save](save.png)
+## Step 4: Select ![Save](save.png)
 
 ## Step 5: Using ssh, login to your control node
 ```bash
@@ -110,13 +110,13 @@ sudo tower-manage inventory_import --source=/home/ec2-user/networking-workshop/l
 ```
 
 You should see output similar to the following:
-[Figure 6: Importing an inventory with tower-manage](inventory_manage.png)
+![Figure 6: Importing an inventory with tower-manage](inventory_manage.png)
 
 Feel free to browse your inventory in Tower. You should now notice that the inventory has been populated with Groups and that each of those groups contain hosts.
 
-[Figure 7: Inventory with Groups](groups.png)
+![Figure 7: Inventory with Groups](groups.png)
 
-[Figure 8: routers inventory group detail](inventory_detail.png)
+![Figure 8: routers inventory group detail](inventory_detail.png)
 
 End Result
 
