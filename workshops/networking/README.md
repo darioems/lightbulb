@@ -14,6 +14,12 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
 ## Ansible Tower Networking Exercises
 
 - [Exercise 2.1 - Installing Ansible Tower](2.1-towerinstall)
+- [Exercise 2.2 - Configuring Ansible Tower](2.2-towerconfigure)
+- [Exercise 2.3 - Creating and Running a Job Template](2.3-towerjob)
+
+## Survey
+If you attend an in-person workshop, please fill out the survey!
+-> [Click for Survey](http://bit.ly/net-lightbulb-survey) <-
 
 ## Additional information
  - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
