@@ -93,3 +93,42 @@ ansible-playbook gre.yml
 ![Figure 1: GRE Playbook stdout](playbookrun.png)
 
 You’ve successfully created a playbook that targets both routers in sequential order. Woohoo!  The GRE Tunnel should be configured. Feel free to log into any of the routers and ping the other endpoint of the tunnel.  Check out the [ios_config module](http://docs.ansible.com/ansible/latest/ios_config_module.html) for more information on different available knobs and parameters for the module.
+
+# Answer Key
+You can [click here](gre.yml) or look below:
+```yml
+---
+- name: Configure GRE Tunnel between rtr1 and rtr2
+  hosts: routers
+  vars:
+     ansible_network_os: ios
+     ansible_connection: local
+     #Variables can be manually set like this:
+     #rtr1_public_ip: "34.236.147.137"
+     #rtr2_public_ip: "54.209.50.0"
+     #or reference dynamically variables tied to the host directly
+     #in this case, its grabbing this from the inventory under lab_inventory
+     rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
+     rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
+  gather_facts: no
+  tasks:
+  - name: create tunnel interface to R2
+    ios_config:
+      lines:
+       - 'ip address 10.0.0.1 255.255.255.0'
+       - 'tunnel source GigabitEthernet1'
+       - 'tunnel destination {{rtr2_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr1" in inventory_hostname'
+
+  - name: create tunnel interface to R1
+    ios_config:
+      lines:
+       - 'ip address 10.0.0.2 255.255.255.0'
+       - 'tunnel source GigabitEthernet1'
+       - 'tunnel destination {{rtr1_public_ip}}'
+      parents: interface Tunnel 0
+    when:
+      - '"rtr2" in inventory_hostname'
+```      
