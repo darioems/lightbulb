@@ -12,6 +12,9 @@
      rtr1_public_ip: "{{ansible_ssh_host}}"
      rtr2_public_ip: "{{ansible_ssh_host}}"
   gather_facts: no
+  pre_tasks:
+  - debug:
+      vars: "{{ansible_ssh_host}}"
   tasks:
   - name: create tunnel interface to R2
     ios_config:
