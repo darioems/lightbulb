@@ -58,9 +58,9 @@ Now that we are editing [backup.yml](backup.yml), let’s begin by defining the 
 
 ## Section 3: Adding Tasks to Your Play
 
-Now that we’ve defined your play, let’s add the necessary tasks to backup our routers. Align (vertically) the t in `tasks` with the n in `name`.
+Now that we’ve defined your play, let’s add the necessary tasks to backup our routers.
 
-Yes, it does actually matter. In fact, you should make sure all of your playbook statements are aligned in the way shown here.
+Make sure all of your playbook statements are aligned in the way shown here.
 If you want to see the entire playbook for reference, skip to the end of Section 4 of this exercise.
 
 ```bash
@@ -142,5 +142,5 @@ ls backup
 You can also view the contents of the backed up configuration files.
 Replace the x after student with your student number and choose 1 or 2 for the router’s config you want to view.
 ```bash
-less backup/student(x)-rtr(1 or 2).net-ws.redhatgov.io
+less backup/student(x)-rtr(1 or 2).WORKSHOPNAME.redhat.io
 ```
