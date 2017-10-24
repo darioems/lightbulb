@@ -2,6 +2,9 @@
 
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
+## Class 10/24/2017 - Toronto
+[Click for Workbench Access](https://docs.google.com/a/redhat.com/spreadsheets/d/e/2PACX-1vQV5r6L1Qt_GBZsDhf5F3ygK2NHR5_8J-T8fH8Kr1zTD7WM-0NlrB08Ojz1ltpm_XBrQw5ABLwPGHHx/pubhtml?gid=0&single=true)
+
 ## Ansible Engine Networking Exercises
 
  - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)
