@@ -47,12 +47,14 @@ Now that we are editing [backup.yml](backup.yml), let’s begin by defining the 
 - hosts: routers
   name: backup router configurations
   gather_facts: no
+  connection: local
 ```  
 
  - `---` Let’s us know that the following is a yaml file.
  - `hosts:` routers Defines the host group in your inventory on which this play will run against
  - `name:` backup router configurations This describes our play
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
+ - `connection: local` tells Ansible to execute this python module locally (target node is not capable of running Python)
 
 ## Section 3: Adding Tasks to Your Play
 
