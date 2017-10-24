@@ -14,7 +14,7 @@
   gather_facts: no
   pre_tasks:
   - debug:
-      vars: "{{ansible_ssh_host}}"
+      var: "{{ansible_ssh_host}}"
   tasks:
   - name: create tunnel interface to R2
     ios_config:
