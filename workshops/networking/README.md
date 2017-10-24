@@ -11,7 +11,7 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
  - [Exercise 1.2 - Backing up Configurations](1.2-backup)
  - [Exercise 1.3 - Creating a GRE Tunnel](1.3-gre)
  - [Exercise 1.4 - Additional router configurations](1.4-router_configs)
- - [Exercise 1.5 - Executing your playbook and review](1.5-run-routing_configs)
+ - [Exercise 1.5 - Executing your playbook and review](1.5-run-routing_configs)                                              
  - [Exercise 1.6 - Roles: Making your playbooks reusable](1.6-roles)
 
 ## Ansible Tower Networking Exercises
