@@ -41,7 +41,7 @@ ansible control -m command -a "uptime" -o
 Let’s switch gears and take a look at our routers. The ios_facts module displays ansible facts (and a lot of them) about an ios device.
 
 ```bash
-ansible routers -m ios_facts
+ansible routers -m ios_facts -c local
 ```
 
 ### Step 4: ios_command
@@ -49,7 +49,7 @@ ansible routers -m ios_facts
 Now, let’s get an interface summary using the ios_command module
 
 ```bash
-ansible routers -m ios_command -a 'commands="show ip int br"'
+ansible routers -m ios_command -a 'commands="show ip int br"' -c local
 ```
 
 ### Step 5: ios_banner
@@ -57,7 +57,7 @@ ansible routers -m ios_command -a 'commands="show ip int br"'
 How about adding an MOTD to our routers? Let’s do so by using the ios_banner module
 
 ```bash
-ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=present'
+ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=present' -c local
 ```
 
 ### Step 6: ios_banner removal
@@ -65,5 +65,5 @@ ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=p
 Finally, let’s revert back and remove the banner.
 
 ```bash
-ansible routers -m ios_banner -a 'banner=motd state=absent'
+ansible routers -m ios_banner -a 'banner=motd state=absent' -c local
 ```
