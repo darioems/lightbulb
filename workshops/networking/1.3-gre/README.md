@@ -81,7 +81,6 @@ tasks:
        - tunnel destination <IP of Router 1>
     parents: interface Tunnel 0
 ```   
-![Figure 1: Completed Playbook - w/Spacing](greformat.png)
 
 Now that you’ve completed writing your playbook, let’s go ahead and save it.  Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`  We now have our second playbook. Let’s go ahead and run that awesomeness!
 
