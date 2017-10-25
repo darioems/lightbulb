@@ -24,8 +24,9 @@ cd ~/networking-workshop
 ### Step 2: Understand your inventory. Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
 
 ```bash
-cat /etc/ansible/hosts
+cat /home/studentXX/networking-workshop/lab_inventory/*hosts
 ```
+**Fill in XX with your student number**
 
 You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (R1 and R2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
 

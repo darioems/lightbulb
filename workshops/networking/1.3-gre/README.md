@@ -44,7 +44,7 @@ In this playbook we need to configure both sides of the GRE tunnel.  The tunnel 
   connection: local
 ```
 
-We also need **two variables**.  We need the public IP address for rtr1 and rtr2.  These two IP addresses will be different for every student in the workshop.  The public IP address can be found in the `/etc/ansible/hosts` on your control node.  Just call these `rtr1_public_ip` and `rtr2_public_ip`.  The IP address 1.1.1.1 and 2.2.2.2 are placeholders!  Please replace them, or use the dynamic mode below:
+We also need **two variables**.  We need the public IP address for rtr1 and rtr2.  These two IP addresses will be different for every student in the workshop.  The public IP address can be found in the `/home/studentXX/networking-workshop/lab_inventory/XX.hosts` on your tower node.  Just call these `rtr1_public_ip` and `rtr2_public_ip`.  The IP address 1.1.1.1 and 2.2.2.2 are placeholders!  Please replace them, or use the dynamic mode below:
 ```
 vars:
    #Variables can be manually set like this:
@@ -98,6 +98,7 @@ From your networking-workshop directory, run the gre.yml playbook
 ```bash
 ansible-playbook gre.yml
 ```
+
 You’ve successfully created a playbook that targets both routers in sequential order. Woohoo!  The GRE Tunnel should be configured. Feel free to log into any of the routers and ping the other endpoint of the tunnel.  Check out the [ios_config module](http://docs.ansible.com/ansible/latest/ios_config_module.html) for more information on different available knobs and parameters for the module.
 
 # Answer Key
