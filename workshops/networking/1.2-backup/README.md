@@ -12,25 +12,22 @@ For our first playbook, we will create a backup of our two routers.
 - [Section 3: Adding Tasks to Your Play](#section-3-adding-tasks-to-your-play)
 - [Section 4: Review](#section-4-review)
 - [Section 5: Running your playbook](#section-5-running-your-playbook)
+
 ## Section 1: Creating a Directory Structure and Files for your Playbook
 
-There is a [best practice](http://docs.ansible.com/ansible/playbooks_best_practices.html) on the preferred directory structures for playbooks. We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills. That said, our playbook today is very basic and creating a complex structure will just confuse things.
-
-Instead, we are going to use a pre-defined directory structure for our playbook, and add playbooks to it.
-
-Step 1: Navigate to the networking-workshop directory
+### Step 1: Navigate to the networking-workshop directory
 
 ```bash
 cd ~/networking-workshop
 ```
 
-Step 2: Understand your inventory. Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
+### Step 2: Understand your inventory. Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
 
 ```bash
-cat lab_inventory/hosts
+cat /etc/ansible/hosts
 ```
 
-You’ll notice that we are working with 3 groups. The control group, which is the node that we are currently ssh’d into. The routers group, which is a grouping of two routers (R1 and R2). And finally the hosts group, which has another linux node residing in a separate VPC.
+You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (R1 and R2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
 
 ## Section 2: Defining Your Play
 
@@ -108,7 +105,27 @@ Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`
 And that should do it. You should now have a fully written playbook called backup.yml. You are ready to automate!
 
 Ansible (well, YAML really) can be a bit particular about formatting especially around indentation/spacing. When you all get back to the office, read up on this YAML Syntax a bit more and it will save you some headaches later. In the meantime, your completed playbook should look like this. Take note of the spacing and alignment.
-![Figure 1: Completed Playbook - w/Spacing](completed-playbook.png)
+```
+---
+- name: backup router configurations
+  hosts: routers
+  vars:
+    ansible_network_os: ios
+    ansible_connection: local
+  gather_facts: no
+
+  tasks:
+    - name: gather ios_facts
+      ios_facts:
+      register: version
+
+    - debug:
+        msg: "{{version}}"
+
+    - name: Backup configuration
+      ios_config:
+        backup: yes
+```        
 
 ## Section 5: Running your playbook
 
