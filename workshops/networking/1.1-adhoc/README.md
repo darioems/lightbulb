@@ -30,11 +30,15 @@ Let’s start with something really basic - pinging a linux host. Note that this
 ansible control -m ping
 ```
 
+To figure out all the options associated with an Ansible module each module has a documentation page.  Check out the [Ansible ping module here](http://docs.ansible.com/ansible/latest/ping_module.html)
+
 ### Step 2: Command
 Now let’s see how we can run a good ol' fashioned Linux command and format the output using the command module.
 ```bash
 ansible control -m command -a "uptime" -o
 ```
+
+Ansible documentation page for the [command module](http://docs.ansible.com/ansible/latest/command_module.html)
 
 ### Step 3: ios_facts
 
@@ -44,6 +48,8 @@ Let’s switch gears and take a look at our routers. The ios_facts module displa
 ansible routers -m ios_facts -c local
 ```
 
+Ansible documentation page for the [ios_facts module](http://docs.ansible.com/ansible/latest/ios_facts_module.html)
+
 ### Step 4: ios_command
 
 Now, let’s get an interface summary using the ios_command module
@@ -51,7 +57,7 @@ Now, let’s get an interface summary using the ios_command module
 ```bash
 ansible routers -m ios_command -a 'commands="show ip int br"' -c local
 ```
-
+Ansible documentation for the [ios_command module](http://docs.ansible.com/ansible/latest/ios_command_module.html)
 ### Step 5: ios_banner
 
 How about adding an MOTD to our routers? Let’s do so by using the ios_banner module
@@ -59,6 +65,8 @@ How about adding an MOTD to our routers? Let’s do so by using the ios_banner m
 ```bash
 ansible routers -m ios_banner -a 'banner=motd text="Ansible is awesome!" state=present' -c local
 ```
+
+Ansible documentation on the [ios_banner module](http://docs.ansible.com/ansible/latest/ios_banner_module.html)
 
 ### Step 6: ios_banner removal
 
