@@ -5,12 +5,6 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
 ## Presentation
 Want the Presentation Deck?  Its right here: https://network-automation.github.io/ansible-networking.html
 
-## Class 10/26/2017 - Montreal, Quebec
-[Click for Workbench Access](quebec.md)
-
-## Class 10/27/2017 - Chicago, Illinois
-[Click for Workbench Access](chicago.md)
-
 ## Ansible Engine Networking Exercises
 
  - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)
