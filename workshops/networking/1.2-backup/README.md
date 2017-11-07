@@ -162,5 +162,5 @@ less backup/rtr1*
 or
 
 ```bash
-less backup/rtr2
+less backup/rtr2*
 ```
