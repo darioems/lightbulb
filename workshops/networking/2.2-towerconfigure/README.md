@@ -26,7 +26,7 @@ As soon as you login, you will prompted to request a license or browse for an ex
 In a separate browser tab, download your license key by browsing to [fakelicense.txt](fakelicense.txt)
 
 ## Step 3: Browse for License
-Back in the Tower UI, choose [BROWSE](browse.png) and upload your recently downloaded license file into Tower.
+Back in the Tower UI, choose ![BROWSE](browse.png) and upload your recently downloaded license file into Tower.
 
 ## Step 4: Check License
 Select "I agree to the End User License Agreement"
