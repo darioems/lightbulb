@@ -56,7 +56,7 @@ or you can also dynamically reference another host's variable like this:
 
 ~~~
 vars:
-  rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
+  rtr1_public_ip: "{‌{hostvars['rtr1']['ansible_host']}}"
   rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
 ~~~
 
