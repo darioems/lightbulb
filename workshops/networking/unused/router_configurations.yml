@@ -4,7 +4,7 @@
   gather_facts: no
   vars:
   ansible_network_os: ios
-  ansible_connection: local       
+  ansible_connection: local
     dns_servers:
       - 8.8.8.8
       - 8.8.4.4
