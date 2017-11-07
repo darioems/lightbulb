@@ -155,8 +155,12 @@ You can view the backup files that were created by listing the backup directory.
 ls backup
 ```
 
-You can also view the contents of the backed up configuration files.
-Replace the x after student with your student number and choose 1 or 2 for the router’s config you want to view.
+You can also view the contents of the backed up configuration files:
 ```bash
-less backup/student(x)-rtr(1 or 2)
+less backup/rtr1*
+```
+or
+
+```bash
+less backup/rtr2
 ```
