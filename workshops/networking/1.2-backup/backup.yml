@@ -1,9 +1,7 @@
 ---
 - name: backup router configurations
   hosts: routers
-  vars:
-    ansible_network_os: ios
-    ansible_connection: local
+  connection: local
   gather_facts: no
 
   tasks:

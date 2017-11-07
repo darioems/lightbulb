@@ -40,12 +40,12 @@ vim backup.yml
 
 Now that we are editing [backup.yml](backup.yml), let’s begin by defining the play and then understanding what each line accomplishes
 
-```bash
+```yml
 ---
-- hosts: routers
-  name: backup router configurations
-  gather_facts: no
+- name: backup router configurations
+  hosts: routers
   connection: local
+  gather_facts: no
 ```  
 
  - `---` Let’s us know that the following is a yaml file.
@@ -62,17 +62,17 @@ Make sure all of your playbook statements are aligned in the way shown here.
 If you want to see the entire playbook for reference, skip to the end of Section 4 of this exercise.
 
 ```bash
-tasks:
-  - name: gather ios_facts
-    ios_facts:
-    register: facts
+  tasks:
+    - name: gather ios_facts
+      ios_facts:
+      register: version
 
-  - debug:
-      msg: "{{facts}}"
+    - debug:
+        msg: "{{version}}"
 
-  - name: Backup configuration
-    ios_config:
-      backup: yes
+    - name: Backup configuration
+      ios_config:
+        backup: yes
 ```      
 
  - `tasks:` This denotes that one or more tasks are about to be defined
@@ -81,20 +81,20 @@ tasks:
  The following section is using the ios_facts ansible module to gather IOS related facts about the router we are targeting. [Click here](http://docs.ansible.com/ansible/latest/ios_facts_module.html) to learn more about the ios_facts module.  We are taking the ios_facts that the module provides and registering it to a variable called facts. This information is now available to us to use in subsequent tasks if we wish to do so. Next, we are making a debug statement to display the output of what information is actually captured when using the ios_facts module.
 
  ```bash
- - name: gather ios_facts
-  ios_facts:
-  register: facts
+    - name: gather ios_facts
+      ios_facts:
+      register: version
 
-- debug:
-    msg: "{{facts}}"
+    - debug:
+        msg: "{{version}}"
 ```
 
 The next three lines are calling the Ansible module ios_config and passing in the parameter backup: yes to capture the configuration of the routers and generate a backup file. Click here to see all options for the ios_config module.
 
 ```bash
-- name: Backup configuration
-  ios_config:
-    backup: yes
+    - name: Backup configuration
+      ios_config:
+        backup: yes
 ```
 
 ## Section 4: Review
@@ -110,9 +110,7 @@ Ansible (well, YAML really) can be a bit particular about formatting especially 
 ---
 - name: backup router configurations
   hosts: routers
-  vars:
-    ansible_network_os: ios
-    ansible_connection: local
+  connection: local
   gather_facts: no
 
   tasks:
@@ -160,5 +158,5 @@ ls backup
 You can also view the contents of the backed up configuration files.
 Replace the x after student with your student number and choose 1 or 2 for the router’s config you want to view.
 ```bash
-less backup/student(x)-rtr(1 or 2).WORKSHOPNAME.redhat.io
+less backup/student(x)-rtr(1 or 2)
 ```
