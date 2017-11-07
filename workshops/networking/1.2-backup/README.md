@@ -40,17 +40,17 @@ vim backup.yml
 
 Now that we are editing [backup.yml](backup.yml), let’s begin by defining the play and then understanding what each line accomplishes
 
-```bash
+```YAML
 ---
-- hosts: routers
-  name: backup router configurations
+- name: backup router configurations
+  hosts: routers
   gather_facts: no
   connection: local
 ```  
 
  - `---` Let’s us know that the following is a yaml file.
- - `hosts:` routers Defines the host group in your inventory on which this play will run against
  - `name:` backup router configurations This describes our play
+ - `hosts:` routers Defines the host group in your inventory on which this play will run against
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
  - `connection: local` tells Ansible to execute this python module locally (target node is not capable of running Python)
 
@@ -61,7 +61,7 @@ Now that we’ve defined your play, let’s add the necessary tasks to backup ou
 Make sure all of your playbook statements are aligned in the way shown here.
 If you want to see the entire playbook for reference, skip to the end of Section 4 of this exercise.
 
-```bash
+```YAML
 tasks:
   - name: gather ios_facts
     ios_facts:
@@ -80,18 +80,18 @@ tasks:
 
  The following section is using the ios_facts ansible module to gather IOS related facts about the router we are targeting. [Click here](http://docs.ansible.com/ansible/latest/ios_facts_module.html) to learn more about the ios_facts module.  We are taking the ios_facts that the module provides and registering it to a variable called facts. This information is now available to us to use in subsequent tasks if we wish to do so. Next, we are making a debug statement to display the output of what information is actually captured when using the ios_facts module.
 
- ```bash
- - name: gather ios_facts
+```YAML
+- name: gather ios_facts
   ios_facts:
   register: facts
 
 - debug:
-    msg: "{{facts}}"
+  msg: "{{facts}}"
 ```
 
 The next three lines are calling the Ansible module ios_config and passing in the parameter backup: yes to capture the configuration of the routers and generate a backup file. Click here to see all options for the ios_config module.
 
-```bash
+```YAML
 - name: Backup configuration
   ios_config:
     backup: yes
@@ -106,14 +106,12 @@ Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`
 And that should do it. You should now have a fully written playbook called backup.yml. You are ready to automate!
 
 Ansible (well, YAML really) can be a bit particular about formatting especially around indentation/spacing. When you all get back to the office, read up on this YAML Syntax a bit more and it will save you some headaches later. In the meantime, your completed playbook should look like this. Take note of the spacing and alignment.
-```
+```YAML
 ---
 - name: backup router configurations
   hosts: routers
-  vars:
-    ansible_network_os: ios
-    ansible_connection: local
   gather_facts: no
+  connection: local
 
   tasks:
     - name: gather ios_facts
