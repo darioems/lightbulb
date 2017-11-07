@@ -45,7 +45,7 @@ In this playbook we need to configure both sides of the GRE tunnel.  The tunnel 
 ```
 
 We also need **two variables**.  We need the public IP address for rtr1 and rtr2.  These two IP addresses will be different for every student in the workshop.  The public IP address can be found in the `/home/studentXX/networking-workshop/lab_inventory/XX.hosts` on your tower node.  Just call these `rtr1_public_ip` and `rtr2_public_ip`.  The IP address 1.1.1.1 and 2.2.2.2 are placeholders!  Please replace them, or use the dynamic mode below:
-```
+```yml
 vars:
    #Variables can be manually set like this:
    rtr1_public_ip: "1.1.1.1"
@@ -53,13 +53,13 @@ vars:
 ```
 
 or you can also dynamically reference another host's variable like this:
+{% raw %}
 ```yml
 vars:
   rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
   rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
 ```   
-
-`{{hostvars['rtr1']['ansible_host']}}`
+{% raw %}
 
 hostvars refers to a variables host specific variables, `rtr1` and `rtr2` refer to the specific host, and `ansible_host` refers to the public IP address (which happens to also be the IP address we use to connect with Ansible).
 
