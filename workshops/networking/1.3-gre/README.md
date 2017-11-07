@@ -58,6 +58,9 @@ vars:
   rtr1_public_ip: "{{hostvars['rtr1']['ansible_host']}}"
   rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
 ```   
+
+`{{hostvars['rtr1']['ansible_host']}}`
+
 hostvars refers to a variables host specific variables, `rtr1` and `rtr2` refer to the specific host, and `ansible_host` refers to the public IP address (which happens to also be the IP address we use to connect with Ansible).
 
 ## Step 4: Adding the tasks for R1
