@@ -11,7 +11,7 @@
 
 
 
-
+<br><br><br><br>
  ---
 ![Red Hat Ansible Automation](rh-ansible-automation.png)
 
