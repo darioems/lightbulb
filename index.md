@@ -6,4 +6,4 @@
 - [Ansible Networking](decks/ansible-networking.html)
 
 # Workshops
-- [Ansible Networking Workshop](workshops/networking/readme.md)
+- [Ansible Networking Workshop](workshops/networking/README.md)
