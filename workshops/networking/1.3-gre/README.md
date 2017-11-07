@@ -57,7 +57,7 @@ or you can also dynamically reference another host's variable like this:
 ~~~
 vars:
   rtr1_public_ip: "{‌{hostvars['rtr1']['ansible_host']}}"
-  rtr2_public_ip: "{{hostvars['rtr2']['ansible_host']}}"
+  rtr2_public_ip: "{‌{hostvars['rtr2']['ansible_host']}}"
 ~~~
 
 hostvars refers to a variables host specific variables, `rtr1` and `rtr2` refer to the specific host, and `ansible_host` refers to the public IP address (which happens to also be the IP address we use to connect with Ansible).
@@ -71,7 +71,7 @@ tasks:
     lines:
      - 'ip address 10.0.0.1 255.255.255.0'
      - 'tunnel source GigabitEthernet1'
-     - 'tunnel destination {{rtr2_public_ip}}'
+     - 'tunnel destination {‌{rtr2_public_ip}}'
     parents: interface Tunnel 0
   when:
     - '"rtr1" in inventory_hostname'
@@ -87,7 +87,7 @@ Notice the `when` statement shown above.  This is a conditional.  If the invento
     lines:
      - 'ip address 10.0.0.2 255.255.255.0'
      - 'tunnel source GigabitEthernet1'
-     - 'tunnel destination {{rtr1_public_ip}}'
+     - 'tunnel destination {‌{rtr1_public_ip}}'
     parents: interface Tunnel 0
   when:
     - '"rtr2" in inventory_hostname'

@@ -68,7 +68,7 @@ If you want to see the entire playbook for reference, skip to the end of Section
       register: version
 
     - debug:
-        msg: "{{version}}"
+        msg: "{‌{version}}"
 
     - name: Backup configuration
       ios_config:
@@ -86,7 +86,7 @@ If you want to see the entire playbook for reference, skip to the end of Section
       register: version
 
     - debug:
-        msg: "{{version}}"
+        msg: "{‌{version}}"
 ```
 
 The next three lines are calling the Ansible module ios_config and passing in the parameter backup: yes to capture the configuration of the routers and generate a backup file. Click here to see all options for the ios_config module.
@@ -119,7 +119,7 @@ Ansible (well, YAML really) can be a bit particular about formatting especially 
       register: version
 
     - debug:
-        msg: "{{version}}"
+        msg: "{‌{version}}"
 
     - name: Backup configuration
       ios_config:
