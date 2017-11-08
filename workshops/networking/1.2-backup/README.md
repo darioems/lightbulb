@@ -70,7 +70,7 @@ If you want to see the entire playbook for reference, skip to the end of Section
       register: version
 
     - debug:
-        msg: "{‌{version}}"
+        msg: "{{version}}"
 
     - name: Backup configuration
       ios_config:
@@ -82,14 +82,16 @@ If you want to see the entire playbook for reference, skip to the end of Section
 
  The following section is using the ios_facts ansible module to gather IOS related facts about the router we are targeting. [Click here](http://docs.ansible.com/ansible/latest/ios_facts_module.html) to learn more about the ios_facts module.  We are taking the ios_facts that the module provides and registering it to a variable called facts. This information is now available to us to use in subsequent tasks if we wish to do so. Next, we are making a debug statement to display the output of what information is actually captured when using the ios_facts module.
 
+{% raw %}
  ```bash
     - name: gather ios_facts
       ios_facts:
       register: version
 
     - debug:
-        msg: "{‌{version}}"
+        msg: "{{version}}"
 ```
+{% endraw %}
 
 The next three lines are calling the Ansible module ios_config and passing in the parameter backup: yes to capture the configuration of the routers and generate a backup file. Click here to see all options for the ios_config module.
 
