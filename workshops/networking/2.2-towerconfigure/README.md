@@ -92,10 +92,11 @@ An inventory is a collection of hosts against which jobs may be launched. Invent
 
 An Inventory can also be imported into Tower using the `tower-manage` command and this is how we are going to add an inventory for this workshop.
 
-## Step 1: Click on INVENTORIES
+## Step 1: Create an Inventory
+Click on the **INVENTORIES** Tab on the Top Menu
 
 ## Step 2: Add an Inventory
-Click the ![Add](add.png) Button
+Click the ![Add](add.png) Button and chose **Inventory** (not Smart Inventory)
 
 ## Step 3: Complete the form using the following entries
 
@@ -110,26 +111,47 @@ Click the ![Add](add.png) Button
 ## Step 4: Save the Inventory
 Click the ![Save](save.png) button
 
-## Step 5: Using ssh, login to your control node
+## Step 5: Using ssh, login to your Tower node
 ```bash
-ssh studentXX@<IP_Address_of_your_control_node>
+ssh studentXX@<IP_Address_of_your_tower_node>
 ```
 
-## Step 6: Use the tower-manage command to import an existing inventory. (Be sure to replace student(X) with your student number)
+## Step 6: Import the existing inventory
+
+Use the tower-manage command to import an existing inventory. (Be sure to replace student(X) with your student number)
 
 ```bash
-sudo tower-manage inventory_import --source=/home/ec2-user/networking-workshop/lab_inventory/student(x).net-ws.hosts --inventory-name="Ansible Workshop Inventory"
+sudo tower-manage inventory_import --source=/home/studentXX/networking-workshop/lab_inventory/studentXX.WORKSHOP_NAME.hosts --inventory-name="Ansible Workshop Inventory"
 ```
 
 You should see output similar to the following:
-![Figure 6: Importing an inventory with tower-manage](inventory_manage.png)
 
-Feel free to browse your inventory in Tower. You should now notice that the inventory has been populated with Groups and that each of those groups contain hosts.
+```
+[student2@ip-172-17-3-250 ~]$ sudo tower-manage inventory_import --source=/home/student1/networking-workshop/lab_inventory/student1.atlanta.hosts --inventory-name="Ansible Workshop Inventory"
+    1.676 INFO     Updating inventory 2: Ansible Workshop Inventory
+    1.755 INFO     Reading Ansible inventory source: /home/student2/lightbulb/lessons/lab_inventory/student2-instances.txt
+    2.704 ERROR     [WARNING]: Found both group and host with same name: control
+    2.704 INFO     Processing JSON output...
+    2.704 INFO     Loaded 3 groups, 4 hosts
+    2.708 INFO     Inventory variables unmodified
+    2.715 INFO     Group "control" added
+    2.720 INFO     Group "hosts" added
+    2.724 INFO     Group "routers" added
+    2.734 INFO     Host "tower" added
+    2.739 INFO     Host "host1" added
+    2.743 INFO     Host "rtr1" added
+    2.748 INFO     Host "rtr2" added
+    2.759 INFO     Host "tower" added to group "control"
+    2.766 INFO     Host "host1" added to group "hosts"
+    2.773 INFO     Host "rtr1" added to group "routers"
+    2.773 INFO     Host "rtr2" added to group "routers"
+    2.856 INFO     Inventory import completed for  (Ansible Workshop Inventory - 9) in 1.2s
+```
+
+Try browsing your inventory in Tower. You should now notice that the inventory has been populated with Groups and that each of those groups contain hosts.
 
 ![Figure 7: Inventory with Groups](groups.png)
 
-![Figure 8: routers inventory group detail](inventory_detail.png)
-
-End Result
+# End Result
 
 At this point, we are doing with our basic configuration of Ansible Tower. In the next exercise, we will be solely focused on creating and running a job template so you can see Tower in action.
