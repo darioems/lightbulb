@@ -106,7 +106,8 @@ You’ve successfully created a playbook that targets both routers in sequential
 # Complete
 You have completed lab exercise 1.3
 
-# Answer Key
+## Answer Key
 You can [click here](gre.yml).
 
+---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
