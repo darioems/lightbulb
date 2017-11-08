@@ -103,6 +103,9 @@ ansible-playbook gre.yml
 
 You’ve successfully created a playbook that targets both routers in sequential order. Woohoo!  The GRE Tunnel should be configured. Feel free to log into any of the routers and ping the other endpoint of the tunnel.  Check out the [ios_config module](http://docs.ansible.com/ansible/latest/ios_config_module.html) for more information on different available knobs and parameters for the module.
 
+# Complete
+You have completed lab exercise 1.3
+
 # Answer Key
 You can [click here](gre.yml).
 
