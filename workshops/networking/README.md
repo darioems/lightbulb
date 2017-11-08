@@ -9,7 +9,6 @@ Want the Presentation Deck?  Its right here:
 ## Class Login information
 
 - [Atlanta 11/08/2017](atlanta.md)
-- [Raleigh 11/08/2017](raleigh.md)
 
 ## Ansible Engine Networking Exercises
 
