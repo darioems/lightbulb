@@ -156,5 +156,5 @@ Try browsing your inventory in Tower. You should now notice that the inventory h
 
 At this point, we are doing with our basic configuration of Ansible Tower. In the next exercise, we will be solely focused on creating and running a job template so you can see Tower in action.
 
----
+ ---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

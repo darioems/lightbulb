@@ -170,5 +170,5 @@ You have completed lab exercise 1.2
 ## Answer Key
 You can [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/backup.yml).
 
----
+ ---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

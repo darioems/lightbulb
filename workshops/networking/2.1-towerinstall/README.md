@@ -81,5 +81,5 @@ You know you were successful if you are able to browse to your Ansible Tower’s
 
 ![Figure 1: Ansible Tower Login Screen](tower.png)
 
----
+ ---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

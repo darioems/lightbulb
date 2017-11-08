@@ -62,5 +62,5 @@ You have completed exercise 1.5
 ## Answer Key
 You can [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.5-run_routing_configs/router_configs.yml).
 
----
+ ---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

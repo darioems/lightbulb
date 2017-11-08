@@ -109,5 +109,5 @@ You have completed lab exercise 1.3
 ## Answer Key
 You can [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.3-gre/gre.yml).
 
----
+ ---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
