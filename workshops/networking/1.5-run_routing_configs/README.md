@@ -55,3 +55,5 @@ PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
 64 bytes from 172.18.4.188: icmp_seq=3 ttl=62 time=3.52 ms
 ```
 **Note** your IP will be different than 172.18.4.188!
+
+[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

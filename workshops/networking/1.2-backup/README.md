@@ -164,3 +164,8 @@ or
 ```bash
 less backup/rtr2*
 ```
+
+# Complete
+You have completed lab exercise 1.2
+
+[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
