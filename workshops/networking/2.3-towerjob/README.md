@@ -37,13 +37,9 @@ Select the **JOBS** tab on the top menu
 ### Step 2: Run the Job
 Click on the **rocketship icon** for the **Router Configs Job Template**
 
-### Step 3: When prompted, enter your desired test message
+### Step 3: Sit back, watch the magic happen
 
-### Step 4: Select **LAUNCH**
-
-### Step 5: Sit back, watch the magic happen
-
-Once the job is running, on the left, you’ll have details in regards to what playbook it’s running, what the status is, i.e. pending, running, or complete. You’ll also notice the prefix_control_subnet, prefix_host_subnet, and ios_version being passed in as 'extra_variables'
+Once the job is running, on the left, you’ll have details in regards to what playbook it’s running, what the status is, i.e. pending, running, or complete.
 
 To the right, you can view standard output; the same way you could if you were running Ansible Core from the command line.
 
