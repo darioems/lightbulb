@@ -50,6 +50,15 @@ Click on ![ADD](add.png) button
 
 ## Step 4: Complete the form using the following entries
 
+| Field            | Value                                                             |
+| ---------------- |:-----------------------------------------------------------------:|
+| **NAME**         | Ansible Workshop Credential                                       |
+| **DESCRIPTION**  | Credentials for Ansible Workshop                                  |
+| **ORGANIZATION** | Default                                                           |
+| **TYPE**         | Network                                                           |
+| **USERNAME**     | ec2-user                                                          |
+| **SSH Key**      | Copy paste the ssh public key from the tower node @ ~/.ssh/*_key  |
+
 - **NAME** Ansible Workshop Credential
 - **DESCRIPTION** Credentials for Ansible Workshop
 - **ORGANIZATION** Default
@@ -59,7 +68,8 @@ Click on ![ADD](add.png) button
 
 ![Figure 3: Adding a Credential](credential.png)
 
-## Step 5: Select ![SAVE](save.png)
+## Step 5: Select Save
+Click the ![SAVE](save.png) button
 
 # Creating a Project
 A Project is a logical collection of Ansible playbooks, represented in Tower. You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
