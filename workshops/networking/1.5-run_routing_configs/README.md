@@ -56,4 +56,10 @@ PING 172.18.4.188 (172.18.4.188) 56(84) bytes of data.
 ```
 **Note** your IP will be different than 172.18.4.188!
 
+# Complete
+You have not completed exercise 1.5
+
+# Answer Key
+You can [click here](router_configs.yml).
+
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)
