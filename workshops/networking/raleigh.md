@@ -11,11 +11,13 @@ Public IP Address=107.22.141.55
 ```
 
 ```bash
-ssh student3@student3-control.raleigh.rhdemo.io Public IP Address=184.73.142.205
+ssh student3@student3-control.raleigh.rhdemo.io
+Public IP Address=184.73.142.205
 ```
 
 ```bash
-ssh student4@student4-control.raleigh.rhdemo.io Public IP Address=34.230.4.25
+ssh student4@student4-control.raleigh.rhdemo.io
+Public IP Address=34.230.4.25
 ```
 
 ```bash
