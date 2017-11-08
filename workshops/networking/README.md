@@ -6,6 +6,11 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
 Want the Presentation Deck?  Its right here:
 [Ansible Networking Lightbulb Deck](../../decks/ansible-networking.html)
 
+## Class Login information
+
+- [Atlanta 11/08/2017](atlanta.md)
+- [Raleigh 11/08/2017](raleigh.md)
+
 ## Ansible Engine Networking Exercises
 
  - [Exercise 1.1 - Running Ad-hoc commands](1.1-adhoc)
