@@ -45,7 +45,8 @@ Click on the ![GEAR](gear.png) icon in the top right of the browser window
 
 ## Step 2: Select CREDENTIALS
 
-## Step 3: Click on ![ADD](add.png) button
+## Step 3: Add The CREDENTIALS
+Click on ![ADD](add.png) button
 
 ## Step 4: Complete the form using the following entries
 
