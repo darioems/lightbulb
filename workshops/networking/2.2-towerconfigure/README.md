@@ -57,7 +57,7 @@ Click on ![ADD](add.png) button
 | **ORGANIZATION**     | Default                                                               |
 | **CREDENTIAL TYPE**  | Network                                                               |
 | **USERNAME**         | ec2-user                                                              |
-| **SSH Key**          | Copy paste the ssh public key from the tower node `cat ~/.ssh/*_key`  |
+| **SSH Key**          | Copy paste the ssh private key from the tower node `cat ~/.ssh/*_key`  |
 
 ![Figure 3: Adding a Credential](credential.png)
 
