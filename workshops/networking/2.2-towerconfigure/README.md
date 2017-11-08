@@ -50,21 +50,14 @@ Click on ![ADD](add.png) button
 
 ## Step 4: Complete the form using the following entries
 
-| Field            | Value                                                             |
-| ---------------- |:-----------------------------------------------------------------:|
-| **NAME**         | Ansible Workshop Credential                                       |
-| **DESCRIPTION**  | Credentials for Ansible Workshop                                  |
-| **ORGANIZATION** | Default                                                           |
-| **TYPE**         | Network                                                           |
-| **USERNAME**     | ec2-user                                                          |
-| **SSH Key**      | Copy paste the ssh public key from the tower node @ ~/.ssh/*_key  |
-
-- **NAME** Ansible Workshop Credential
-- **DESCRIPTION** Credentials for Ansible Workshop
-- **ORGANIZATION** Default
-- **TYPE** Network
-- **USERNAME** ec2-user
-- **SSH Key** Copy paste in net-ws_key from control node @ ~/.ssh/net-ws_key
+| Field                | Value                                                                 |
+| -------------------- |-----------------------------------------------------------------------|
+| **NAME**             | Ansible Workshop Credential                                           |
+| **DESCRIPTION**      | Credentials for Ansible Workshop                                      |
+| **ORGANIZATION**     | Default                                                               |
+| **CREDENTIAL TYPE**  | Network                                                               |
+| **USERNAME**         | ec2-user                                                              |
+| **SSH Key**          | Copy paste the ssh public key from the tower node `cat ~/.ssh/*_key`  |
 
 ![Figure 3: Adding a Credential](credential.png)
 
@@ -75,17 +68,21 @@ Click the ![SAVE](save.png) button
 A Project is a logical collection of Ansible playbooks, represented in Tower. You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your Tower server, or by placing your playbooks into a source code management (SCM) system supported by Tower, including Git, Subversion, and Mercurial.
 
 ## Step 1: Click on PROJECTS
+Click on the **PROJECTS** Tab on the Top Menu
 
-## Step 2: Select ![Add](add.png)
+## Step 2: Add a Project
+Click the ![Add](add.png) button
 
 ## Step 3: Complete the form using the following entries
 
-- **NAME** Ansible Workshop Project
-- **DESCRIPTION** Workshop playbooks
-- **ORGANIZATION** Default
-- **SCM TYPE** Git
-- **SCM URL** https://github.com/gdykeman/networking-workshop
-- **SCM UPDATE OPTIONS** Check Clean, Uncheck Delete on Update, Check Update on Launch
+| Field                  | Value                                                                 |
+| ---------------------- |-----------------------------------------------------------------------|
+| **NAME**               | Ansible Workshop Project                                              |
+| **DESCRIPTION**        | Workshop playbooks                                                    |
+| **ORGANIZATION**       | Default                                                               |
+| **SCM TYPE**           | Git                                                                   |
+| **SCM URL**            | https://github.com/gdykeman/networking-workshop                       |
+| **SCM UPDATE OPTIONS** | Check Clean, Uncheck Delete on Update, Check Update on Launch         |
 
 ![Figure 4: Defining a Project](project.png)
 
@@ -97,21 +94,25 @@ An Inventory can also be imported into Tower using the `tower-manage` command an
 
 ## Step 1: Click on INVENTORIES
 
-## Step 2: Select ![Add](add.png)
+## Step 2: Add an Inventory
+Click the ![Add](add.png) Button
 
 ## Step 3: Complete the form using the following entries
 
-- **NAME** Ansible Workshop Inventory
-- **DESCRIPTION** Ansible Inventory
-- **ORGANIZATION** Default
+| Field                  | Value                                                                 |
+| ---------------------- |-----------------------------------------------------------------------|
+| **NAME**               | Ansible Workshop Inventory                                            |
+| **DESCRIPTION**        | Ansible Inventory                                                     |
+| **ORGANIZATION**       | Default                                                               |
 
 ![Figure 5: Create an Inventory](inventory.png)
 
-## Step 4: Select ![Save](save.png)
+## Step 4: Save the Inventory
+Click the ![Save](save.png) button
 
 ## Step 5: Using ssh, login to your control node
 ```bash
-ssh <username>@<IP_Address_of_your_control_node>
+ssh studentXX@<IP_Address_of_your_control_node>
 ```
 
 ## Step 6: Use the tower-manage command to import an existing inventory. (Be sure to replace student(X) with your student number)
