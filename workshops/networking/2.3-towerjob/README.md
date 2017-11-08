@@ -46,4 +46,41 @@ To the right, you can view standard output; the same way you could if you were r
 ![Job Summary](job_run.png)
 
 Congratulations!
-You’ve successfully completed the Ansible Tower portion of the workshop!
+You’ve successfully ran a job!
+
+## Creating a Survey
+Now we are going to show another awesome feature of Tower, called Surveys
+
+### Step 1: Select TEMPLATES
+Click on the **TEMPLATES** Tab on the top menu
+
+### Step 2: Edit the Router Configs Job Template
+Click the ![pencil](pencil.png) icon to the right of the Router Configs Job Template
+
+### Step 3: Create a Survey
+Click **Add Survey** at the top
+
+### Step 4: Fill out the Survey
+
+| Field                           | Value                         |
+| ------------------------------- |-------------------------------|
+| **PROMPT**                      | Router Configs Job Template   |
+| **ANSWER VARIABLE NAME**        | dns_servers                   |
+| **ANSWER TYPE**                 | Text                          |
+| **DEFAULT ANSWER**              | 8.8.8.8                       |
+
+Also see the following screen shot:
+![survey](survey.png)
+
+### Step 5: Save the Survey
+Select the ![Save](save.png) button
+
+### Re-Run the Job
+Click the **TEMPLATES** tab in the top menu and then click on the rocketship to re-launch the **Router Configs Job Template**
+
+The survey will pop up when you launch, try changing the value to any real IPv4 DNS server!
+
+![survey launch](survey_launch.png)
+
+# Complete
+You have now completed this Tower lab.  
