@@ -82,5 +82,8 @@ The survey will pop up when you launch, try changing the value to any real IPv4 
 
 ![survey launch](survey_launch.png)
 
+The new job will run and use the IP address you chose in the survey.  The survey fills out the **EXTRA VARIABLES** on the left menu and over-rides any variables in the playbook.  This is illustrated in the following screenshot:
+![new playbook run](new_job_run.png)
+
 # Complete
 You have now completed this Tower lab.  
