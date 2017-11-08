@@ -1,20 +1,39 @@
 student1@student1-control.raleigh.rhdemo.io Public IP Address=172.17.1.182
+
 student2@student2-control.raleigh.rhdemo.io Public IP Address=107.22.141.55
+
 student3@student3-control.raleigh.rhdemo.io Public IP Address=184.73.142.205
+
 student4@student4-control.raleigh.rhdemo.io Public IP Address=34.230.4.25
+
 student5@student5-control.raleigh.rhdemo.io Public IP Address=54.82.242.111
+
 student6@student6-control.raleigh.rhdemo.io Public IP Address=52.73.48.138
+
 student7@student7-control.raleigh.rhdemo.io Public IP Address=34.229.220.244
+
 student8@student8-control.raleigh.rhdemo.io Public IP Address=34.228.9.90
+
 student9@student9-control.raleigh.rhdemo.io Public IP Address=54.226.244.220
+
 student10@student10-control.raleigh.rhdemo.io Public IP Address=54.89.165.14
+
 student11@student11-control.raleigh.rhdemo.io Public IP Address=54.85.80.69
+
 student12@student12-control.raleigh.rhdemo.io Public IP Address=52.23.224.189
+
 student13@student13-control.raleigh.rhdemo.io Public IP Address=34.227.193.219
+
 student14@student14-control.raleigh.rhdemo.io Public IP Address=54.144.227.51
+
 student15@student15-control.raleigh.rhdemo.io Public IP Address=184.72.86.170
+
 student16@student16-control.raleigh.rhdemo.io Public IP Address=52.91.12.175
+
 student17@student17-control.raleigh.rhdemo.io Public IP Address=54.173.62.166
+
 student18@student18-control.raleigh.rhdemo.io Public IP Address=34.226.195.14
+
 student19@student19-control.raleigh.rhdemo.io Public IP Address=54.85.89.23
+
 student20@student20-control.raleigh.rhdemo.io Public IP Address=34.233.136.204
