@@ -31,11 +31,11 @@ Select the ![Save](save.png) button
 ## Running a Job Template
 Now that you’ve successfully created your Job Template, you are ready to launch it. Once you do, you will be redirected to a job screen which is refreshing in realtime showing you the status of the job.
 
-### Step 1: Go to the Jobs Section
-Select the **JOBS** tab on the top menu
+### Step 1: Go to the Templates Section
+Select the **TEMPLATES** tab on the top menu
 
 ### Step 2: Run the Job
-Click on the **rocketship icon** for the **Router Configs Job Template**
+Click on the **rocketship icon** ![rocketship](rocket.png) for the **Router Configs Job Template**
 
 ### Step 3: Sit back, watch the magic happen
 
@@ -76,7 +76,7 @@ Also see the following screen shot:
 Select the ![Save](save.png) button
 
 ### Re-Run the Job
-Click the **TEMPLATES** tab in the top menu and then click on the rocketship to re-launch the **Router Configs Job Template**
+Click the **TEMPLATES** tab in the top menu and then click on the rocketship icon to re-launch the **Router Configs Job Template**
 
 The survey will pop up when you launch, try changing the value to any real IPv4 DNS server!
 
