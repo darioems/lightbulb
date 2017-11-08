@@ -4,63 +4,38 @@ A job template is a definition and set of parameters for running an Ansible job.
 ## Creating a Job Template
 
 ### Step 1: Select TEMPLATES
+Click on the **TEMPLATES** Tab on the top menu
 
-### Step 2: Click on ![ADD](add.png) and select Job Template Add
+### Step 2: Add a Job
+Click on the ![ADD](add.png) button and select **Job Template** (not workflow template)
 
 ### Step 3: Complete the form using the following values and SAVE
 
-- **NAME** Router Configs Job Template
-- **DESCRIPTION** Template for router configurations
-- **JOB TYPE** Run
-- **INVENTORY** Ansible Workshop Inventory
-- **PROJECT** Ansible Workshop Project
-- **PLAYBOOK** playbooks/router_configs.yml
-- **MACHINE CREDENTIAL** Demo Credential - This is required by default and can contain blank credentials.
-- **NETWORK CREDENTIAL** Ansible Workshop Credential
+| Field                  | Value                                                                                    |
+| ---------------------- |------------------------------------------------------------------------------------------|
+| **NAME**               | Router Configs Job Templat                                                               |
+| **DESCRIPTION**        | Template for router configurations                                                       |
+| **JOB TYPE**           | Run                                                                                      |
+| **INVENTORY**          | Ansible Workshop Inventory                                                               |
+| **PROJECT**            | Ansible Workshop Project                                                                 |
+| **PLAYBOOK**           | workshops/networking/1.5-run_routing_configs/router_configs.yml                          |
+| **MACHINE CREDENTIAL** | Demo Credential - This is required by default and can contain blank credentials.         |
+| **NETWORK CREDENTIAL** | Ansible Workshop Credential                                                              |
 
-### Step 4: Select **ADD SURVEY**
+See this screen shot to understand the machine and network credentials
+![credentials](job-credential.png)
 
-### Step 5: Complete the survey form with following values. We are creating three survey questions.
-
-Total: 3 Surveys
-
-Survey 1:
-
-- **PROMPT** Please enter the prefix to the host node
-- **DESCRIPTION** Prefix for the host subnet
-- **ANSWER VARIABLE NAME** prefix_host_subnet
-- **ANSWER TYPE** Text
-- **MINIMUM/MAXIMUM LENGTH** Use the defaults
-
-- Then click +ADD Add
-
-Second Survey:
-
-- **PROMPT** Please enter the prefix to the control node
-- **DESCRIPTION** Prefix for the control subnet
-- **ANSWER VARIABLE NAME** prefix_control_subnet
-- **ANSWER TYPE** Text
-- **MINIMUM/MAXIMUM LENGTH** Use the defaults
-
-- Then click +ADD Add
-
-Third Survey:
-
-- **PROMPT** Please enter the IOS Version
-- **DESCRIPTION** Compliant IOS Version
-- **ANSWER VARIABLE NAME** ios_version
-- **ANSWER TYPE** Text
-- **MINIMUM/MAXIMUM LENGTH** Use the defaults
-- **DEFAULT ANSWER** 16.05.01b
-
-### Step 6: Select **SAVE**
+### Step 4: Save the Job Template
+Select the ![Save](save.png) button
 
 ## Running a Job Template
 Now that you’ve successfully created your Job Template, you are ready to launch it. Once you do, you will be redirected to a job screen which is refreshing in realtime showing you the status of the job.
 
-### Step 1: Select JOB TEMPLATES
+### Step 1: Go to the Jobs Section
+Select the **JOBS** tab on the top menu
 
-### Step 2: Click on the **rocketship icon** for the **Router Configs Job Template**
+### Step 2: Run the Job
+Click on the **rocketship icon** for the **Router Configs Job Template**
 
 ### Step 3: When prompted, enter your desired test message
 
