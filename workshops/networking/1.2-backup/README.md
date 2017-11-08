@@ -21,7 +21,9 @@ For our first playbook, we will create a backup of our two routers.
 cd ~/networking-workshop
 ```
 
-### Step 2: Understand your inventory. Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
+### Step 2: Understand your inventory.
+
+Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
 
 ```bash
 cat /home/studentXX/networking-workshop/lab_inventory/*hosts
