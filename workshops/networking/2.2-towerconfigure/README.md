@@ -81,7 +81,7 @@ Click the ![Add](add.png) button
 | **DESCRIPTION**        | Workshop playbooks                                                    |
 | **ORGANIZATION**       | Default                                                               |
 | **SCM TYPE**           | Git                                                                   |
-| **SCM URL**            | https://github.com/gdykeman/networking-workshop                       |
+| **SCM URL**            | https://github.com/network-automation/lightbulb/                       |
 | **SCM UPDATE OPTIONS** | Check Clean, Uncheck Delete on Update, Check Update on Launch         |
 
 ![Figure 4: Defining a Project](project.png)
