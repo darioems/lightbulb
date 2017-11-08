@@ -137,18 +137,15 @@ We are now going to run your brand spankin' new playbook on your two routers. To
 ```bash
 ansible-playbook backup.yml
 ```
-
- - `--syntax-check` If you run into any issues with your playbook running properly; you know, from that copy/pasting that you didn’t do because we said "don’t do that"; you could use this option to help find those issues like so:
- ```bash
- ansible-playbook backup.yml --syntax-check
-```
-
 In standard output, you should see something that looks very similar to the following:
 ![Figure 2: backup playbook stdout](playbook-output.png)
 
-Feel free to scroll back up and take a look at the facts that the ios_facts module collected.
+Want to test a playbook to see if your syntax is correct before executing it on remote systems?
 
-Also, notice that the play and each task is named so that you can see what is being done and to which router it is being done to.
+ Try using `--syntax-check` If you run into any issues with your playbook running properly help find those issues like so:
+ ```bash
+ansible-playbook backup.yml --syntax-check
+```
 
 ### Step 2: List the files in the backup directory
 You can view the backup files that were created by listing the backup directory.
