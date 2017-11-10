@@ -1,30 +1,40 @@
-Ansible AWS training provisioner
-================================
+# Ansible AWS training provisioner
+**aws_lab_setup** is an automated lab setup for Ansible training on AWS (Amazon Web Services).  There are currently two modes:
+ - Ansible Essentials mode (default)
+ - Ansible Networking mode
 
-This is an automated lab setup for Ansible training. It creates four nodes per user in the `users` list.
+## Ansible Essentials Mode
+The default mode provisions four nodes per user in the `users` list.
 
 * One control node from which Ansible will be executed from and where Ansible Tower can be installed
 * Three web nodes that coincide with the three nodes in lightbulb's original design
 * And one node where `haproxy` is installed (via lightbulb lesson)
 
-**NOTE**: Because of [a bug introduced in Ansible v2.2.1](https://github.com/ansible/lightbulb/issues/112) you will need to run this provisioner with v2.3.2 or higher.
+## Ansible Networking Mode
+This provisions the [Ansible Lightbulb - Networking Workshop](../../workshops/networking)
 
-## Table Of Contents
+This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).  
+
+# Table Of Contents
 - [AWS Setup](#aws-setup)
 - [AWS Teardown](#aws-teardown)
 
-### AWS Setup ###
+# AWS Setup
 The `provision_lab.yml` playbook creates instances, configures them for password authentication, creates an inventory file for each user with their IPs and credentials. An instructor inventory file is also created in the current directory which will let the instructor access the nodes of any student by simply targeting the username as a host group. The lab is created in `us-east-1` by default.  Currently only works with `us-east-1`, `us-west-1`, `eu-west-1`, `ap-southeast-1`, `ap-southeast-2`, `ap-south-1` and `ap-northeast-1`.
 
-#### Email Options ####
+**NOTE**: Because of [a bug introduced in Ansible v2.2.1](https://github.com/ansible/lightbulb/issues/112) you will need to run this provisioner with v2.3.2 or higher.
+
+## Email Options
 This provisioner by default will send email to participants/students containing information about their lab environment including IPs and credentials. This configuration requires that each participant register for the workshop using their full name and email address.   Alternatively, you can use generic accounts for workshops.  This method offers the advantage of enabling the facilitator to handle "walk-ins" and is a simpler method overall in terms of collecting participant information.
 
 Steps included in this guide will be tagged with __(email)__ to denote it as a step required if you want to use email and __(no email)__ for steps you should follow if you chose not to use email   
 
 **WARNING** Emails are sent _every_ time the playbook is run. To prevent emails from being sent on subsequent runs of the playbook, add `email: no` to `extra_vars.yml`.
 
-#### Lab Configuration ####
-To set up the lab for Ansible training, follow these steps.
+## Lab Configuration
+To provision the workshop onto AWS use the following directions:
+
+### One Time Setup
 
 1. Create an Amazon AWS account.
 
@@ -63,7 +73,9 @@ To set up the lab for Ansible training, follow these steps.
         git clone https://github.com/ansible/lightbulb.git
         cd lightbulb/tools/aws_lab_setup
 
-11. Define the following variables, either in a file passed in using `-e @extra_vars.yml` or directly in a `vars` section in `aws_lab_setup\infra-aws.yml`:
+## Setup (per workshop)
+
+1. Define the following variables, either in a file passed in using `-e @extra_vars.yml` or directly in a `vars` section in `aws_lab_setup\infra-aws.yml`:
 
       ```yaml
       ec2_key_name: username                # SSH key in AWS to put in all the instances
@@ -80,7 +92,7 @@ To set up the lab for Ansible training, follow these steps.
       instructor_email: 'Ansible Instructor <helloworld@acme.com>'  # address you want the emails to arrive from. Not required if "email: no" is set
       ```
 
-12. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
+2. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
 
     __(email)__
     ```yaml
@@ -119,11 +131,11 @@ For example:
           echo >> users.yml
         done
 
-13. Run the playbook:
+3. Run the playbook:
 
         ansible-playbook provision_lab.yml -e @extra_vars.yml -e @users.yml
 
-14. Check on the EC2 console and you should see instances being created like:
+4. Check on the EC2 console and you should see instances being created like:
 
         TRAINING-LAB-<student_username>-node1|2|3|haproxy|tower|control
 
@@ -139,7 +151,7 @@ __(no email)__ If you disabled email in your `extra_vars.yml` file, you will nee
   * Here you will find student instructions broken down into exercises as well as the presentation decks under the __Additional Resources__ drop down.
   * During the workshop, it is recommended that you have a second device or printed copy of the student guide.  Previous workshops have demonstrated that unless you've memorized all of it, you'll likely need to refer to the guide, but your laptop will be projecting the slide decks.  Some students will fall behind and you'll need to refer back to other exercises/slides without having to change the projection for the entire class.
 
-### AWS Teardown ###
+# AWS Teardown
 
 The `teardown_lab.yml` playbook deletes all the training instances as well as local inventory files.
 
