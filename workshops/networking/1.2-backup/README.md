@@ -15,10 +15,10 @@ For our first playbook, we will create a backup of our two routers.
 
 ## Section 1: Creating a Directory Structure and Files for your Playbook
 
-### Step 1: Navigate to the networking-workshop directory
+### Step 1: Navigate to the lightbulb directory
 
 ```bash
-cd ~/networking-workshop
+cd ~/lightbulb
 ```
 
 ### Step 2: Understand your inventory.
@@ -26,9 +26,8 @@ cd ~/networking-workshop
 Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
 
 ```bash
-cat /home/studentXX/networking-workshop/lab_inventory/*hosts
+cat ~/lightbulb/lessons/lab_inventory/*.txt
 ```
-**Fill in XX with your student number**
 
 You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (R1 and R2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
 
@@ -134,7 +133,7 @@ Ansible (well, YAML really) can be a bit particular about formatting especially 
 
 We are now going to run your brand spankin' new playbook on your two routers. To do this, you are going to use the **ansible-playbook** command.
 
-### Step 1: From your playbook directory ( ~/networking-workshop ), run your playbook.
+### Step 1: From your playbook directory ( ~/lightbulb ), run your playbook.
 
 ```bash
 ansible-playbook backup.yml
