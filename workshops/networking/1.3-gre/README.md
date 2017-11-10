@@ -84,10 +84,6 @@ tasks:
 Notice the `when` statement shown above.  This is a conditional.  If the inventory_hostname matches the string `rtr1` we will run this task.  Otherwise we will **skip**.  The only time you will see a **skip** is when a when statement is being used.  For more [information on conditionals click here](http://docs.ansible.com/ansible/latest/playbooks_conditionals.html).
 
 ## Step 5: Setting up the play for R2
-<<<<<<< HEAD
-
-=======
->>>>>>> a0df892305136175f432967bac689b6a717fbae3
 {% raw %}
 ```bash
 - name: create tunnel interface to R1
