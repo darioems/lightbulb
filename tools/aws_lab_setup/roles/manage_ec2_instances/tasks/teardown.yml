@@ -1,0 +1,95 @@
+- name: destroy EC2 instances
+  ec2:
+    region: "{{ ec2_region }}"
+    exact_count: "{{ ec2_exact_count }}"
+    image: "{{ ec2_instance_types[item.1.type].ami_id }}"
+    count_tag:
+      Name: "{{ ec2_name_prefix }}-{{ item.0.username }}-{{ item.1.name }}"
+    instance_tags:
+      Name: "{{ ec2_name_prefix }}-{{ item.0.username }}-{{ item.1.name }}"
+    wait: "{{ ec2_wait }}"
+  with_nested:
+    - "{{ users }}"
+    - "{{ ec2_lab_node_types }}"
+  register: instances
+  tags:
+    - always
+    - provision
+
+- name: Get the VPC ID for {{ ec2_name_prefix }}
+  ec2_vpc_net_facts:
+    filters:
+      "tag:Name": "vpc-{{ ec2_name_prefix }}"
+    region: "{{ ec2_region }}"
+  register: vpc_net_facts
+
+- name: quick debugging
+  debug:
+    var: vpc_net_facts.vpcs
+
+- name: debugging vpc id for {{ ec2_name_prefix }}
+  debug:
+    msg: "vpc id:'{{vpc_net_facts.vpcs[0].id}}'"
+  when: vpc_net_facts.vpcs|length > 0
+
+- name: Wait for instances to finish deleting
+  pause:
+    seconds: 90
+
+- name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }}
+  ec2_group:
+    name: insecure_all
+    region: "{{ ec2_region }}"
+    vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
+    state: absent
+  tags:
+    - always
+    - provision
+  when: vpc_net_facts.vpcs|length > 0
+
+- name: Delete subnet for vpc-{{ ec2_name_prefix }}
+  ec2_vpc_subnet:
+    region: "{{ ec2_region }}"
+    az: "{{ec2_az}}"
+    vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
+    cidr: "{{ec2_subnet}}"
+    state: absent
+  when: vpc_net_facts.vpcs|length > 0
+
+- name: vpc internet gateway is deleted for vpc-{{ ec2_name_prefix }}
+  ec2_vpc_igw:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
+    state: absent
+  when: vpc_net_facts.vpcs|length > 0
+
+- name: grab route information for {{ ec2_name_prefix }} on {{ ec2_region }}
+  ec2_vpc_route_table_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
+  register: route_table_facts
+  when: vpc_net_facts.vpcs|length > 0
+
+- name: vpc public subnet route table is deleted
+  ec2_vpc_route_table:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
+    route_table_id: "{{item.id}}"
+    lookup: id
+    state: absent
+  with_items: "{{route_table_facts.route_tables}}"
+  when: vpc_net_facts.vpcs|length > 0 and item.associations == []
+
+- name: delete ssh key pair for workshop {{ ec2_name_prefix }}
+  ec2_key:
+    name: "{{ ec2_name_prefix }}"
+    region: "{{ ec2_region }}"
+    state: absent
+
+- name: delete AWS VPC vpc-{{ ec2_name_prefix }}
+  ec2_vpc_net:
+    name: "vpc-{{ ec2_name_prefix }}"
+    cidr_block: "{{ec2_subnet}}"
+    region: "{{ ec2_region }}"
+    state: absent

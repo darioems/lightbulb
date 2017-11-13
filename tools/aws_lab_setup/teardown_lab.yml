@@ -7,12 +7,26 @@
   vars:
     ec2_exact_count: 0
     ec2_wait: no
+    teardown: true
+    create_lab: false
 
   roles:
-    - manage_ec2_instances
+     - manage_ec2_instances
 
   post_tasks:
-    - name: Remove inventory files
-      shell: rm -vf {{ playbook_dir }}/*.txt
-      register: removal
-      changed_when: removal.stdout_lines | length > 0
+   - name: Remove inventory files
+     file:
+       dest: "{{item}}"
+       state: absent
+     with_fileglob:
+       - "{{ playbook_dir }}/*.txt"
+
+   - name: Remove private key file
+     file:
+       path: '{{ playbook_dir }}/*.pem'
+       state: absent
+
+   - name: Remove old keys
+     shell: ssh-add -D
+     register: removal
+     changed_when: removal.stdout_lines | length > 0

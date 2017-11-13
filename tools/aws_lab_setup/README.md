@@ -13,10 +13,15 @@ The default mode provisions four nodes per user in the `users` list.
 ## Ansible Networking Mode
 This provisions the [Ansible Lightbulb - Networking Workshop](../../workshops/networking)
 
-This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).  
+This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).
+(**coming soon**)  
 
 # Table Of Contents
 - [AWS Setup](#aws-setup)
+  - [Email Options](#email-options)
+  - [Lab Configuration](#lab-configuration)
+    - [One Time Setup](#one-time-setup)
+  - [Setup (per workshop)](#setup-per-workshop)
 - [AWS Teardown](#aws-teardown)
 
 # AWS Setup
@@ -38,23 +43,27 @@ To provision the workshop onto AWS use the following directions:
 
 1. Create an Amazon AWS account.
 
-2. Create an ssh key pair called 'ansible'. (To create go Services -> EC2 -> Network & Security -> Key Pairs) Download the private key to your `.ssh` directory, e.g. to `.ssh/ansible.pem`. Alternatively, you can upload your own public key into AWS.
+2. Create an [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html).  Save the ID and key for later.
 
-      If using an AWS generated key add it to the ssh-agent:
-
-        ssh-add ~/.ssh/ansible.pem
-
-3. Create an [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html).  Save the ID and key for later.
-
-4. Create Amazon VPC.   Use the wizard and just accept the defaults.   It should create a VPC and a subnet. Save this info for later.
-
-5. Install `boto` and `boto3`.
+3. Install `boto` and `boto3`.
 
         pip install boto boto3
 
-6. Create a `boto` configuration file containing your AWS access key ID and secret access key.
+4. Create a `boto` configuration file containing your AWS access key ID and secret access key.
 
       Use the quickstart directions provided here: [http://boto3.readthedocs.io/en/latest/guide/quickstart.html](http://boto3.readthedocs.io/en/latest/guide/quickstart.html)
+
+5. Install the `passlib` library
+
+        pip install passlib
+
+6. Clone the lightbulb repo:
+
+        git clone https://github.com/ansible/lightbulb.git
+        cd lightbulb/tools/aws_lab_setup
+
+#### Step 7-8 are optional
+These steps are only needed if you are using the email feature
 
 7. __(email)__ Create a free [Sendgrid](http://sendgrid.com) account if you don't have one. Optionally, create an API key to use with this the playbook.
 
@@ -64,33 +73,29 @@ To provision the workshop onto AWS use the following directions:
 
         pip install sendgrid==2.2.1
 
-9. Install the `passlib` library
-
-        pip install passlib
-
-10. Clone the lightbulb repo:
-
-        git clone https://github.com/ansible/lightbulb.git
-        cd lightbulb/tools/aws_lab_setup
+What does the provisioner take care of automatically?
+- AWS VPC creation (Amazon WebServices Virtual Private Cloud)
+- Creation of an SSH key pair (stored at ./ansible.pem)
+- Creation of a AWS EC2 security group
+- Creation of a subnet for the VPC
+- Creation of an internet gateway for the VPC
+- Creation of route table for VPC (for reachability from internet)
 
 ## Setup (per workshop)
 
-1. Define the following variables, either in a file passed in using `-e @extra_vars.yml` or directly in a `vars` section in `aws_lab_setup\infra-aws.yml`:
+1. Define the following variables, either in a file passed in using `-e @extra_vars.yml` or directly in a `vars` section in `aws_lab_setup\infra-aws.yml`;
 
-      ```yaml
-      ec2_key_name: username                # SSH key in AWS to put in all the instances
-      ec2_region: us-west-1                 # region where the nodes will live
-      ec2_name_prefix: TRAINING-LAB         # name prefix for all the VMs
-      ec2_vpc_id: vpc-1234aaaa              # EC2 VPC ID in your region
-      ec2_vpc_subnet_id: subnet-5678bbbb    # EC2 subnet ID in your VPC
-      admin_password: changeme123           # Set this to something better if you'd like. Defaults to 'LearnAnsible[two digit month][two digit year]', e.g., LearnAnsible0416
-      ## Optional Variables
-      email: no                             # Set this if you wish to disable email
-      sendgrid_user: username               # username for the Sendgrid module.  Not required if "email: no" is set
-      sendgrid_pass: 'passwordgoeshere'     # sendgrid accound password.  Not required if "email: no" is set
-      sendgrid_api_key: 'APIkey'            # Instead of username and password, you may use an API key. Don't define both. Not required if "email: no" is set
-      instructor_email: 'Ansible Instructor <helloworld@acme.com>'  # address you want the emails to arrive from. Not required if "email: no" is set
-      ```
+```yml
+ec2_key_name: username                # SSH key in AWS to put in all the instances
+ec2_region: us-east-1                 # region where the nodes will live
+ec2_az: us-east-1a                    # availability zone
+ec2_name_prefix: TRAINING-LAB         # name prefix for all the VMs
+admin_password: ansible
+## Optional Variables
+email: no                             # Set this if you wish to disable email
+```
+
+For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control
 
 2. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
 
@@ -130,6 +135,8 @@ For example:
           echo "    email: instructor@acme.com" >> users.yml
           echo >> users.yml
         done
+
+For an example, look at [sample-users.yml](sample-users.yml) for a list of all the knobs you can control
 
 3. Run the playbook:
 

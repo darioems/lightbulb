@@ -2,7 +2,9 @@
   hosts: localhost
   connection: local
   become: no
-  gather_facts: no
+  vars:
+    create_lab: true
+    teardown: false
   roles:
     - manage_ec2_instances
 
