@@ -1,5 +1,7 @@
 # --- Lookup tables --- #
 # Region specific AMIs, subnets, and VPCs
+ec2_subnet: "172.16.0.0/16"           # subnet to use on AWS VPC
+
 ec2_regions:
   us-east-1:
     vpc: vpc-06c9a463
@@ -36,7 +38,7 @@ ec2_regions:
       rhel7-tower: ami-2b9d6c52
       ubuntu14: ami-6ebcec0e
       ubuntu16: ami-b05203d0
-  
+
   ap-southeast-1:
     vpc: vpc-xxxxxxxx
     subnet_id: subnet-xxxxxxxx

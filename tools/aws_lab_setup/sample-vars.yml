@@ -9,4 +9,4 @@ email: no                             # Set this if you wish to disable email
 #sendgrid_pass: 'passwordgoeshere'     # sendgrid accound password.  Not required if "email: no" is set
 #sendgrid_api_key: 'APIkey'            # Instead of username and password, you may use an API key. Don't define both. Not required if "email: no" is set
 #instructor_email: 'Ansible Instructor <helloworld@acme.com>'  # address you want the emails to arrive from. Not required if "email: no" is set
-#networking: yes                        # Set this if you want the workshop in networking mode (NOT WORKING YET)
+#networking: yes                        # Set this if you want the workshop in networking mode (NOT USED YET)

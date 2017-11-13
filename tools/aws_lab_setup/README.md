@@ -11,17 +11,18 @@ The default mode provisions four nodes per user in the `users` list.
 * And one node where `haproxy` is installed (via lightbulb lesson)
 
 ## Ansible Networking Mode
+(**coming soon**)  
 This provisions the [Ansible Lightbulb - Networking Workshop](../../workshops/networking)
 
 This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).
-(**coming soon**)  
 
 # Table Of Contents
 - [AWS Setup](#aws-setup)
   - [Email Options](#email-options)
-  - [Lab Configuration](#lab-configuration)
+  - [Lab Setup](#lab-setup)
     - [One Time Setup](#one-time-setup)
-  - [Setup (per workshop)](#setup-per-workshop)
+    - [Setup (per workshop)](#setup-per-workshop)
+  - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
 - [AWS Teardown](#aws-teardown)
 
 # AWS Setup
@@ -36,7 +37,7 @@ Steps included in this guide will be tagged with __(email)__ to denote it as a s
 
 **WARNING** Emails are sent _every_ time the playbook is run. To prevent emails from being sent on subsequent runs of the playbook, add `email: no` to `extra_vars.yml`.
 
-## Lab Configuration
+## Lab Setup
 To provision the workshop onto AWS use the following directions:
 
 ### One Time Setup
@@ -73,17 +74,9 @@ These steps are only needed if you are using the email feature
 
         pip install sendgrid==2.2.1
 
-What does the provisioner take care of automatically?
-- AWS VPC creation (Amazon WebServices Virtual Private Cloud)
-- Creation of an SSH key pair (stored at ./ansible.pem)
-- Creation of a AWS EC2 security group
-- Creation of a subnet for the VPC
-- Creation of an internet gateway for the VPC
-- Creation of route table for VPC (for reachability from internet)
+### Setup (per workshop)
 
-## Setup (per workshop)
-
-1. Define the following variables, either in a file passed in using `-e @extra_vars.yml` or directly in a `vars` section in `aws_lab_setup\infra-aws.yml`;
+1. Define the following variables in a file passed in using `-e @extra_vars.yml`
 
 ```yml
 ec2_key_name: username                # SSH key in AWS to put in all the instances
@@ -99,56 +92,68 @@ For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the
 
 2. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
 
-    __(email)__
-    ```yaml
-    users:
-      - name: Bod Barker
-        username: bbarker
-        email: bbarker@acme.com
+For a users example, look at [sample-users.yml](sample-users.yml)
+    **email**
+```yml
+users:
+  - name: Bod Barker
+    username: bbarker
+    email: bbarker@acme.com
 
-      - name: Jane Smith
-        username: jsmith
-        email: jsmith@acme.com
-    ```
+  - name: Jane Smith
+    username: jsmith
+    email: jsmith@acme.com
+```
 
-    __(no email)__
-    ```yaml
-    users:
-      - name: Student01
-        username: student01
-        email: instructor@acme.com
+**no email**
+```yml
+users:
+  - name: Student01
+    username: student01
+    email: instructor@acme.com
 
-      - name: Student02
-        username: student02
-        email: instructor@acme.com
-    ```
-    **(no email) NOTE:**  If using generic users, you can generate the corresponding
+  - name: Student02
+    username: student02
+    email: instructor@acme.com
+```
+- **no email** NOTE:  If using generic users, you can generate the corresponding
 `users.yml` file from the command line by creating a 'STUDENTS' variable
 containing the number of "environments" you want, and then populating the file.
 For example:
 
-        STUDENTS=30;
-        echo "users:" > users.yml &&
-        for NUM in $(seq -f "%02g" 1 $STUDENTS); do
-          echo "  - name: Student${NUM}" >> users.yml
-          echo "    username: student${NUM}" >> users.yml
-          echo "    email: instructor@acme.com" >> users.yml
-          echo >> users.yml
-        done
+```bash
+STUDENTS=30;
+echo "users:" > users.yml &&
+for NUM in $(seq -f "%02g" 1 $STUDENTS); do
+  echo "  - name: Student${NUM}" >> users.yml
+  echo "    username: student${NUM}" >> users.yml
+  echo "    email: instructor@acme.com" >> users.yml
+  echo >> users.yml
+done
+```
 
-For an example, look at [sample-users.yml](sample-users.yml) for a list of all the knobs you can control
+The [script is attached for your convenience](make_users.sh)
 
 3. Run the playbook:
 
         ansible-playbook provision_lab.yml -e @extra_vars.yml -e @users.yml
 
+What does the provisioner take care of automatically?
+- AWS VPC creation (Amazon WebServices Virtual Private Cloud)
+- Creation of an SSH key pair (stored at ./ansible.pem)
+  - This private key is installed automatically
+- Creation of a AWS EC2 security group
+- Creation of a subnet for the VPC
+- Creation of an internet gateway for the VPC
+- Creation of route table for VPC (for reachability from internet)
+
 4. Check on the EC2 console and you should see instances being created like:
 
         TRAINING-LAB-<student_username>-node1|2|3|haproxy|tower|control
 
-__(email)__ If successful all your students will be emailed the details of their hosts including addresses and credentials, and an `instructor_inventory.txt` file will be created listing all the student machines.
+**email** If successful all your students will be emailed the details of their hosts including addresses and credentials, and an `instructor_inventory.txt` file will be created listing all the student machines.
 
-__(no email)__ If you disabled email in your `extra_vars.yml` file, you will need to upload the instructor's inventory to a public URL which you will hand out to participants.  
+**no email** If you disabled email in your `extra_vars.yml` file, you will need to upload the instructor's inventory to a public URL which you will hand out to participants.  
 1. Use [github gist](https://gist.github.com/) to upload `lightbulb/tools/aws_lab_setup/instructors_inventory`.
 2. Use http://goo.gl to shorten the URL to make it more consumable
 

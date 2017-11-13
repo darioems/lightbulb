@@ -23,10 +23,6 @@
     region: "{{ ec2_region }}"
   register: vpc_net_facts
 
-- name: quick debugging
-  debug:
-    var: vpc_net_facts.vpcs
-
 - name: debugging vpc id for {{ ec2_name_prefix }}
   debug:
     msg: "vpc id:'{{vpc_net_facts.vpcs[0].id}}'"
