@@ -86,9 +86,10 @@ ec2_name_prefix: TRAINING-LAB         # name prefix for all the VMs
 admin_password: ansible
 ## Optional Variables
 email: no                             # Set this if you wish to disable email
+localsecurity: false                   # skips firewalld installation and SE Linux when turned to false
 ```
 
-For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control
+For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control.  For example you can use pre-existing AWS VPCs you already created.
 
 2. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
 
