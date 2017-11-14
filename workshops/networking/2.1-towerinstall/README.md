@@ -80,3 +80,6 @@ At this point, your Ansible Tower installation should be complete. You can acces
 You know you were successful if you are able to browse to your Ansible Tower’s url (control node’s IP address) and get something like this
 
 ![Figure 1: Ansible Tower Login Screen](tower.png)
+
+ ---
+[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

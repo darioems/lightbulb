@@ -75,3 +75,9 @@ Finally, let’s revert back and remove the banner.
 ```bash
 ansible routers -m ios_banner -a 'banner=motd state=absent' -c local
 ```
+
+# Complete
+You have completed lab exercise 1.1
+
+ ---
+[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

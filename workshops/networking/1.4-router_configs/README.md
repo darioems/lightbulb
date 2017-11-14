@@ -45,6 +45,7 @@ The fine where the value we need for host1_private_ip and control_private_ip we 
  - The IP address can be determined by private_ip=x.x.x.x located at: `/home/studentXX/networking-workshop/lab_inventory/studentXX.WORKSHOP_NAME.hosts` (where XX is your student number and WORKSHOP_NAME was provided by your instructor).  
  - This inventory file is being selected by the global configuration located at `/etc/ansible/ansible.cfg`
 
+{% raw %}
 ```yml
 ---
 - name: Router Configurations
@@ -56,9 +57,10 @@ The fine where the value we need for host1_private_ip and control_private_ip we 
     dns_servers:
       - 8.8.8.8
       - 8.8.4.4
-    host1_private_ip: "{{hostvars['host1']['private_ip']}}"
+    host1_private_ip: "{{hostva‌rs['host1']['private_ip']}}"
     control_private_ip: "{{hostvars['tower']['private_ip']}}"
 ```      
+{% endraw %}
 
 ### Step 3: Add the first task to capture the ios_facts.
 
@@ -71,6 +73,7 @@ tasks:
 
 ### Step 4: Create a block and add the tasks for rtr1 with conditionals. We’ll also add a comment for better documentation.
 
+{% raw %}
 ```
     ##Configuration for R1
     - block:
@@ -86,12 +89,13 @@ tasks:
       when:
         - '"rtr1" in inventory_hostname'
 ```
+{% endraw %}
 
  What the Helsinki is happening here!?
  - `vars:` You’ve told Ansible the next thing it sees will be a variable name.
  - `dns_servers` You are defining a list-type variable called dns_servers. What follows is a list of those the name servers.
- - `{{ item }}` You are telling Ansible that this will expand into a list item like 8.8.8.8 and 8.8.4.4.
- - `with_items: "{{ dns_servers }}` This is your loop which is instructing Ansible to perform this task on every `item` in `dns_servers`
+ - {% raw %}`{‌{ item }}`{% endraw %} You are telling Ansible that this will expand into a list item like 8.8.8.8 and 8.8.4.4.
+ - {% raw %}`with_items: "{‌{ dns_servers }}`{% endraw %} This is your loop which is instructing Ansible to perform this task on every `item` in `dns_servers`
  - `block:` This block will have a number of tasks associated with it.
  - `when:` We’re tying the when clause to the block. We’re telling ansible to run all the tasks within the block only when certain conditions are met.
   - Condition - the hostname must contain 'rtr1'
@@ -103,6 +107,7 @@ There will be 4 tasks in this block
 - net_static_route
 - net_system
 
+{% raw %}
 ```yml
 ##Configuration for R2
 - block:
@@ -128,6 +133,7 @@ There will be 4 tasks in this block
   when:
     - '"rtr2" in inventory_hostname'
 ```
+{% endraw %}
 
 **So…​ what’s going on?**
  - `net_interface:` This module allows us to define the state of the interface (up, admin down, etc.) in an agnostic way. In this case, we are making sure that GigabitEthernet2 is up and has the correct description.
@@ -139,4 +145,12 @@ There will be 4 tasks in this block
 
 Your playbook is done! But don’t run it just yet, we’ll do that in our next exercise. For now, let’s take a second look to make sure everything looks the way you intended. If not, now is the time for us to fix it up.
 
+
+# Complete
+You have completed exercise 1.4
+
+## Answer Key
 To view and run the completed playbook move on to [Exercise 1.5!](../1.5-run_routing_configs)
+
+ ---
+[Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

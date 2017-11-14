@@ -3,13 +3,11 @@
 This content is a multi-purpose toolkit for effectively demonstrating Ansible's capabilities on network equipment (Arista, Cisco, Cumulus, Juniper etc) or providing informal workshop training in various forms -- instructor-led, hands-on or self-paced.
 
 ## Presentation
-Want the Presentation Deck?  Its right here: https://network-automation.github.io/ansible-networking.html
+Want the Presentation Deck?  Its right here:
+[Ansible Networking Lightbulb Deck](../../decks/ansible-networking.html)
 
-## Class 10/26/2017 - Montreal, Quebec
-[Click for Workbench Access](quebec.md)
-
-## Class 10/27/2017 - Chicago, Illinois
-[Click for Workbench Access](chicago.md)
+## Diagram
+![network diagram](diagram.png)
 
 ## Ansible Engine Networking Exercises
 

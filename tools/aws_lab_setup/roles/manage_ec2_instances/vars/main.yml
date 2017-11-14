@@ -36,7 +36,7 @@ ec2_regions:
       rhel7-tower: ami-2b9d6c52
       ubuntu14: ami-6ebcec0e
       ubuntu16: ami-b05203d0
-  
+
   ap-southeast-1:
     vpc: vpc-xxxxxxxx
     subnet_id: subnet-xxxxxxxx
