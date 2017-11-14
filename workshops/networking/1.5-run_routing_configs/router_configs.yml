@@ -35,7 +35,7 @@
 
     ##Configuration for R2
     - block:
-      - name: enable GigabitEthernet2 interface if compliant
+      - name: enable GigabitEthernet2 interface
         net_interface:
           name: GigabitEthernet2
           description: interface to host1
