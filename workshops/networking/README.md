@@ -6,9 +6,8 @@ This content is a multi-purpose toolkit for effectively demonstrating Ansible's 
 Want the Presentation Deck?  Its right here:
 [Ansible Networking Lightbulb Deck](../../decks/ansible-networking.html)
 
-## Class Login information
-
-- [Atlanta 11/08/2017](atlanta.md)
+## Diagram
+![network diagram](diagram.png)
 
 ## Ansible Engine Networking Exercises
 

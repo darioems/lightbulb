@@ -8,9 +8,6 @@
 # Workshops
 - [Ansible Networking Workshop](workshops/networking/README.md)
 
-
-
-
 <br><br><br><br>
 
  ---

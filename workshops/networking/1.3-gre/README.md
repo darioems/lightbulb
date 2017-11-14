@@ -8,17 +8,17 @@ Before we go into creating the playbook, let’s look at what we’re trying to 
 - We’ll use the GigabitEthernet1 interface on both routers to configure the tunnel
 
 ## Table of Contents
-- [Step 1: Make sure you’re in the networking-workshop directory](#step-1-make-sure-youre-in-the-networking-workshop-directory)
+- [Step 1: Make sure you’re in the lightbulb directory](#step-1-make-sure-youre-in-the-lightbulb-directory)
 - [Step 2: Let’s create our playbook named gre.yml](#step-2-lets-create-our-playbook-named-greyml)
 - [Step 3: Setting up your playbook](#step-3-setting-up-your-playbook)
 - [Step 4: Adding the tasks for R1](#step-4-adding-the-tasks-for-r1)
 - [Step 5: Setting up the play for R2](#step-5-setting-up-the-play-for-r2)
 - [Step 6: Running the playbook](#step-6-running-the-playbook)
 
-## Step 1: Make sure you’re in the networking-workshop directory
+## Step 1: Make sure you’re in the lightbulb directory
 
 ```bash
-cd ~/networking-workshop
+cd ~/lightbulb
 ```
 
 Before we go into creating the playbook, let’s look at what we’re trying to accomplish.
@@ -44,7 +44,7 @@ In this playbook we need to configure both sides of the GRE tunnel.  The tunnel 
   connection: local
 ```
 
-We also need **two variables**.  We need the public IP address for rtr1 and rtr2.  These two IP addresses will be different for every student in the workshop.  The public IP address can be found in the `/home/studentXX/networking-workshop/lab_inventory/XX.hosts` on your tower node.  Just call these `rtr1_public_ip` and `rtr2_public_ip`.  The IP address 1.1.1.1 and 2.2.2.2 are placeholders!  Please replace them, or use the dynamic mode below:
+We also need **two variables**.  We need the public IP address for rtr1 and rtr2.  These two IP addresses will be different for every student in the workshop.  The public IP address can be found in the `/home/studentXX/lightbulb/lab_inventory/XX.hosts` on your tower node.  Just call these `rtr1_public_ip` and `rtr2_public_ip`.  The IP address 1.1.1.1 and 2.2.2.2 are placeholders!  Please replace them, or use the dynamic mode below:
 ```yml
 vars:
    #Variables can be manually set like this:
@@ -84,10 +84,7 @@ tasks:
 Notice the `when` statement shown above.  This is a conditional.  If the inventory_hostname matches the string `rtr1` we will run this task.  Otherwise we will **skip**.  The only time you will see a **skip** is when a when statement is being used.  For more [information on conditionals click here](http://docs.ansible.com/ansible/latest/playbooks_conditionals.html).
 
 ## Step 5: Setting up the play for R2
-<<<<<<< HEAD
 
-=======
->>>>>>> a0df892305136175f432967bac689b6a717fbae3
 {% raw %}
 ```bash
 - name: create tunnel interface to R1
@@ -105,7 +102,7 @@ Notice the `when` statement shown above.  This is a conditional.  If the invento
 Now that you’ve completed writing your playbook, let’s go ahead and save it.  Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`  We now have our second playbook. Let’s go ahead and run that awesomeness!
 
 ## Step 6: Running the playbook
-From your networking-workshop directory, run the gre.yml playbook
+From your lightbulb directory, run the gre.yml playbook
 ```bash
 ansible-playbook gre.yml
 ```
