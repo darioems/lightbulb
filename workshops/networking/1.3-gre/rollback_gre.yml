@@ -1,6 +1,6 @@
 ---
 - name: Configure GRE Tunnel between rtr1 and rtr2
-  hosts: all
+  hosts: routers
   vars:
      ansible_network_os: ios
      ansible_connection: local
