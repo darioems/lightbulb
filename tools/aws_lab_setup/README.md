@@ -11,12 +11,18 @@ The default mode provisions four nodes per user in the `users` list.
 * And one node where `haproxy` is installed (via lightbulb lesson)
 
 ## Ansible Networking Mode
+(**coming soon**)  
 This provisions the [Ansible Lightbulb - Networking Workshop](../../workshops/networking)
 
-This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).  
+This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).
 
 # Table Of Contents
 - [AWS Setup](#aws-setup)
+  - [Email Options](#email-options)
+  - [Lab Setup](#lab-setup)
+    - [One Time Setup](#one-time-setup)
+    - [Setup (per workshop)](#setup-per-workshop)
+  - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
 - [AWS Teardown](#aws-teardown)
 
 # AWS Setup
@@ -31,30 +37,34 @@ Steps included in this guide will be tagged with __(email)__ to denote it as a s
 
 **WARNING** Emails are sent _every_ time the playbook is run. To prevent emails from being sent on subsequent runs of the playbook, add `email: no` to `extra_vars.yml`.
 
-## Lab Configuration
+## Lab Setup
 To provision the workshop onto AWS use the following directions:
 
 ### One Time Setup
 
 1. Create an Amazon AWS account.
 
-2. Create an ssh key pair called 'ansible'. (To create go Services -> EC2 -> Network & Security -> Key Pairs) Download the private key to your `.ssh` directory, e.g. to `.ssh/ansible.pem`. Alternatively, you can upload your own public key into AWS.
+2. Create an [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html).  Save the ID and key for later.
 
-      If using an AWS generated key add it to the ssh-agent:
-
-        ssh-add ~/.ssh/ansible.pem
-
-3. Create an [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html).  Save the ID and key for later.
-
-4. Create Amazon VPC.   Use the wizard and just accept the defaults.   It should create a VPC and a subnet. Save this info for later.
-
-5. Install `boto` and `boto3`.
+3. Install `boto` and `boto3`.
 
         pip install boto boto3
 
-6. Create a `boto` configuration file containing your AWS access key ID and secret access key.
+4. Create a `boto` configuration file containing your AWS access key ID and secret access key.
 
       Use the quickstart directions provided here: [http://boto3.readthedocs.io/en/latest/guide/quickstart.html](http://boto3.readthedocs.io/en/latest/guide/quickstart.html)
+
+5. Install the `passlib` library
+
+        pip install passlib
+
+6. Clone the lightbulb repo:
+
+        git clone https://github.com/ansible/lightbulb.git
+        cd lightbulb/tools/aws_lab_setup
+
+#### Step 7-8 are optional
+These steps are only needed if you are using the email feature
 
 7. __(email)__ Create a free [Sendgrid](http://sendgrid.com) account if you don't have one. Optionally, create an API key to use with this the playbook.
 
@@ -64,84 +74,93 @@ To provision the workshop onto AWS use the following directions:
 
         pip install sendgrid==2.2.1
 
-9. Install the `passlib` library
+### Setup (per workshop)
 
-        pip install passlib
+1. Define the following variables in a file passed in using `-e @extra_vars.yml`
 
-10. Clone the lightbulb repo:
+```yml
+ec2_key_name: username                # SSH key in AWS to put in all the instances
+ec2_region: us-east-1                 # region where the nodes will live
+ec2_az: us-east-1a                    # availability zone
+ec2_name_prefix: TRAINING-LAB         # name prefix for all the VMs
+admin_password: ansible
+## Optional Variables
+email: no                             # Set this if you wish to disable email
+localsecurity: false                   # skips firewalld installation and SE Linux when turned to false
+```
 
-        git clone https://github.com/ansible/lightbulb.git
-        cd lightbulb/tools/aws_lab_setup
-
-## Setup (per workshop)
-
-1. Define the following variables, either in a file passed in using `-e @extra_vars.yml` or directly in a `vars` section in `aws_lab_setup\infra-aws.yml`:
-
-      ```yaml
-      ec2_key_name: username                # SSH key in AWS to put in all the instances
-      ec2_region: us-west-1                 # region where the nodes will live
-      ec2_name_prefix: TRAINING-LAB         # name prefix for all the VMs
-      ec2_vpc_id: vpc-1234aaaa              # EC2 VPC ID in your region
-      ec2_vpc_subnet_id: subnet-5678bbbb    # EC2 subnet ID in your VPC
-      admin_password: changeme123           # Set this to something better if you'd like. Defaults to 'LearnAnsible[two digit month][two digit year]', e.g., LearnAnsible0416
-      ## Optional Variables
-      email: no                             # Set this if you wish to disable email
-      sendgrid_user: username               # username for the Sendgrid module.  Not required if "email: no" is set
-      sendgrid_pass: 'passwordgoeshere'     # sendgrid accound password.  Not required if "email: no" is set
-      sendgrid_api_key: 'APIkey'            # Instead of username and password, you may use an API key. Don't define both. Not required if "email: no" is set
-      instructor_email: 'Ansible Instructor <helloworld@acme.com>'  # address you want the emails to arrive from. Not required if "email: no" is set
-      ```
+For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control.  For example you can use pre-existing AWS VPCs you already created.
 
 2. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
 
-    __(email)__
-    ```yaml
-    users:
-      - name: Bod Barker
-        username: bbarker
-        email: bbarker@acme.com
+For a users example, look at [sample-users.yml](sample-users.yml)
+    **email**
+```yml
+users:
+  - name: Bod Barker
+    username: bbarker
+    email: bbarker@acme.com
 
-      - name: Jane Smith
-        username: jsmith
-        email: jsmith@acme.com
-    ```
+  - name: Jane Smith
+    username: jsmith
+    email: jsmith@acme.com
+```
 
-    __(no email)__
-    ```yaml
-    users:
-      - name: Student01
-        username: student01
-        email: instructor@acme.com
+**no email**
+```yml
+users:
+  - name: Student01
+    username: student01
+    email: instructor@acme.com
 
-      - name: Student02
-        username: student02
-        email: instructor@acme.com
-    ```
-    **(no email) NOTE:**  If using generic users, you can generate the corresponding
+  - name: Student02
+    username: student02
+    email: instructor@acme.com
+```
+- **no email** NOTE:  If using generic users, you can generate the corresponding
 `users.yml` file from the command line by creating a 'STUDENTS' variable
 containing the number of "environments" you want, and then populating the file.
 For example:
 
-        STUDENTS=30;
-        echo "users:" > users.yml &&
-        for NUM in $(seq -f "%02g" 1 $STUDENTS); do
-          echo "  - name: Student${NUM}" >> users.yml
-          echo "    username: student${NUM}" >> users.yml
-          echo "    email: instructor@acme.com" >> users.yml
-          echo >> users.yml
-        done
+```bash
+STUDENTS=30;
+echo "users:" > users.yml &&
+for NUM in $(seq -f "%02g" 1 $STUDENTS); do
+  echo "  - name: Student${NUM}" >> users.yml
+  echo "    username: student${NUM}" >> users.yml
+  echo "    email: instructor@acme.com" >> users.yml
+  echo >> users.yml
+done
+```
 
+<<<<<<< HEAD
+=======
+The [script is attached for your convenience](make_users.sh)
+
+>>>>>>> 13c131a621cdfe6b152914a6d3f6bbe9ebc6a37d
 3. Run the playbook:
 
         ansible-playbook provision_lab.yml -e @extra_vars.yml -e @users.yml
 
+<<<<<<< HEAD
+=======
+What does the provisioner take care of automatically?
+- AWS VPC creation (Amazon WebServices Virtual Private Cloud)
+- Creation of an SSH key pair (stored at ./ansible.pem)
+  - This private key is installed automatically
+- Creation of a AWS EC2 security group
+- Creation of a subnet for the VPC
+- Creation of an internet gateway for the VPC
+- Creation of route table for VPC (for reachability from internet)
+
+>>>>>>> 13c131a621cdfe6b152914a6d3f6bbe9ebc6a37d
 4. Check on the EC2 console and you should see instances being created like:
 
         TRAINING-LAB-<student_username>-node1|2|3|haproxy|tower|control
 
-__(email)__ If successful all your students will be emailed the details of their hosts including addresses and credentials, and an `instructor_inventory.txt` file will be created listing all the student machines.
+**email** If successful all your students will be emailed the details of their hosts including addresses and credentials, and an `instructor_inventory.txt` file will be created listing all the student machines.
 
-__(no email)__ If you disabled email in your `extra_vars.yml` file, you will need to upload the instructor's inventory to a public URL which you will hand out to participants.  
+**no email** If you disabled email in your `extra_vars.yml` file, you will need to upload the instructor's inventory to a public URL which you will hand out to participants.  
 1. Use [github gist](https://gist.github.com/) to upload `lightbulb/tools/aws_lab_setup/instructors_inventory`.
 2. Use http://goo.gl to shorten the URL to make it more consumable
 

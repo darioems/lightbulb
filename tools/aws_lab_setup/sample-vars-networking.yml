@@ -1,6 +1,6 @@
 ec2_region: us-east-1                 # region where the nodes will live
 ec2_az: us-east-1a                    # availability zone
-ec2_name_prefix: SEANTEST1117         # name prefix for all the VMs
+ec2_name_prefix: SEANTEST1113         # name prefix for all the VMs
 admin_password: ansible
 ## Optional Variables
 #ec2_vpc_id: vpc-1234aaaa              # EC2 VPC ID in your region, if not supplied will be automatically created
@@ -11,5 +11,5 @@ email: no                             # Set this if you wish to disable email
 #sendgrid_pass: 'passwordgoeshere'     # sendgrid accound password.  Not required if "email: no" is set
 #sendgrid_api_key: 'APIkey'            # Instead of username and password, you may use an API key. Don't define both. Not required if "email: no" is set
 #instructor_email: 'Ansible Instructor <helloworld@acme.com>'  # address emails arrive from. Not required if "email: no"
-#networking: true                       # Set this if you want the workshop in networking mode (NOT USED YET)
+networking: true                       # Set this if you want the workshop in networking mode (NOT USED YET)
 localsecurity: false                   # skips firewalld installation and SE Linux when false

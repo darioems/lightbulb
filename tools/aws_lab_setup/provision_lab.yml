@@ -2,8 +2,22 @@
   hosts: localhost
   connection: local
   become: no
+<<<<<<< HEAD
+=======
+  gather_facts: no
+  vars:
+    create_lab: true
+    teardown: false
+>>>>>>> 13c131a621cdfe6b152914a6d3f6bbe9ebc6a37d
   roles:
     - manage_ec2_instances
+
+- name: wait for all nodes to have SSH reachability
+  hosts: "managed_nodes:control_nodes"
+  become: yes
+  gather_facts: no
+  roles:
+    - reachability
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"
