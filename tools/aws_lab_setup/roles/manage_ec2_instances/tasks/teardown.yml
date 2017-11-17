@@ -139,7 +139,9 @@
     filters:
       vpc_id: "{{ec2_vpc_id2}}"
   register: route_table_facts2
-  when: vpc_net_facts2.vpcs|length > 0
+  when:
+    - networking
+    - vpc_net_facts2.vpcs|length > 0
 
 - name: vpc public subnet route table is deleted
   ec2_vpc_route_table:
@@ -159,7 +161,10 @@
     lookup: id
     state: absent
   with_items: "{{route_table_facts2.route_tables}}"
-  when: vpc_net_facts2.vpcs|length > 0 and item.associations == []
+  when:
+    - networking
+    - vpc_net_facts2.vpcs|length > 0
+    - item.associations == []
 
 - name: set keys for instance creation dynamically since key was not supplied by user
   set_fact:

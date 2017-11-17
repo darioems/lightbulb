@@ -2,13 +2,10 @@
   hosts: localhost
   connection: local
   become: no
-<<<<<<< HEAD
-=======
   gather_facts: no
   vars:
     create_lab: true
     teardown: false
->>>>>>> 13c131a621cdfe6b152914a6d3f6bbe9ebc6a37d
   roles:
     - manage_ec2_instances
 

@@ -133,17 +133,12 @@ for NUM in $(seq -f "%02g" 1 $STUDENTS); do
 done
 ```
 
-<<<<<<< HEAD
-=======
 The [script is attached for your convenience](make_users.sh)
 
->>>>>>> 13c131a621cdfe6b152914a6d3f6bbe9ebc6a37d
 3. Run the playbook:
 
         ansible-playbook provision_lab.yml -e @extra_vars.yml -e @users.yml
 
-<<<<<<< HEAD
-=======
 What does the provisioner take care of automatically?
 - AWS VPC creation (Amazon WebServices Virtual Private Cloud)
 - Creation of an SSH key pair (stored at ./ansible.pem)
@@ -153,7 +148,6 @@ What does the provisioner take care of automatically?
 - Creation of an internet gateway for the VPC
 - Creation of route table for VPC (for reachability from internet)
 
->>>>>>> 13c131a621cdfe6b152914a6d3f6bbe9ebc6a37d
 4. Check on the EC2 console and you should see instances being created like:
 
         TRAINING-LAB-<student_username>-node1|2|3|haproxy|tower|control
