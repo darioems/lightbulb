@@ -2,12 +2,11 @@ secrets.yml
 users.yml
 extra_vars.yml
 *.txt
-instructor*
 .vagrant/*
-ansible.cfg
-hosts
 TODO
 TODO.md
 bak/
 *.BAK
-.DS_Store
+*.DS_Store
+*.pem
+instructor_inventory.txt
