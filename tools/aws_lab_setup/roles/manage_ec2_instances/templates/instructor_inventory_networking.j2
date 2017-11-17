@@ -10,19 +10,19 @@ ansible_port={{ ssh_port }}
 {{ host.invocation.module_args.instance_tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.tagged_instances[0].public_ip }} ansible_user={{ec2_login_names[ansible_node] }}
 {% endif %}
 {% endfor %}
-{% for host in node1_output.results %}
+{% for host in rtr1_output.results %}
 {% if host.skipped is not defined and user.username in host.invocation.module_args.instance_tags.Name %}
-{{ host.invocation.module_args.instance_tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.tagged_instances[0].public_ip }} ansible_user={{ec2_login_names[node1_node] }}
+{{ host.invocation.module_args.instance_tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.tagged_instances[0].public_ip }} ansible_user={{ec2_login_names[rtr1_node] }}
 {% endif %}
 {% endfor %}
-{% for host in node2_output.results %}
+{% for host in rtr2_output.results %}
 {% if host.skipped is not defined and user.username in host.invocation.module_args.instance_tags.Name %}
-{{ host.invocation.module_args.instance_tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.tagged_instances[0].public_ip }} ansible_user={{ec2_login_names[node2_node] }}
+{{ host.invocation.module_args.instance_tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.tagged_instances[0].public_ip }} ansible_user={{ec2_login_names[rtr2_node] }}
 {% endif %}
 {% endfor %}
-{% for host in node3_output.results %}
+{% for host in host1_output.results %}
 {% if host.skipped is not defined and user.username in host.invocation.module_args.instance_tags.Name %}
-{{ host.invocation.module_args.instance_tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.tagged_instances[0].public_ip }} ansible_user={{ec2_login_names[node3_node] }}
+{{ host.invocation.module_args.instance_tags.Name | regex_replace(ec2_name_prefix ~ '-','') }} ansible_host={{ host.tagged_instances[0].public_ip }} ansible_user={{ec2_login_names[host1_node] }}
 {% endif %}
 {% endfor %}
 {% endfor %}

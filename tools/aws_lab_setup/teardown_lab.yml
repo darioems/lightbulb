@@ -2,7 +2,7 @@
   hosts: localhost
   connection: local
   become: no
-  gather_facts: yes
+  gather_facts: no
 
   vars:
     ec2_exact_count: 0
@@ -11,7 +11,7 @@
     create_lab: false
 
   roles:
-     - manage_ec2_instances
+    - manage_ec2_instances
 
   post_tasks:
    - name: Remove inventory files
