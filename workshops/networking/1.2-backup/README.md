@@ -184,7 +184,7 @@ For this playbook we will be running only on the `ansible` and `host1` nodes.  S
   become: yes
 ```
 
-The `ansible` host is running Red Hat Enterprise Linux Server.  To add a static route we just need to add a line using the [Ansible lineinfile module](http://docs.ansible.com/ansible/latest/lineinfile_module.html) with the subnet and destination under `/etc/sysconfig/network-scripts/route-eth0`.  The `create: yes` will create the file if its not already created.  We will also use `notify: "restart network"` to run a handler if this file changes.
+The `ansible` host is running Red Hat Enterprise Linux Server.  To add a static route we just need to add a line using the [Ansible lineinfile module](http://docs.ansible.com/ansible/latest/lineinfile_module.html) with the subnet and destination under `/etc/sysconfig/network-scripts/route-eth0`.  The ```create: yes``` will create the file if its not already created.  We will also use `notify: "restart network"` to run a handler if this file changes.
 
 ```yml
   tasks:
