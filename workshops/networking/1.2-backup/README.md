@@ -195,7 +195,7 @@ The `ansible` host is running Red Hat Enterprise Linux Server.  To add a static 
         create: yes
       notify: "restart network"
 ```
-Next we need to create a handler to restart networking if routes are changed.  The name matters and must match what we are notifying in the task displayed above.  In this case it has to be `restart network` but is user defined and as long as it matches the handler will be fun.
+Next we need to create a handler to restart networking if routes are changed.  The name matters and must match what we are notifying in the task displayed above.  In this case it has to be `restart network` but is user defined and as long as it matches the handler will be run.
 
 ```yml
   handlers:
@@ -234,7 +234,7 @@ Now run the playbook:
 You have completed lab exercise 1.2
 
 ## Answer Key
-For backup.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/backup.yml).
-
+- For backup.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/backup.yml).
+- For host-routes.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/host-routes.yml)
  ---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

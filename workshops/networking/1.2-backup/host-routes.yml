@@ -14,9 +14,9 @@
 
   handlers:
     - name: restart network
-		  systemd:
-		    state: restarted
-		    name: network
+      systemd:
+        state: restarted
+        name: network
 
 - name: add route on host1
   hosts: host1
@@ -33,6 +33,6 @@
 
   handlers:
     - name: restart network
-		  systemd:
-		    state: restarted
-		    name: network
+      systemd:
+        state: restarted
+        name: network
