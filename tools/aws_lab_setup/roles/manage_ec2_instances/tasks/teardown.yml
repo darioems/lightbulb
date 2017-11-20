@@ -51,7 +51,7 @@
 
 - name: Wait for instances to finish deleting
   pause:
-    seconds: 120
+    seconds: 140
   when: instances|changed
 
 # - ec2_eni_facts:

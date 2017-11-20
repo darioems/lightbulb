@@ -14,7 +14,7 @@
     #or reference dynamically variables tied to the host directly
     #in this case, its grabbing this from the inventory under lab_inventory:
     host1_private_ip: "{{hostvars['host1']['private_ip']}}"
-    control_private_ip: "{{hostvars['tower']['private_ip']}}"
+    control_private_ip: "{{hostvars['ansible']['private_ip']}}"
   tasks:
     - name: gather ios_facts
       ios_facts:
@@ -35,16 +35,16 @@
 
     ##Configuration for R2
     - block:
-      - name: enable GigabitEthernet2 interface
+      - name: enable GigabitEthernet1 interface
         net_interface:
-          name: GigabitEthernet2
+          name: GigabitEthernet1
           description: interface to host1
           state: present
-      - name: dhcp configuration for GigabitEthernet2
+      - name: dhcp configuration for GigabitEthernet1
         ios_config:
           lines:
             - ip address dhcp
-          parents: interface GigabitEthernet2
+          parents: interface GigabitEthernet1
       - name: Static route from R2 to R1
         net_static_route:
           prefix: "{{control_private_ip}}"

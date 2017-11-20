@@ -1,6 +1,6 @@
 # Exercise 1.2 - Backing up Configurations
 
-Now that you’ve gotten a sense of how ansible works, we are going to write our first ansible **playbook**. The playbook is where you can take some of those ad-hoc commands you just ran and put them into a repeatable set of plays and tasks.
+Now that you’ve gotten a sense of how Ansible works, we are going to write our first Ansible **playbook**. The playbook is where you can take some of those ad-hoc commands you just ran and put them into a repeatable set of plays and tasks.
 
 A playbook can have multiple plays and a play can have one or multiple tasks. The goal of a play is to map a group of hosts. The goal of a task is to implement modules against those hosts.
 
@@ -15,10 +15,10 @@ For our first playbook, we will create a backup of our two routers.
 
 ## Section 1: Creating a Directory Structure and Files for your Playbook
 
-### Step 1: Navigate to the lightbulb directory
+### Step 1: Navigate to the networking_workshop directory
 
 ```bash
-cd ~/lightbulb
+cd ~/networking_workshop
 ```
 
 ### Step 2: Understand your inventory.
@@ -26,7 +26,7 @@ cd ~/lightbulb
 Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
 
 ```bash
-cat ~/lightbulb/lessons/lab_inventory/*.txt
+cat ~/networking_workshops/lab_inventory/hosts
 ```
 
 You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (R1 and R2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
@@ -62,6 +62,7 @@ Now that we’ve defined your play, let’s add the necessary tasks to backup ou
 Make sure all of your playbook statements are aligned in the way shown here.
 If you want to see the entire playbook for reference, skip to the end of Section 4 of this exercise.
 
+{% raw %}
 ```bash
   tasks:
     - name: gather ios_facts
@@ -74,12 +75,13 @@ If you want to see the entire playbook for reference, skip to the end of Section
     - name: Backup configuration
       ios_config:
         backup: yes
-```      
+```
+{% endraw %}      
 
  - `tasks:` This denotes that one or more tasks are about to be defined
  - `name:` Each task should be given a name which will print to standard output when you run your playbook. Therefore, give your tasks a name that is short, sweet, and to the point
 
- The following section is using the ios_facts ansible module to gather IOS related facts about the router we are targeting. [Click here](http://docs.ansible.com/ansible/latest/ios_facts_module.html) to learn more about the ios_facts module.  We are taking the ios_facts that the module provides and registering it to a variable called facts. This information is now available to us to use in subsequent tasks if we wish to do so. Next, we are making a debug statement to display the output of what information is actually captured when using the ios_facts module.
+ The following section is using the ios_facts ansible module to gather IOS related facts. [Click here](http://docs.ansible.com/ansible/latest/ios_facts_module.html) to learn more about the ios_facts module.  The facts (i.e. information) is now available to us to use in subsequent tasks if we wish to do so.  Next, we are making a debug statement to display the output of what information is actually captured when using the ios_facts module so we know what is available to use.
 
 {% raw %}
  ```bash
@@ -108,7 +110,8 @@ Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`
 
 And that should do it. You should now have a fully written playbook called backup.yml. You are ready to automate!
 
-Ansible (well, YAML really) can be a bit particular about formatting especially around indentation/spacing. When you all get back to the office, read up on this YAML Syntax a bit more and it will save you some headaches later. In the meantime, your completed playbook should look like this. Take note of the spacing and alignment.
+Yaml can be a bit particular about formatting especially around indentation/spacing.  Take note of the spacing and alignment:
+{% raw %}
 ```
 ---
 - name: backup router configurations
@@ -127,13 +130,14 @@ Ansible (well, YAML really) can be a bit particular about formatting especially 
     - name: Backup configuration
       ios_config:
         backup: yes
-```        
+```       
+{% endraw %}
 
 ## Section 5: Running your playbook
 
-We are now going to run your brand spankin' new playbook on your two routers. To do this, you are going to use the **ansible-playbook** command.
+We are now going to run the new playbook on both routers. To do this, you are going to use the **ansible-playbook** command.
 
-### Step 1: From your playbook directory ( ~/lightbulb ), run your playbook.
+### Step 1: From your playbook directory ( ~/networking_workshops ), run your playbook.
 
 ```bash
 ansible-playbook backup.yml
@@ -164,12 +168,18 @@ or
 ```bash
 less backup/rtr2*
 ```
+## Handlers
+For our 2nd playbook we need to add a routes from VPC1 (172.16.0.0/16) to VPC2 (172.17.0.0/16) and vice versa.  For this exercise we will also illustrate handlers.
+
+We need two routes:
+ - From the `ansible` control node to `rtr1` for the `172.17.0.0/16` subnet
+ - From the `host1` node to `rtr2` for the 172.16.0.0/16 subnet
 
 # Complete
 You have completed lab exercise 1.2
 
 ## Answer Key
-You can [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/backup.yml).
+For backup.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/backup.yml).
 
  ---
 [Click Here to return to the Ansible Lightbulb - Networking Workshop](../README.md)

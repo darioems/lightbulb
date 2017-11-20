@@ -1,0 +1,23 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+{% for vm in rtr1_output.results %}
+{% if item.username in vm.invocation.module_args.instance_tags.Name %}
+{{ vm.tagged_instances[0].public_ip }} {{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{% endif %}
+{% endfor %}
+{% for vm in rtr2_output.results %}
+{% if item.username in vm.invocation.module_args.instance_tags.Name %}
+{{ vm.tagged_instances[0].public_ip }} {{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{% endif %}
+{% endfor %}
+{% for vm in host1_output.results %}
+{% if item.username in vm.invocation.module_args.instance_tags.Name %}
+{{ vm.tagged_instances[0].public_ip }} {{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{% endif %}
+{% endfor %}
+{% for vm in control_output.results %}
+{% if item.username in vm.invocation.module_args.instance_tags.Name %}
+{{ vm.tagged_instances[0].public_ip }} {{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }}
+{% endif %}
+{% endfor %}

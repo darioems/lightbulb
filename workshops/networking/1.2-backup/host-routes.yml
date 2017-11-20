@@ -1,0 +1,28 @@
+---
+- name: add routes to local rtr
+  hosts: host1,ansible
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: add route to 172.17.0.0/16 subnet on ansible node
+      lineinfile:
+        path: /etc/sysconfig/network-scripts/route-eth0
+        line: "172.17.0.0/16 via {{hostvars['rtr1']['private_ip']}}"
+        create: yes
+      when: inventory_hostname == 'ansible'
+      notify: "restart network"
+
+    - name: add route to 172.16.0.0/16 subnet on ansible node
+      lineinfile:
+        path: /etc/sysconfig/network-scripts/route-eth0
+        line: "172.16.0.0/16 via {{hostvars['rtr2']['private_ip']}}"
+        create: yes
+      when: inventory_hostname == 'host1'
+      notify: "restart network"
+
+  handlers:
+    - name: restart network
+		  systemd:
+		    state: restarted
+		    name: network

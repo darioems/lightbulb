@@ -96,6 +96,13 @@
     dest: ./{{ item.username }}-instances.txt
   with_items: "{{ users }}"
 
+- name: Generate student etchosts
+  template:
+    src: etchosts_networking.j2
+    dest: ./{{ item.username }}-etchosts.txt
+  with_items: "{{ users }}"
+  when: networking
+
 - name: Generate instructor inventory
   template:
     src: instructor_inventory_networking.j2

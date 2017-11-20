@@ -13,6 +13,7 @@
       - git
       - wget
       - nano
+      - tree
 
     state: latest
     enablerepo: epel-testing
@@ -32,31 +33,151 @@
     - control
   when: control_node_install_ansible
 
+- name: Ansible Essentials mode
+  block:
+    - name: Clone lightbulb
+      git:
+        accept_hostkey: yes
+        clone: yes
+        dest: ~{{ username }}/lightbulb
+        repo: https://github.com/ansible/lightbulb.git
+        force: yes
+      become_user: "{{ username }}"
+      tags:
+        - control_node
+        - control
 
-- name: Clone lightbulb
-  git:
-    accept_hostkey: yes
-    clone: yes
-    dest: ~{{ username }}/lightbulb
-    repo: https://github.com/ansible/lightbulb.git
-    force: yes
-  become_user: "{{ username }}"
-  tags:
-    - control_node
-    - control
+    - name: Remove things that students don't need
+      file:
+        state: absent
+        path: ~{{ username }}/lightbulb/{{ item }}
+      with_items:
+        - aws_lab_setup
+        - resources
+        - Vagrantfile
+        - README.md
+      tags:
+        - control_node
+        - control
 
-- name: Remove things that students don't need
-  file:
-    state: absent
-    path: ~{{ username }}/lightbulb/{{ item }}
-  with_items:
-    - aws_lab_setup
-    - resources
-    - Vagrantfile
-    - README.md
-  tags:
-    - control_node
-    - control
+    - name: Create lab inventory directory
+      file:
+        state: directory
+        path: /home/{{ username }}/lightbulb/lessons/lab_inventory
+      tags:
+        - control_node
+        - control
+
+    - name: Put student inventory in proper spot
+      copy:
+        src: ./{{ username }}-instances.txt
+        dest: "{{ control_node_inventory_path }}"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+      when: username in inventory_hostname
+      tags:
+        - control_node
+        - control
+  when: not networking
+
+- name: Ansible Networking mode
+  block:
+    - name: Clone lightbulb repo (NETWORKING MODE)
+      git:
+        accept_hostkey: yes
+        clone: yes
+        dest: /tmp/lightbulb
+        repo: https://github.com/network-automation/lightbulb.git
+        force: yes
+      tags:
+        - lightbulb
+
+    - name: Move networking workshop folder to correct location  (NETWORKING MODE)
+      command: cp -r /tmp/lightbulb/workshops/networking/ /home/{{ username }}/networking-workshop
+      tags:
+        - lightbulb
+
+    - name: fix permissions of networking-workshop  (NETWORKING MODE)
+      file:
+        path: /home/{{ username }}/networking-workshop
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        recurse: yes
+
+    - name: Create lab inventory directory (NETWORKING MODE)
+      file:
+        state: directory
+        path: /home/{{ username }}/networking-workshop/lab_inventory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+      tags:
+        - control_node
+        - control
+
+    - name: Put student inventory in proper spot (NETWORKING MODE)
+      copy:
+        src: ./{{ username }}-instances.txt
+        dest: "/home/{{ username }}/networking-workshop/lab_inventory/hosts"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+      when: username in inventory_hostname
+      tags:
+        - control_node
+        - control
+
+    - name: Put ssh-key in proper spot for student
+      copy:
+        src: ./aws-private.pem
+        dest: "/home/{{username}}/.ssh/"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+      tags:
+        - testing
+
+    - name: Put ssh-key in proper for ec2-user
+      copy:
+        src: ./aws-private.pem
+        dest: "/home/ec2-user/.ssh/"
+        owner: "ec2-user"
+        group: "ec2-user"
+
+    - name: change permissions on ssh-key file
+      file:
+        path: "/home/{{username}}/.ssh/aws-private.pem"
+        mode: 0400
+
+    - name: copy over ssh config file for student
+      template:
+        src: sshconfig.j2
+        dest: /home/{{username}}/.ssh/config
+        owner: "{{username}}"
+        group: "{{username}}"
+
+    - name: copy over ssh config file for ec2-user
+      template:
+        src: sshconfig_ec2.j2
+        dest: /home/ec2-user/.ssh/config
+        owner: "ec2-user"
+        group: "ec2-user"
+
+    - name: change permissions on ssh config file for ec2-user
+      file:
+        path: "/home/ec2-user/.ssh/config"
+        mode: 0400
+
+    - name: change permissions on ssh config file for student
+      file:
+        path: "/home/{{username}}/.ssh/config"
+        mode: 0700
+
+    - name: setup /etc/hosts file per student
+      copy:
+        src: ./{{ username }}-etchosts.txt
+        dest: "/etc/hosts"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+  when: networking
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
@@ -71,22 +192,3 @@
     - control_node
     - control
     - vim
-
-- name: Create lab inventory directory
-  file:
-    state: directory
-    path: /home/{{ username }}/lightbulb/lessons/lab_inventory
-  tags:
-    - control_node
-    - control
-
-- name: Put student inventory in proper spot
-  copy:
-    src: ./{{ username }}-instances.txt
-    dest: "{{ control_node_inventory_path }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: username in inventory_hostname
-  tags:
-    - control_node
-    - control
