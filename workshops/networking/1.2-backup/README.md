@@ -7,13 +7,21 @@ A playbook can have multiple plays and a play can have one or multiple tasks. Th
 For our first playbook, we will create a backup of our two routers.
 
 ## Table of contents
-- [Section 1: Creating a Directory Structure and Files for your Playbook](#section-1-creating-a-directory-structure-and-files-for-your-playbook)
-- [Section 2: Defining Your Play](#section-2-defining-your-play)
-- [Section 3: Adding Tasks to Your Play](#section-3-adding-tasks-to-your-play)
-- [Section 4: Review](#section-4-review)
-- [Section 5: Running your playbook](#section-5-running-your-playbook)
+- [Playbook 1 - Backup.yml](#playbook-1-backup-yml)
+ - [Section 1: Defining Your Play](#section-1-defining-your-play)
+ - [Section 2: Adding Tasks to Your Play](#section-2-adding-tasks-to-your-play)
+ - [Section 3: Review](#section-3-review)
+ - [Section 4: Running your playbook](#section-4-running-your-playbook)
+- [Playbook 2 - host-routes.yml](#handlers)
+- [Answer Key](#answer-key)
 
-## Section 1: Creating a Directory Structure and Files for your Playbook
+## Playbook 1 - Backup.yml
+A playbook for backing up Cisco IOS configurations.
+
+**What you will learn:**
+ - ios_facts module
+ - register keyword
+ - debug module
 
 ### Step 1: Navigate to the networking_workshop directory
 
@@ -29,9 +37,9 @@ Inventories are crucial to Ansible as they define remote nodes on which you wish
 cat ~/networking_workshops/lab_inventory/hosts
 ```
 
-You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (R1 and R2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
+You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (rtr1 and rtr2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
 
-## Section 2: Defining Your Play
+## Section 1: Defining Your Play
 
 Let’s create our first playbook and name it backup.yml.
 
@@ -55,7 +63,7 @@ Now that we are editing [backup.yml](backup.yml), let’s begin by defining the 
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
  - `connection: local` tells Ansible to execute this python module locally (target node is not capable of running Python)
 
-## Section 3: Adding Tasks to Your Play
+## Section 2: Adding Tasks to Your Play
 
 Now that we’ve defined your play, let’s add the necessary tasks to backup our routers.
 
@@ -102,7 +110,7 @@ The next three lines are calling the Ansible module ios_config and passing in th
         backup: yes
 ```
 
-## Section 4: Review
+## Section 3: Review
 
 Now that you’ve completed writing your playbook, it would be a shame not to keep it.
 
@@ -133,7 +141,7 @@ Yaml can be a bit particular about formatting especially around indentation/spac
 ```       
 {% endraw %}
 
-## Section 5: Running your playbook
+## Section 4: Running your playbook
 
 We are now going to run the new playbook on both routers. To do this, you are going to use the **ansible-playbook** command.
 
@@ -168,7 +176,14 @@ or
 ```bash
 less backup/rtr2*
 ```
-## Handlers
+## Playbook 2 - host-routes.yml
+A playbook for configuring static Routes.
+
+What you will learn:
+ - lineinfile module
+ - handlers
+ ---
+
 For our 2nd playbook we need to add a routes from VPC-1 (172.16.0.0/16) to VPC-2 (172.17.0.0/16) and vice versa.  For this exercise we will also illustrate handlers.
 
 We need two routes:
