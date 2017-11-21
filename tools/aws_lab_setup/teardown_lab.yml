@@ -9,9 +9,11 @@
     ec2_wait: no
     teardown: true
     create_lab: false
+    s3_state: absent
 
   roles:
     - manage_ec2_instances
+    - aws_workshop_login_page
 
   post_tasks:
    - name: Remove inventory files
