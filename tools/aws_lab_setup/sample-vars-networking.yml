@@ -1,6 +1,6 @@
 ec2_region: us-east-1                 # region where the nodes will live
 ec2_az: us-east-1a                    # availability zone
-ec2_name_prefix: SEANTEST1113         # name prefix for all the VMs
+ec2_name_prefix: SEANTEST1120         # name prefix for all the VMs
 admin_password: ansible
 ## Optional Variables
 #ec2_vpc_id: vpc-1234aaaa              # EC2 VPC ID in your region, if not supplied will be automatically created
