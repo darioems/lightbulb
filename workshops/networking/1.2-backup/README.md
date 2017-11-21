@@ -1,18 +1,19 @@
 # Exercise 1.2 - Backing up Configurations
 
-Now that you’ve gotten a sense of how Ansible works, we are going to write our first Ansible **playbook**. The playbook is where you can take some of those ad-hoc commands you just ran and put them into a repeatable set of plays and tasks.
+We are going to write our first Ansible **playbook**. The playbook is where you can take some of those ad-hoc commands from exercise 1.1 and make them a repeatable set of plays and tasks.
 
 A playbook can have multiple plays and a play can have one or multiple tasks. The goal of a play is to map a group of hosts. The goal of a task is to implement modules against those hosts.
 
-For our first playbook, we will create a backup of our two routers.
+For our first playbook, we will create a backup of the two routers.
 
 ## Table of contents
-- [Playbook 1 - Backup.yml](#playbook-1-backup-yml)
- - [Section 1: Defining Your Play](#section-1-defining-your-play)
- - [Section 2: Adding Tasks to Your Play](#section-2-adding-tasks-to-your-play)
- - [Section 3: Review](#section-3-review)
- - [Section 4: Running your playbook](#section-4-running-your-playbook)
-- [Playbook 2 - host-routes.yml](#handlers)
+- [Playbook 1 - Backup.yml](#playbook-1---backupyml)
+  - [Section 1: Defining Your Play](#section-1-defining-your-play)
+  - [Section 2: Adding Tasks to Your Play](#section-2-adding-tasks-to-your-play)
+  - [Section 3: Review](#section-3-review)
+  - [Section 4: Running the playbook](#section-4-running-the-playbook)
+- [Playbook 2 - host-routes.yml](#playbook-2---host-routesyml)
+  - [Section 1: Defining the 2nd play](#section-1-defining-the-2nd-play)
 - [Answer Key](#answer-key)
 
 ## Playbook 1 - Backup.yml
@@ -23,13 +24,15 @@ A playbook for backing up Cisco IOS configurations.
  - register keyword
  - debug module
 
-### Step 1: Navigate to the networking_workshop directory
+ ---
+
+#### Step 1: Navigate to the networking_workshop directory
 
 ```bash
 cd ~/networking_workshop
 ```
 
-### Step 2: Understand your inventory.
+#### Step 2: Understand your inventory.
 
 Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
 
@@ -39,7 +42,7 @@ cat ~/networking_workshops/lab_inventory/hosts
 
 You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (rtr1 and rtr2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
 
-## Section 1: Defining Your Play
+### Section 1: Defining Your Play
 
 Let’s create our first playbook and name it backup.yml.
 
@@ -63,7 +66,7 @@ Now that we are editing [backup.yml](backup.yml), let’s begin by defining the 
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
  - `connection: local` tells Ansible to execute this python module locally (target node is not capable of running Python)
 
-## Section 2: Adding Tasks to Your Play
+### Section 2: Adding Tasks to Your Play
 
 Now that we’ve defined your play, let’s add the necessary tasks to backup our routers.
 
@@ -110,7 +113,7 @@ The next three lines are calling the Ansible module ios_config and passing in th
         backup: yes
 ```
 
-## Section 3: Review
+### Section 3: Review
 
 Now that you’ve completed writing your playbook, it would be a shame not to keep it.
 
@@ -141,11 +144,11 @@ Yaml can be a bit particular about formatting especially around indentation/spac
 ```       
 {% endraw %}
 
-## Section 4: Running your playbook
+### Section 4: Running the playbook
 
 We are now going to run the new playbook on both routers. To do this, you are going to use the **ansible-playbook** command.
 
-### Step 1: From your playbook directory ( ~/networking_workshops ), run your playbook.
+#### Step 1: From your playbook directory ( ~/networking_workshops ), run your playbook.
 
 ```bash
 ansible-playbook backup.yml
@@ -160,7 +163,7 @@ Want to test a playbook to see if your syntax is correct before executing it on 
 ansible-playbook backup.yml --syntax-check
 ```
 
-### Step 2: List the files in the backup directory
+#### Step 2: List the files in the backup directory
 You can view the backup files that were created by listing the backup directory.
 
 ```bash
@@ -183,6 +186,14 @@ What you will learn:
  - lineinfile module
  - handlers
  ---
+
+### Section 1: Defining the 2nd play
+
+Let’s create our 2nd playbook and name it `host-routes.yml`
+
+```bash
+vim host-routes.yml
+```
 
 For our 2nd playbook we need to add a routes from VPC-1 (172.16.0.0/16) to VPC-2 (172.17.0.0/16) and vice versa.  For this exercise we will also illustrate handlers.
 
@@ -243,12 +254,14 @@ Now we need to repeat for `host1`:
         name: network
 ```
 Now run the playbook:
-`ansible-playbook host-routes.yml`
+```bash
+ansible-playbook host-routes.yml
+```
 
 # Complete
 You have completed lab exercise 1.2
 
-## Answer Key
+# Answer Key
 - For backup.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/backup.yml).
 - For host-routes.yml [click here](https://github.com/network-automation/lightbulb/blob/master/workshops/networking/1.2-backup/host-routes.yml)
 
