@@ -8,12 +8,7 @@ For our first playbook, we will create a backup of the two routers.
 
 ## Table of contents
 - [Playbook 1 - Backup.yml](#playbook-1---backupyml)
-  - [Section 1: Defining Your Play](#section-1-defining-your-play)
-  - [Section 2: Adding Tasks to Your Play](#section-2-adding-tasks-to-your-play)
-  - [Section 3: Review](#section-3-review)
-  - [Section 4: Running the playbook](#section-4-running-the-playbook)
 - [Playbook 2 - host-routes.yml](#playbook-2---host-routesyml)
-  - [Section 1: Defining the 2nd play](#section-1-defining-the-2nd-play)
 - [Answer Key](#answer-key)
 
 ## Playbook 1 - Backup.yml
@@ -26,13 +21,13 @@ A playbook for backing up Cisco IOS configurations.
 
  ---
 
-#### Step 1: Navigate to the networking_workshop directory
+### Step 1: Navigate to the networking_workshop directory
 
 ```bash
 cd ~/networking_workshop
 ```
 
-#### Step 2: Understand your inventory.
+### Step 2: Understand your inventory.
 
 Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
 
@@ -42,7 +37,7 @@ cat ~/networking_workshops/lab_inventory/hosts
 
 You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (rtr1 and rtr2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
 
-### Section 1: Defining Your Play
+### Step 3: Defining the Play
 
 Let’s create our first playbook and name it backup.yml.
 
@@ -66,7 +61,7 @@ Now that we are editing [backup.yml](backup.yml), let’s begin by defining the 
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
  - `connection: local` tells Ansible to execute this python module locally (target node is not capable of running Python)
 
-### Section 2: Adding Tasks to Your Play
+###  Step 4: Adding Tasks to Your Play
 
 Now that we’ve defined your play, let’s add the necessary tasks to backup our routers.
 
@@ -113,15 +108,11 @@ The next three lines are calling the Ansible module ios_config and passing in th
         backup: yes
 ```
 
-### Section 3: Review
+### Step 5: Review
 
-Now that you’ve completed writing your playbook, it would be a shame not to keep it.
+Now that you’ve completed writing your playbook, it would be a shame not to keep it.  Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`
 
-Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`
-
-And that should do it. You should now have a fully written playbook called backup.yml. You are ready to automate!
-
-Yaml can be a bit particular about formatting especially around indentation/spacing.  Take note of the spacing and alignment:
+[Yaml](http://yaml.org/) can be a bit particular about formatting especially around indentation/spacing.  Take note of the spacing and alignment:
 {% raw %}
 ```
 ---
@@ -144,26 +135,26 @@ Yaml can be a bit particular about formatting especially around indentation/spac
 ```       
 {% endraw %}
 
-### Section 4: Running the playbook
+### Step 6: Run the playbook
 
-We are now going to run the new playbook on both routers. To do this, you are going to use the **ansible-playbook** command.
-
-#### Step 1: From your playbook directory ( ~/networking_workshops ), run your playbook.
+To run the playbook use the **ansible-playbook** command.
 
 ```bash
 ansible-playbook backup.yml
 ```
-In standard output, you should see something that looks very similar to the following:
+In standard output, you should see something that looks similar to the following:
 ![Figure 2: backup playbook stdout](playbook-output.png)
 
-Want to test a playbook to see if your syntax is correct before executing it on remote systems?
 
- Try using `--syntax-check` If you run into any issues with your playbook running properly help find those issues like so:
- ```bash
-ansible-playbook backup.yml --syntax-check
-```
+> Want to test a playbook to see if your syntax is correct before executing it on remote systems?
+>
+> Try using `--syntax-check` If you run into any issues with your playbook running properly help find those issues like so:
+> ```bash
+> ansible-playbook backup.yml --syntax-check
+> ```
+>
 
-#### Step 2: List the files in the backup directory
+### Step 7: List the files in the backup directory
 You can view the backup files that were created by listing the backup directory.
 
 ```bash
@@ -187,7 +178,7 @@ What you will learn:
  - handlers
  ---
 
-### Section 1: Defining the 2nd play
+### Step 1: Defining the Play
 
 Let’s create our 2nd playbook and name it `host-routes.yml`
 
@@ -212,6 +203,8 @@ For this playbook we will be running only on the `ansible` and `host1` nodes.  S
 
 The `ansible` host is running Red Hat Enterprise Linux Server.  To add a static route we just need to add a line using the [Ansible lineinfile module](http://docs.ansible.com/ansible/latest/lineinfile_module.html) with the subnet and destination under `/etc/sysconfig/network-scripts/route-eth0`.  The ```create: yes``` will create the file if its not already created.  We will also use `notify: "restart network"` to run a handler if this file changes.
 
+### Step 2: Adding tasks
+
 ```yml
   tasks:
     - name: add route to 172.17.0.0/16 subnet on ansible node
@@ -223,6 +216,8 @@ The `ansible` host is running Red Hat Enterprise Linux Server.  To add a static 
 ```
 Next we need to create a handler to restart networking if routes are changed.  The name matters and must match what we are notifying in the task displayed above.  In this case it has to be `restart network` but is user defined and as long as it matches the handler will be run.
 
+### Step 3: Adding a handler
+
 ```yml
   handlers:
     - name: restart network
@@ -230,6 +225,8 @@ Next we need to create a handler to restart networking if routes are changed.  T
         state: restarted
         name: network
 ```
+
+### Step 4: Repeat for host1
 
 Now we need to repeat for `host1`:
 
@@ -253,6 +250,9 @@ Now we need to repeat for `host1`:
         state: restarted
         name: network
 ```
+
+### Step 5: Run the playbook
+
 Now run the playbook:
 ```bash
 ansible-playbook host-routes.yml
