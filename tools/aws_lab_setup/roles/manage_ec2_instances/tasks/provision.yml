@@ -85,7 +85,8 @@
         cidr_ip: 0.0.0.0/0
   when:
     - networking
-    - ec2_vpc_id2 == "" and ec2_exact_count >= 1
+    - ec2_vpc_id2 == ""
+    - ec2_exact_count >= 1
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
   ec2_vpc_subnet:

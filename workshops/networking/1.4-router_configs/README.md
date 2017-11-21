@@ -6,7 +6,7 @@ Previous exercises showed you the basics of Ansible. In the exercise, we will bu
  - [Intro](#intro)
  - [Section 1 - Using variables in a playbook](#section-1---using-variables-in-a-playbook)
  - [Section 2 - Create a block for rtr1](#section-2---create-a-block-for-rtr1)
- - [Section 3 - Configuring rtr2](#section-3---configuring-rtr2]
+ - [Section 3 - Configuring rtr2](#section-3---configuring-rtr2)
  - [Section 4 - Review](#section-4-review)
 
 ## Intro
