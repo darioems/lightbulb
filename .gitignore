@@ -15,3 +15,4 @@ instructor_inventory.txt
 *.pem
 *.pem
 tools/aws_lab_setup/aws-private.pem
+.DS_Store

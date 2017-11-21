@@ -1,11 +1,19 @@
+- name: Create users if not defined
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  roles:
+    - student_users
+
 - name: Create lab instances in AWS
   hosts: localhost
   connection: local
   become: no
   gather_facts: no
   vars:
-    create_lab: true
     teardown: false
+    create_lab: true
   roles:
     - manage_ec2_instances
 

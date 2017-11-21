@@ -58,7 +58,7 @@ cat ~/networking_workshops/lab_inventory/hosts
 There are a total of 3 groups:
  - `[control]` - contains the `ansible` node that we are currently ssh’d into
  - `[routers]` - contains the two routers `rtr1` and `rtr2`
- - `[hosts]` - contains one linux host `host` connecdted to `rtr2`
+ - `[hosts]` - contains one linux host `host1` connected to `rtr2`
 
 Let's analyze one of the hosts:
 ```bash
@@ -89,7 +89,7 @@ Let’s create our first playbook and name it backup.yml.
 vim backup.yml
 ```
 
-Now that we are editing [backup.yml](backup.yml), let’s begin by defining the play and then understanding what each line accomplishes
+Let’s begin by defining the play and then understanding what each line accomplishes
 
 ```yml
 ---

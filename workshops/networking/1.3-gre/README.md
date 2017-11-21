@@ -19,7 +19,7 @@ Before we go into creating the playbook, let’s look at what we’re trying to 
 **What you will learn:**
  - ios_config module
  - parents keyword
- - conditionals
+ - conditionals (`when` clause)
 
  ---
 

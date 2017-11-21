@@ -145,6 +145,11 @@
         path: "/home/{{username}}/.ssh/aws-private.pem"
         mode: 0400
 
+    - name: change permissions on ssh-key file
+      file:
+        path: "/home/ec2-user/.ssh/aws-private.pem"
+        mode: 0400
+
     - name: copy over ssh config file for student
       template:
         src: sshconfig.j2
