@@ -16,9 +16,6 @@
     host1_private_ip: "{{hostvars['host1']['private_ip']}}"
     control_private_ip: "{{hostvars['ansible']['private_ip']}}"
   tasks:
-    - name: gather ios_facts
-      ios_facts:
-
     ##Configuration for R1
     - block:
       - name: Static route from R1 to R2

@@ -44,3 +44,11 @@
   gather_facts: no
   roles:
     - email
+
+- name: Setup Amazon S3 Website for Student Login
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  roles:
+    - { role: aws_workshop_login_page, when: create_login_page }
