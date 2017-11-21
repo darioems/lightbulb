@@ -27,6 +27,7 @@ email: no                              # Set this if you wish to disable email
 networking: true                       # Set this if you want the workshop in networking mode
 localsecurity: false                   # skips firewalld installation and SE Linux when false
 student_total: 2                       # automatically creates students if you don't define a user.yml
+create_login_page: true
 ```
 The two most important variables above that probably need modifying are
 - `ec2_name_prefix` this name doesn't matter, just name it something you will remember (or use the date)
@@ -38,7 +39,7 @@ The two most important variables above that probably need modifying are
 ansible-playbook provision_lab.yml -e @my_workshop.yml
 ```
 
-Now get coffee / beer / something while it provisions.
+Now get coffee / beer / something, while it provisions.
 
 ## Grab Login information
 
@@ -48,7 +49,12 @@ The login information will be stored in the current working directory (`lightbul
 cat instructor_inventory.txt
 ```
 
-(THIS WILL BE AUTOMATICALLY PUT ON A WEBSITE IN A FUTURE VERSION!!)
+## Webpage creation
+
+If you used `create_login_page: true` above you will also get a webpage created for students.
+
+The webpage will be generated as {{ec2_name_prefix}}.rhdemo.io
+in the example above this literally means http://my_test_workshop.rhdemo.io
 
 ## Lab Teardown
 If you used automatically created students the file name will always be `generated_student_list.txt`
