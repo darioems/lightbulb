@@ -14,7 +14,6 @@
       - wget
       - nano
       - tree
-
     state: latest
     enablerepo: epel-testing
   tags:
@@ -163,7 +162,7 @@
     - name: change permissions on ssh config file for ec2-user
       file:
         path: "/home/ec2-user/.ssh/config"
-        mode: 0400
+        mode: 0700
 
     - name: change permissions on ssh config file for student
       file:
