@@ -77,6 +77,7 @@ A playbook for backing up Cisco IOS configurations.
  - ios_facts module
  - register keyword
  - debug module
+ - ios_config module backup parameter
 
  ---
 
@@ -188,14 +189,20 @@ ansible-playbook backup.yml
 In standard output, you should see something that looks similar to the following:
 ![Figure 2: backup playbook stdout](playbook-output.png)
 
-<table><tr><td>
+<table>
+<tbody>
+  <tr>
+    <td>
  Want to test a playbook to see if your syntax is correct before executing it on remote systems?
 
  Try using `--syntax-check` If you run into any issues with your playbook running properly help find those issues like so:
  ```bash
  ansible-playbook backup.yml --syntax-check
  ```
-</td></tr></table>
+    </td>
+  </tr>
+</tbody>
+</table>
 
 ### Step 5: List the files in the backup directory
 You can view the backup files that were created by listing the backup directory.
@@ -219,6 +226,7 @@ A playbook for configuring static routes on Linux hosts.
 What you will learn:
  - lineinfile module
  - handlers
+
  ---
 
 ### Step 1: Defining the Play
