@@ -1,5 +1,17 @@
 # Quick Instructions for Ansible Lightbulb - Networking
 
+## Clone Network-Automation Lightbulb
+
+```bash
+git clone https://github.com/network-automation/lightbulb
+```
+
+## Move into aws_lab_setup directory
+
+```bash
+cd lightbulb/tools/aws_lab_setup/
+```
+
 ## Create Vars File
 Create a workshop vars file.  You can literally just do a `cp` from the `lightbulb/tools/aws_lab_setup/` directory
 ```
