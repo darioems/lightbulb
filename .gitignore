@@ -13,3 +13,5 @@ instructor_inventory.txt
 *.pem
 *.pem
 *.pem
+*.pem
+tools/aws_lab_setup/aws-private.pem
