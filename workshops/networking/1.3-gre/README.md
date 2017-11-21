@@ -5,20 +5,19 @@ Let’s work on our next playbook.  This playbook will create a Generic Routing 
 Before we go into creating the playbook, let’s look at what we’re trying to accomplish.
 - We have two VPC’s, VPC 1 & VPC 2 with rtr1 and rtr2 residing in each VPC respectively
 - We are going to bridge the two VPC’s via a GRE Tunnel between rtr1 and rtr2
-- We’ll use the GigabitEthernet1 interface on both routers to configure the tunnel
 
 ## Table of Contents
-- [Step 1: Make sure you’re in the lightbulb directory](#step-1-make-sure-youre-in-the-lightbulb-directory)
+- [Step 1: Navigate to the networking_workshop directory](#step-1-navigate-to-the-networking-workshop directory)
 - [Step 2: Let’s create our playbook named gre.yml](#step-2-lets-create-our-playbook-named-greyml)
 - [Step 3: Setting up your playbook](#step-3-setting-up-your-playbook)
 - [Step 4: Adding the tasks for R1](#step-4-adding-the-tasks-for-r1)
 - [Step 5: Setting up the play for R2](#step-5-setting-up-the-play-for-r2)
 - [Step 6: Running the playbook](#step-6-running-the-playbook)
 
-## Step 1: Make sure you’re in the lightbulb directory
+## Step 1: Navigate to the networking_workshop directory
 
 ```bash
-cd ~/lightbulb
+cd ~/networking_workshop
 ```
 
 Before we go into creating the playbook, let’s look at what we’re trying to accomplish.

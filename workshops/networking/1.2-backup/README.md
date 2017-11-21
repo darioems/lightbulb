@@ -1,17 +1,76 @@
 # Exercise 1.2 - Backing up Configurations
 
-We are going to write our first Ansible **playbook**. The playbook is where you can take some of those ad-hoc commands from exercise 1.1 and make them a repeatable set of plays and tasks.
+We are going to write our first Ansible **playbook**. The playbook is where you can take some of the ad-hoc commands from exercise 1.1 and make them a repeatable set of plays and tasks.
 
 A playbook can have multiple plays and a play can have one or multiple tasks. The goal of a play is to map a group of hosts. The goal of a task is to implement modules against those hosts.
 
-For our first playbook, we will create a backup of the two routers.
-
 ## Table of contents
-- [Playbook 1 - Backup.yml](#playbook-1---backupyml)
+- [Exploring the environment](#exploring-the-environment)
+- [Playbook 1 - backup.yml](#playbook-1---backupyml)
 - [Playbook 2 - host-routes.yml](#playbook-2---host-routesyml)
 - [Answer Key](#answer-key)
 
-## Playbook 1 - Backup.yml
+
+## Exploring the environment
+Before we run a playbook, lets explore
+  - ansible.cfg - the ansible configuration files
+  - inventory - hosts and groups configurations
+
+### Step 1: Navigate to the networking_workshop directory
+
+```bash
+cd ~/networking_workshop
+```
+
+### Step 2: Look at the ansible configuration file
+
+Run the `ansible` command with the `--version` command to look at what is configured:
+```bash
+[lcage@ip-172-16-74-150 ~]$ ansible --version
+ansible 2.4.1.0
+  config file = /home/lcage/.ansible.cfg
+  configured module search path = [u'/home/lcage/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Oct 11 2015, 17:47:16) [GCC 4.8.3 20140911 (Red Hat 4.8.3-9)]
+```
+In the output provided the [ansible.cfg file](http://docs.ansible.com/ansible/latest/intro_configuration.html) location is shown.  Now cat the ansible.cfg to see the configuration parameters:
+```bash
+[lcage@ip-172-16-74-150 ~]$ cat ~/.ansible.cfg
+[defaults]
+connection = smart
+timeout = 60
+inventory = /home/lcage/networking-workshop/lab_inventory/hosts
+host_key_checking = False
+private_key_file = ~/.ssh/aws-private.pem
+```
+The two most important parameters are:
+ - `inventory`: shows the location of the ansible inventory being used
+ - `private_key_file`: this shows the location of the private key used to login to devices
+
+### Step 3: Understand your inventory.
+[Inventories](http://docs.ansible.com/ansible/latest/intro_inventory.html) are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). `cat` the inventory file:
+
+```bash
+cat ~/networking_workshops/lab_inventory/hosts
+```
+
+There are a total of 3 groups:
+ - `[control]` - contains the `ansible` node that we are currently ssh’d into
+ - `[routers]` - contains the two routers `rtr1` and `rtr2`
+ - `[hosts]` - contains one linux host `host` connecdted to `rtr2`
+
+Let's analyze one of the hosts:
+```bash
+rtr1 ansible_host=54.174.116.49 ansible_ssh_user=ec2-user private_ip=172.16.3.183
+```
+ - `rtr1` - the name that ansible will use.  This can but does not have to rely on DNS
+ - `ansible_host` - the IP address that ansible will use, if not configured it will default to DNS
+ - `ansible_ssh_user` - the user ansible will use to login to this host, if not configured it will default to the user the playbook is run from
+ - `private_ip` - this value is not reserved by ansible so it will default to a [host variable](http://docs.ansible.com/ansible/latest/intro_inventory.html#host-variables).  This variable can be used by playbooks or ignored completely.
+
+
+## Playbook 1 - backup.yml
 A playbook for backing up Cisco IOS configurations.
 
 **What you will learn:**
@@ -21,23 +80,7 @@ A playbook for backing up Cisco IOS configurations.
 
  ---
 
-### Step 1: Navigate to the networking_workshop directory
-
-```bash
-cd ~/networking_workshop
-```
-
-### Step 2: Understand your inventory.
-
-Inventories are crucial to Ansible as they define remote nodes on which you wish to run your playbook(s). Cat out (or vim into) your inventory file to understand the hosts file we’ll be working with.
-
-```bash
-cat ~/networking_workshops/lab_inventory/hosts
-```
-
-You’ll notice that we are working with 3 groups. The control group, which is the tower node that we are currently ssh’d into. The routers group, which is a grouping of two routers (rtr1 and rtr2). And finally the hosts group, which has another linux node residing in a separate Amazon Virtual Private Cloud or [VPC](https://aws.amazon.com/vpc/) for short.
-
-### Step 3: Defining the Play
+### Step 1: Defining the Play
 
 Let’s create our first playbook and name it backup.yml.
 
@@ -61,7 +104,7 @@ Now that we are editing [backup.yml](backup.yml), let’s begin by defining the 
  - `gather_facts: no` Tells Ansible to not run something called the setup module. The setup module is useful when targeting computing nodes (Linux, Windows), but not really used when targeting networking devices. We would use the necessary platform_facts module depending on type of nodes we’re targeting.
  - `connection: local` tells Ansible to execute this python module locally (target node is not capable of running Python)
 
-###  Step 4: Adding Tasks to Your Play
+###  Step 2: Adding Tasks to Your Play
 
 Now that we’ve defined your play, let’s add the necessary tasks to backup our routers.
 
@@ -108,7 +151,7 @@ The next three lines are calling the Ansible module ios_config and passing in th
         backup: yes
 ```
 
-### Step 5: Review
+### Step 3: Review
 
 Now that you’ve completed writing your playbook, it would be a shame not to keep it.  Use the write/quit method in vim to save your playbook, i.e. hit Esc then `:wq!`
 
@@ -135,7 +178,7 @@ Now that you’ve completed writing your playbook, it would be a shame not to ke
 ```       
 {% endraw %}
 
-### Step 6: Run the playbook
+### Step 4: Run the playbook
 
 To run the playbook use the **ansible-playbook** command.
 
@@ -145,16 +188,16 @@ ansible-playbook backup.yml
 In standard output, you should see something that looks similar to the following:
 ![Figure 2: backup playbook stdout](playbook-output.png)
 
+<table><tr><td>
+ Want to test a playbook to see if your syntax is correct before executing it on remote systems?
 
-> Want to test a playbook to see if your syntax is correct before executing it on remote systems?
->
-> Try using `--syntax-check` If you run into any issues with your playbook running properly help find those issues like so:
-> ```bash
-> ansible-playbook backup.yml --syntax-check
-> ```
->
+ Try using `--syntax-check` If you run into any issues with your playbook running properly help find those issues like so:
+ ```bash
+ ansible-playbook backup.yml --syntax-check
+ ```
+</td></tr></table>
 
-### Step 7: List the files in the backup directory
+### Step 5: List the files in the backup directory
 You can view the backup files that were created by listing the backup directory.
 
 ```bash
@@ -171,7 +214,7 @@ or
 less backup/rtr2*
 ```
 ## Playbook 2 - host-routes.yml
-A playbook for configuring static Routes.
+A playbook for configuring static routes on Linux hosts.
 
 What you will learn:
  - lineinfile module
