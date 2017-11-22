@@ -179,8 +179,9 @@
   when:
     - networking
     - ec2_vpc_id2 == ""
+
 - name: start ssh agent
-  command: 'eval `ssh-agent -s`'
+  command: "eval `ssh-agent -s`"
   
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
