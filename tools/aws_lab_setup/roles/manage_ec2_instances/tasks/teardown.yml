@@ -182,3 +182,12 @@
     cidr_block: "{{ec2_subnet}}"
     region: "{{ ec2_region }}"
     state: absent
+
+- name: delete AWS VPC {{ ec2_name_prefix }}
+  ec2_vpc_net:
+    name: "{{ ec2_name_prefix }}-vpc2"
+    cidr_block: "{{ec2_subnet}}"
+    region: "{{ ec2_region }}"
+    state: absent
+  when:
+    - networking
