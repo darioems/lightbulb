@@ -207,6 +207,9 @@
   ignore_errors: yes
   when: create_key.changed
 
+- name: add key to user
+  raw: ssh-add ./aws-private.pem
+
 - name: set keys for instance creation dynamically since key was not supplied by user
   set_fact:
     ec2_key_name: "{{ ec2_name_prefix }}-key"
