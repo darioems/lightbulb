@@ -180,6 +180,9 @@
     - networking
     - ec2_vpc_id2 == ""
 
+- name: start ssh agent
+  raw: "eval `ssh-agent -s`"
+  
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
     name: "{{ ec2_name_prefix }}-key"
@@ -203,6 +206,9 @@
   command: ssh-add ./aws-private.pem
   ignore_errors: yes
   when: create_key.changed
+
+- name: add key to user
+  raw: ssh-add ./aws-private.pem
 
 - name: set keys for instance creation dynamically since key was not supplied by user
   set_fact:
@@ -411,12 +417,14 @@
 
 - name: grab all network interfaces for VPC 1
   ec2_eni_facts:
+    region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ec2_vpc_id}}"
   register: eni_facts_1
 
 - name: grab all network interfaces for VPC 2 (NETWORKING MODE)
   ec2_eni_facts:
+    region: "{{ ec2_region }}"    
     filters:
       vpc-id: "{{ec2_vpc_id2}}"
   register: eni_facts_2
