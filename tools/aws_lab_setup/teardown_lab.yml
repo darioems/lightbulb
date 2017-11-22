@@ -10,6 +10,7 @@
     teardown: true
     create_lab: false
     s3_state: absent
+    state: absent
   
   pre_tasks: 
   - name: Include dynamically created generated_student_list.txt
