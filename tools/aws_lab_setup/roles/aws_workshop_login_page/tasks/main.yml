@@ -8,7 +8,8 @@
   s3_bucket:
     name: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}"
     state: "{{ s3_state }}"
-
+    force: yes
+    
 - name: enable web hosting
   s3_website:
    name: "{{ec2_name_prefix|lower}}.{{workshop_dns_zone|lower}}"
