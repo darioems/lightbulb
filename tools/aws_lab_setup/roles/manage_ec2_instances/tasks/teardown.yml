@@ -183,7 +183,7 @@
     region: "{{ ec2_region }}"
     state: absent
 
-- name: delete AWS VPC {{ ec2_name_prefix }}-vpc2
+- name: delete AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_net:
     name: "{{ ec2_name_prefix }}-vpc2"
     cidr_block: "{{ ec2_subnet2 }}"
