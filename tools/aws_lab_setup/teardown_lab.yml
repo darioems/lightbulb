@@ -10,10 +10,13 @@
     teardown: true
     create_lab: false
     s3_state: absent
-
-  include_vars:
-    file: '{{ playbook_dir }}/generated_student_list.txt'
-
+  
+  pre_tasks: 
+  - name: Include dynamically created generated_student_list.txt
+    include_vars:
+      file: '{{ playbook_dir }}/generated_student_list.txt'
+      name: generated_student_list.txt
+      
   roles:
     - manage_ec2_instances
     - aws_workshop_login_page
