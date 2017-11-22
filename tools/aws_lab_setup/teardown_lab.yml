@@ -11,12 +11,12 @@
     create_lab: false
     s3_state: absent
     state: absent
-  
-  pre_tasks: 
+
+  pre_tasks:
   - name: Include dynamically created generated_student_list.txt
     include_vars:
       file: '{{ playbook_dir }}/generated_student_list.txt'
-      
+
   roles:
     - manage_ec2_instances
     - aws_workshop_login_page
@@ -28,6 +28,13 @@
        state: absent
      with_fileglob:
        - "{{ playbook_dir }}/*.txt"
+
+   - name: Remove HTML files
+     file:
+       dest: "{{item}}"
+       state: absent
+     with_fileglob:
+       - "{{ playbook_dir }}/*.html"
 
    - name: Remove private key file
      file:

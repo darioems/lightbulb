@@ -2,7 +2,7 @@
 - name: Create Users
   template:
     src: student_list.j2
-    dest: ./generated_student_list.txt
+    dest: ./{{ec2_name_prefix}}_generated_student_list.txt
   register: student_list
   when: users == ""
 
@@ -13,7 +13,7 @@
 # now load the student into variables
 - name: Include dynamically created generated_student_list.txt
   include_vars:
-    file: generated_student_list.txt
+    file: {{ec2_name_prefix}}_generated_student_list.txt
   when: users == ""
 
 # - name: debug users now
