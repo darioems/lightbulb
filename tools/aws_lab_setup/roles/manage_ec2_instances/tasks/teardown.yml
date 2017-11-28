@@ -1,18 +1,22 @@
+- name: grab facts for workshop
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop": "{{ec2_name_prefix}}"
+  register: all_workshop_nodes
+
+# - name: debug test
+#   debug:
+#     var: all_workshop_nodes
+
 - name: destroy EC2 instances
   ec2:
     region: "{{ ec2_region }}"
-    exact_count: "{{ ec2_exact_count }}"
-    image: "{{ ec2_instance_types[item.1.type].ami_id }}"
-    count_tag:
-      Name: "{{ ec2_name_prefix }}-{{ item.0.username }}-{{ item.1.name }}"
-    instance_tags:
-      Name: "{{ ec2_name_prefix }}-{{ item.0.username }}-{{ item.1.name }}"
-    wait: "{{ ec2_wait }}"
-    instance_initiated_shutdown_behavior: terminate
-  with_nested:
-    - "{{ users }}"
-    - "{{ networking | ternary( ec2_lab_node_types_networking , ec2_lab_node_types ) }}"
-  register: instances
+    state: absent
+    instance_ids: "{{ all_workshop_nodes.instances | map(attribute='instance_id') | list }}"
+  register: result
+  when: all_workshop_nodes.instances
 
 - name: Get the VPC ID for {{ ec2_name_prefix }}
   ec2_vpc_net_facts:
@@ -29,10 +33,10 @@
   register: vpc_net_facts2
   when: networking
 
-- name: debugging vpc id for {{ ec2_name_prefix }}
-  debug:
-    msg: "vpc id:'{{vpc_net_facts.vpcs[0].id}}'"
-  when: vpc_net_facts.vpcs|length > 0
+# - name: debugging vpc id for {{ ec2_name_prefix }}
+#   debug:
+#     msg: "vpc id:'{{vpc_net_facts.vpcs[0].id}}'"
+#   when: vpc_net_facts.vpcs|length > 0
 
 - name: set variables for instance creation dynamically since VPC was not supplied by user
   set_fact:
@@ -49,35 +53,16 @@
     - vpc_net_facts2.vpcs|length > 0
     - ec2_security_group2 == ""
 
-- name: Wait for instances to finish deleting
-  pause:
-    seconds: 140
-  when: instances|changed
-
-# - ec2_eni_facts:
-#    filters:
-#      group-name: "{{ec2_security_group}}"
-#   register: enis
-#
-# - debug:
-#     msg: "{{item.network_interface_id}}"
-#   with_items: "{{enis.network_interfaces}}"
-#
-# - name: delete enis for security group {{ec2_security_group}}
-#   ec2_eni:
-#     eni_id: "{{item.network_interface_id}}"
-#     region: "{{ ec2_region }}"
-#     force_detach: true
-#     state: absent
-#   with_items: "{{enis.network_interfaces}}"
-
 - name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }}
   ec2_group:
     name: "{{ec2_security_group}}"
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id}}"
     state: absent
+  until: not (delete_sg|failed)
+  retries: 100
   when: vpc_net_facts.vpcs|length > 0
+  register: delete_sg
 
 - name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }} (NETWORKING MODE)
   ec2_group:

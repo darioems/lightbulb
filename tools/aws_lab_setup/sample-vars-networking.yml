@@ -13,5 +13,5 @@ email: no                              # Set this if you wish to disable email
 #instructor_email: 'Ansible Instructor <helloworld@acme.com>'  # address emails arrive from. Not required if "email: no"
 networking: true                       # Set this if you want the workshop in networking mode (NOT USED YET)
 localsecurity: false                   # skips firewalld installation and SE Linux when false
-student_total: 2                       # automatically creates students if you don't define a user.yml
-create_login_page: true
+student_total: 5                       # automatically creates students if you don't define a user.yml
+#create_login_page: true

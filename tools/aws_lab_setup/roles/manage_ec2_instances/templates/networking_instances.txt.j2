@@ -6,25 +6,25 @@ ansible_port={{ ssh_port }}
 {% endif %}
 
 [routers]
-{% for vm in rtr1_output.results %}
-{% if item.username in vm.invocation.module_args.instance_tags.Name %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }} ansible_ssh_user={{ ec2_login_names[rtr1_node] }} private_ip={{ vm.tagged_instances[0].private_ip }}
+{% for vm in rtr1_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr1_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
-{% for vm in rtr2_output.results %}
-{% if item.username in vm.invocation.module_args.instance_tags.Name %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }} ansible_ssh_user={{ ec2_login_names[rtr2_node] }} private_ip={{ vm.tagged_instances[0].private_ip }}
+{% for vm in rtr2_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[rtr2_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 [hosts]
-{% for vm in host1_output.results %}
-{% if item.username in vm.invocation.module_args.instance_tags.Name %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }} ansible_ssh_user={{ ec2_login_names[host1_node] }} private_ip={{ vm.tagged_instances[0].private_ip }}
+{% for vm in host1_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[host1_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
 [control]
-{% for vm in control_output.results %}
-{% if item.username in vm.invocation.module_args.instance_tags.Name %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }} ansible_ssh_user={{ ec2_login_names[ansible_node] }} private_ip={{ vm.tagged_instances[0].private_ip }}
+{% for vm in ansible_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[ansible_node] }} private_ip={{ vm.private_ip_address }}
 {% endif %}
 {% endfor %}
