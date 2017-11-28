@@ -248,7 +248,7 @@ For this playbook we will be running only on the `ansible` and `host1` nodes.  S
 The `ansible` host is running Red Hat Enterprise Linux Server.  To add a static route we just need to add a line using the [Ansible lineinfile module](http://docs.ansible.com/ansible/latest/lineinfile_module.html) with the subnet and destination under `/etc/sysconfig/network-scripts/route-eth0`.  The ```create: yes``` will create the file if its not already created.  We will also use `notify: "restart network"` to run a handler if this file changes.
 
 ### Step 2: Adding tasks
-
+{% raw %}
 ```yml
   tasks:
     - name: add route to 172.17.0.0/16 subnet on ansible node
@@ -258,6 +258,7 @@ The `ansible` host is running Red Hat Enterprise Linux Server.  To add a static 
         create: yes
       notify: "restart network"
 ```
+{% endraw %}
 Next we need to create a handler to restart networking if routes are changed.  The name matters and must match what we are notifying in the task displayed above.  In this case it has to be `restart network` but is user defined and as long as it matches the handler will be run.
 
 ### Step 3: Adding a handler
@@ -274,6 +275,7 @@ Next we need to create a handler to restart networking if routes are changed.  T
 
 Now we need to repeat for `host1`:
 
+{% raw %}
 ```yml
 - name: add route on host1
   hosts: host1
@@ -294,6 +296,7 @@ Now we need to repeat for `host1`:
         state: restarted
         name: network
 ```
+{% endraw %}
 
 ### Step 5: Run the playbook
 
