@@ -6,19 +6,19 @@ ansible_port={{ ssh_port }}
 {% endif %}
 
 [web]
-{% for vm in node1_output.results %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }}
+{% for vm in node1_node_facts.instances %}
+{{ vm.invocation.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
 {% endfor %}
-{% for vm in node2_output.results %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }}
+{% for vm in node2_node_facts.instances %}
+{{ vm.invocation.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
 {% endfor %}
-{% for vm in node3_output.results %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }}
+{% for vm in node3_node_facts.instances %}
+{{ vm.invocation.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
 {% endfor %}
 
 [control]
-{% for vm in control_output.results %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }}
+{% for vm in ansible_node_facts.instances %}
+{{ vm.invocation.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }}
 {% endfor %}
 
 
@@ -26,8 +26,8 @@ ansible_port={{ ssh_port }}
 #[haproxy]
 #{% for grouper, list in instances.results|groupby('item') if grouper[0] == item %}
 #{% for vm in list %}
-#{% if vm.skipped is not defined and 'haproxy' in vm.invocation.module_args.instance_tags.Name %}
-#{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ #vm.tagged_instances[0].public_ip }}
+#{% if vm.skipped is not defined and 'haproxy' in vm.invocation.tags.Name %}
+#{{ vm.invocation.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ #vm.public_ip_address }}
 #{% endif %}
 #{% endfor %}
 #{% endfor %}

@@ -1,20 +1,19 @@
-# - name: Wait for instances to finish initializing
-#   pause:
-#     seconds: 90
-#   when: control_output | changed
+- name: grab facts for control_nodes
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      instance-state-name: running
+      "tag:Workshop_ansible": "{{ec2_name_prefix}}-ansible"
+  register: ansible_node_facts
 
 - name: add ansible node to control_nodes group (BOTH MODES)
   add_host:
-    name: "{{ item.invocation.module_args.instance_tags.Name }}"
-    ansible_host: "{{ item.tagged_instances[0].public_ip }}"
+    name: "{{ item.tags.Name }}"
+    ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
     ansible_port: "{{ ssh_port }}"
     groups: lab_hosts,control_nodes
-  with_items: "{{ control_output.results }}"
-  when:
-    - item.skipped is not defined
-    - "'ansible' in item.invocation.module_args.instance_tags.Name"
-  changed_when: no
+  with_items: "{{ ansible_node_facts.instances }}"
 
 - name: ANSIBLE ESSENTIALS MODE TASKS
   block:
@@ -29,54 +28,63 @@
         - "{{ node1_output.results }}"
         - "{{ node2_output.results }}"
         - "{{ node3_output.results }}"
-      when:
-        - item.skipped is not defined
-        - "'rtr' not in item.invocation.module_args.instance_tags.Name"
-        - "'ansible' not in item.invocation.module_args.instance_tags.Name"
       changed_when: no
   when: not networking
 
 - name: ANSIBLE NETWORKING MODE TASKS
   block:
-    - name: add hosts to groups (NETWORKING MODE)
+    - name: grab facts for host1 node (NETWORKING MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_host1": "{{ec2_name_prefix}}-host1"
+      register: host1_node_facts
+
+    - name: add host1 to groups (NETWORKING MODE)
       add_host:
-        name: "{{ item.invocation.module_args.instance_tags.Name }}"
-        ansible_host: "{{ item.tagged_instances[0].public_ip }}"
+        name: "{{ item.tags.Name }}"
+        ansible_host: "{{ item.public_ip_address }}"
         ansible_user: "{{ ec2_login_names[host1_node] }}"
         ansible_port: "{{ ssh_port }}"
         groups: lab_hosts,managed_nodes
-      with_items: "{{ host1_output.results }}"
-      when:
-        - item.skipped is not defined
-        - "'rtr' not in item.invocation.module_args.instance_tags.Name"
-        - "'ansible' not in item.invocation.module_args.instance_tags.Name"
-      changed_when: no
+      with_items: "{{ host1_node_facts.instances }}"
+
+    - name: grab facts for rtr1 node (NETWORKING MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_rtr1": "{{ec2_name_prefix}}-rtr1"
+      register: rtr1_node_facts
 
     - name: add rtr1 to groups (NETWORKING MODE)
       add_host:
-        name: "{{ item.invocation.module_args.instance_tags.Name }}"
-        ansible_host: "{{ item.tagged_instances[0].public_ip }}"
+        name: "{{ item.tags.Name }}"
+        ansible_host: "{{ item.public_ip_address }}"
         ansible_user: "{{ ec2_login_names[rtr1_node] }}"
         ansible_port: "{{ ssh_port }}"
         groups: lab_hosts,routers
       with_items:
-        - "{{rtr1_output.results}}"
-      when:
-        - item.skipped is not defined
-      changed_when: no
+        - "{{rtr1_node_facts.instances}}"
+
+    - name: grab facts for rtr2 node (NETWORKING MODE)
+      ec2_instance_facts:
+        region: "{{ ec2_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Workshop_rtr2": "{{ec2_name_prefix}}-rtr2"
+      register: rtr2_node_facts
 
     - name: add rtr2 to groups (NETWORKING MODE)
       add_host:
-        name: "{{ item.invocation.module_args.instance_tags.Name }}"
-        ansible_host: "{{ item.tagged_instances[0].public_ip }}"
+        name: "{{ item.tags.Name }}"
+        ansible_host: "{{ item.public_ip_address }}"
         ansible_user: "{{ ec2_login_names[rtr2_node] }}"
         ansible_port: "{{ ssh_port }}"
         groups: lab_hosts,routers
       with_items:
-        - "{{rtr2_output.results}}"
-      when:
-        - item.skipped is not defined
-      changed_when: no
+        - "{{rtr2_node_facts.instances}}"
   when: networking
 
 - name: Set local username to create on instances
@@ -85,10 +93,6 @@
   with_items: "{{ groups.lab_hosts }}"
   delegate_to: "{{ item }}"
   delegate_facts: yes
-
-# - name: debug control_output
-#   debug:
-#     var: control_output
 
 - name: Generate student inventories
   template:
@@ -105,6 +109,5 @@
 
 - name: Generate instructor inventory
   template:
-    src: instructor_inventory_networking.j2
     src: "{{ networking | ternary( 'instructor_inventory_networking.j2' , 'instructor_inventory.j2' ) }}"
     dest: ./instructor_inventory.txt
