@@ -674,20 +674,19 @@ tasks:
         <section>
           <h2>Example Handler Task in a Play</h2>
           <pre><code data-noescape>
-  tasks:
-    - name: gather ios_facts
-      ios_facts:
-      register: version
+   tasks:
+     - name: add route to 172.17.0.0/16 subnet on ansible node
+       lineinfile:
+         path: /etc/sysconfig/network-scripts/route-eth0
+         line: "172.17.0.0/16 via {{hostvars['rtr1']['private_ip']}}"
+         create: yes
+       <mark>notify: "restart network"</mark>
 
-    - debug:
-        msg: "{{version}}"
-      <mark>notify: Backup configuration</mark>
-      changed_when: "'16.05.01b' in ansible_net_version"
-
-  <mark>handlers:</mark>
-    - name: Backup configuration
-      ios_config:
-        backup: yes
+   handlers:
+     <mark>- name: restart network</mark>
+       systemd:
+         state: restarted
+         name: network
           </code></pre>
           <aside class="notes">
             <p>Here is our previous example with a few slight modifications that have bene highlighted.</p>
