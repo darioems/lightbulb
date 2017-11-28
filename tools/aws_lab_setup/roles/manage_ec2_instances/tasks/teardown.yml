@@ -60,7 +60,7 @@
     vpc_id: "{{ec2_vpc_id}}"
     state: absent
   until: not (delete_sg|failed)
-  retries: 100
+  retries: 50
   when: vpc_net_facts.vpcs|length > 0
   register: delete_sg
 
