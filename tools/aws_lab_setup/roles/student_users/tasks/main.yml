@@ -13,7 +13,7 @@
 # now load the student into variables
 - name: Include dynamically created generated_student_list.txt
   include_vars:
-    file: {{ec2_name_prefix}}_generated_student_list.txt
+    file: "{{ec2_name_prefix}}_generated_student_list.txt"
   when: users == ""
 
 # - name: debug users now

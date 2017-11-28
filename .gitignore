@@ -17,3 +17,4 @@ instructor_inventory.txt
 tools/aws_lab_setup/aws-private.pem
 .DS_Store
 *.html
+*.html
