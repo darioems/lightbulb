@@ -60,8 +60,15 @@ ec2_regions:
       ubuntu16: ami-9dcfdb8a
       csr-byol: ami-bcbfb9c7
   us-east-2:
-    csr-byol: ami-541e3931
-    rhel7: ami-0932686c
+    key_name: "{{ ec2_key_name | default('training') }}"
+    amis:
+      csr-byol: ami-b61437d3
+      rhel7: ami-cfdafaaa
+      rhel7-tower: ami-cfdafaaa
+      ubuntu14: ami-feed08e8
+      ubuntu16: ami-9dcfdb8a
+      centos7: ami-61bbf104
+      centos7-tower: ami-877b9e91
   us-west-1:
     vpc: vpc-ce1f9aab
     subnet_id: subnet-25b9157c
