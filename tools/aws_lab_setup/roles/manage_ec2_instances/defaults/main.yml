@@ -59,6 +59,9 @@ ec2_regions:
       ubuntu14: ami-feed08e8
       ubuntu16: ami-9dcfdb8a
       csr-byol: ami-bcbfb9c7
+  us-east-2:
+    csr-byol: ami-541e3931
+    rhel7: ami-0932686c
   us-west-1:
     vpc: vpc-ce1f9aab
     subnet_id: subnet-25b9157c
@@ -71,8 +74,12 @@ ec2_regions:
       ubuntu14: ami-6ebcec0e
       ubuntu16: ami-b05203d0
       csr-byol: ami-99e5d0f9
-
-
+  us-west-2:
+    csr-byol: ami-e4d43d9c
+    rhel7:  ami-9fa343e7
+  ca-central-1:
+    csr-byol: ami-6269d706
+    rhel7: ami-9062d0f4
   eu-west-1:
     vpc: vpc-48141c2a
     subnet_id: subnet-70f9f012
