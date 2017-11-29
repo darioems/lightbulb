@@ -73,13 +73,13 @@ Request Licensing page (Pick the second option: non-Enterprise version for immed
   <div data-role="main" class="ui-content">
     <div data-role="collapsible">
       <h1>{{item.username}} - Click to see details!</h1>
-{% for host in control_output.results %}
-{% if host.skipped is not defined and item.username in host.invocation.module_args.instance_tags.Name %}
+{% for host in ansible_node_facts.instances %}
+{% if item.username in host.tags.Name %}
 To login to the <code>ansible</code> control node use the following for SSH access:<br>
 username:   {{item.username}}<br>
 password:   PROVIDED BY INSTRUCTOR<br>
-IP Address: {{ host.tagged_instances[0].public_ip }}<br>
-<pre>ssh {{item.username}}@{{ host.tagged_instances[0].public_ip }}</pre><br>
+IP Address: {{ host.public_ip_address }}<br>
+<pre>ssh {{item.username}}@{{ host.public_ip_address }}</pre><br>
 {% endif %}
 {% endfor %}
 </p>

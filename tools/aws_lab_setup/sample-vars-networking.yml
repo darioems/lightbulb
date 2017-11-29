@@ -14,4 +14,4 @@ email: no                              # Set this if you wish to disable email
 networking: true                       # Set this if you want the workshop in networking mode (NOT USED YET)
 localsecurity: false                   # skips firewalld installation and SE Linux when false
 student_total: 5                       # automatically creates students if you don't define a user.yml
-#create_login_page: true
+create_login_page: true
