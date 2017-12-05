@@ -16,14 +16,14 @@ On the left pane click on the users link
 
 ![users](users.png)
 
-Now you need to either add a new user
+On the right side, pick the tab "Security credentials". Now you need to either add a new user
 
 ![add-user](add-user.png)
 
 OR find the user you want to add credentials <- this is more common
 
 ## Add Credentials
-Make sure to save this!! (But don't upload to GitHub or someone will start mining Bitcoins on your account)
+You need to create a new access key, only then will the necessary key and key ID be shown. Make sure you save them somewhere!! (But don't upload to GitHub or someone will start mining Bitcoins on your account)
 
 ![create-key](create-key.png)
 
