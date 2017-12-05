@@ -182,7 +182,7 @@
 
 - name: start ssh agent
   raw: "eval `ssh-agent -s`"
-  
+
 - name: Create ssh key pair for workshop {{ ec2_name_prefix }}
   ec2_key:
     name: "{{ ec2_name_prefix }}-key"
@@ -513,7 +513,7 @@
 
 - name: grab all network interfaces for VPC 2 (NETWORKING MODE)
   ec2_eni_facts:
-    region: "{{ ec2_region }}"    
+    region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ec2_vpc_id2}}"
   register: eni_facts_2
@@ -527,6 +527,7 @@
   with_items:
     - "{{eni_facts_1['network_interfaces']}}"
     - "{{eni_facts_2['network_interfaces']}}"
+  when: networking
 
 - name: Include tasks only needed when creating instances
   include_tasks: create.yml
