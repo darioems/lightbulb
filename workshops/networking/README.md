@@ -32,7 +32,7 @@ If you attend an in-person workshop, please fill out the survey!
  - [Network Automation with Ansible Homepage](https://www.ansible.com/network-automation)
  - [List of Networking Ansible Modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html)
  - [Module Maintenance & Support](http://docs.ansible.com/ansible/latest/modules_support.html)
- - [Network Automation Github Repo](https://github.com/network-automation)
+ - [Network Automation GitHub Repo](https://github.com/network-automation)
 
  ---
  ![Ansible Red Hat Engine](ansible-engine-small.png)
