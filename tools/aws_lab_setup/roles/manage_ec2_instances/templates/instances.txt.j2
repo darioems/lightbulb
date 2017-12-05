@@ -5,28 +5,30 @@ ansible_ssh_pass={{ admin_password }}
 ansible_port={{ ssh_port }}
 {% endif %}
 
+{% for user in users %}
 [web]
 {% for vm in node1_node_facts.instances %}
 {% if item.username in vm.tags.Name %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node1_node] }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node1_node] }}
 {% endif %}
 {% endfor %}
 {% for vm in node2_node_facts.instances %}
 {% if item.username in vm.tags.Name %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node2_node] }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node2_node] }}
 {% endif %}
 {% endfor %}
 {% for vm in node3_node_facts.instances %}
 {% if item.username in vm.tags.Name %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node3_node] }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node3_node] }}
 {% endif %}
 {% endfor %}
 
 [control]
 {% for vm in ansible_node_facts.instances %}
 {% if item.username in vm.tags.Name %}
-{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[ansible_node] }} private_ip={{ vm.private_ip_address }}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[ansible_node] }}
 {% endif %}
+{% endfor %}
 {% endfor %}
 
 #{#

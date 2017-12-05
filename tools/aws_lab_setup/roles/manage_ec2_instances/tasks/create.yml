@@ -22,23 +22,23 @@
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
-          "tag:Workshop_host1": "{{ec2_name_prefix}}-node1"
+          "tag:Workshop_node1": "{{ec2_name_prefix}}-node1"
       register: node1_node_facts
 
-    - name: grab facts for node1 node
+    - name: grab facts for node2 node
       ec2_instance_facts:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
-          "tag:Workshop_host1": "{{ec2_name_prefix}}-node2"
+          "tag:Workshop_node2": "{{ec2_name_prefix}}-node2"
       register: node2_node_facts
 
-    - name: grab facts for node1 node
+    - name: grab facts for node3 node
       ec2_instance_facts:
         region: "{{ ec2_region }}"
         filters:
           instance-state-name: running
-          "tag:Workshop_host1": "{{ec2_name_prefix}}-node3"
+          "tag:Workshop_node3": "{{ec2_name_prefix}}-node3"
       register: node3_node_facts
 
     - name: add hosts to groups (ANSIBLE ESSENTIALS MODE)
