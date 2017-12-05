@@ -77,7 +77,7 @@
       tags:
         - control_node
         - control
-  when: not networking
+  when: networking is undefined or not networking
 
 - name: Ansible Networking mode
   block:
