@@ -44,7 +44,9 @@ To provision the workshop onto AWS use the following directions:
 
 1. Create an Amazon AWS account.
 
-2. Create an [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html).  Save the ID and key for later.
+2. Create an Access Key ID and Secret Access Key.  Save the ID and key for later.
+
+  - New to AWS and not sure what this step means?  [Click here](aws-directions/AWSHELP.md)
 
 3. Install `boto` and `boto3`.
 
