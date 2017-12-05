@@ -181,7 +181,7 @@
         owner: "{{ username }}"
         group: "{{ username }}"
 
-  when: networking
+  when: networking is defined
 
 - name: Install ansible.cfg and vimrc in home directory
   template:
