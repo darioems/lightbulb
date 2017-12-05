@@ -11,11 +11,13 @@
     state: present
   tags:
     - common
+  when: localsecurity
 
 - name: RHEL | Start firewalld
   service:
     name: "{{ firewalld_service }}"
     state: started
+  when: localsecurity
 
 - name: RHEL | Enable specific firewall services
   firewalld:
@@ -26,3 +28,4 @@
     state: enabled
   with_items: "{{ firewall_rules }}"
   notify: restart firewalld
+  when: localsecurity

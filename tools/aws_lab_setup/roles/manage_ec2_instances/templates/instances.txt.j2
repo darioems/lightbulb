@@ -5,31 +5,39 @@ ansible_ssh_pass={{ admin_password }}
 ansible_port={{ ssh_port }}
 {% endif %}
 
+{% for user in users %}
 [web]
-{% for grouper, list in instances.results|groupby('item') if grouper[0] == item %}
-{% for vm in list %}
-{% if 'ansible' not in vm.invocation.module_args.instance_tags.Name and 'haproxy' not in vm.invocation.module_args.instance_tags.Name%}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-(node)(\\d)', '\\1-\\2') }} ansible_host={{ vm.tagged_instances[0].public_ip }}
+{% for vm in node1_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node1_node] }}
 {% endif %}
 {% endfor %}
+{% for vm in node2_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node2_node] }}
+{% endif %}
+{% endfor %}
+{% for vm in node3_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[node3_node] }}
+{% endif %}
 {% endfor %}
 
 [control]
-{% for grouper, list in instances.results|groupby('item') if grouper[0] == item %}
-{% for vm in list %}
-{% if 'ansible' in vm.invocation.module_args.instance_tags.Name %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }}
+{% for vm in ansible_node_facts.instances %}
+{% if item.username in vm.tags.Name %}
+{{ vm.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.public_ip_address }} ansible_ssh_user={{ ec2_login_names[ansible_node] }}
 {% endif %}
 {% endfor %}
 {% endfor %}
 
-{#
-[haproxy]
-{% for grouper, list in instances.results|groupby('item') if grouper[0] == item %}
-{% for vm in list %}
-{% if 'haproxy' in vm.invocation.module_args.instance_tags.Name %}
-{{ vm.invocation.module_args.instance_tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ vm.tagged_instances[0].public_ip }}
-{% endif %}
-{% endfor %}
-{% endfor %}
-#}
+#{#
+#[haproxy]
+#{% for grouper, list in instances.results|groupby('item') if grouper[0] == item %}
+#{% for vm in list %}
+#{% if vm.skipped is not defined and 'haproxy' in vm.invocation.tags.Name %}
+#{{ vm.invocation.tags.Name | regex_replace('.*-([\\w]*)', '\\1') }} ansible_host={{ #vm.public_ip_address }}
+#{% endif %}
+#{% endfor %}
+#{% endfor %}
+##}

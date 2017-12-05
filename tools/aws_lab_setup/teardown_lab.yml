@@ -2,17 +2,45 @@
   hosts: localhost
   connection: local
   become: no
-  gather_facts: yes
+  gather_facts: no
 
   vars:
-    ec2_exact_count: 0
     ec2_wait: no
+    teardown: true
+    create_lab: false
+    s3_state: absent
+    state: absent
+
+  pre_tasks:
+  - name: Include dynamically created generated_student_list.txt
+    include_vars:
+      file: '{{ playbook_dir }}/{{ec2_name_prefix}}_generated_student_list.txt'
 
   roles:
     - manage_ec2_instances
+    - { role: aws_workshop_login_page, when: create_login_page is defined }
 
   post_tasks:
-    - name: Remove inventory files
-      shell: rm -vf {{ playbook_dir }}/*.txt
-      register: removal
-      changed_when: removal.stdout_lines | length > 0
+   - name: Remove inventory files
+     file:
+       dest: "{{item}}"
+       state: absent
+     with_fileglob:
+       - "{{ playbook_dir }}/*.txt"
+
+   - name: Remove HTML files
+     file:
+       dest: "{{item}}"
+       state: absent
+     with_fileglob:
+       - "{{ playbook_dir }}/*.html"
+
+   - name: Remove private key file
+     file:
+       path: '{{ playbook_dir }}/*.pem'
+       state: absent
+
+   - name: Remove old keys
+     shell: ssh-add -D
+     register: removal
+     changed_when: removal.stdout_lines | length > 0

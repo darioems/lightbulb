@@ -2,3 +2,6 @@ users:
   - name: Luke Cage
     username: lcage
     email: lcage@marvel.com
+  - name: Andrius Beno
+    username: ab
+    email: andriusb@redhat.com
