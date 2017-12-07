@@ -1,9 +1,0 @@
-{
-    "company_name": "Red Hat, Inc.",
-    "hostname": "6871fb5f8c6f46299ccae8e716d2cfcf",
-    "instance_count": 5,
-    "license_date": 1536779661,
-    "license_key": "581abd413f82596ddddabf404d0197ad15f30e8bdfe525d180e7dc4fc14f6b38",
-    "license_type": "enterprise",
-    "subscription_name": "Ansible Tower by Red Hat, Standard (5 Managed Nodes)"
-}
