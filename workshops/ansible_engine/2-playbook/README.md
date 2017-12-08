@@ -103,7 +103,7 @@ like this.  Take note of the spacing and alignment.
 
 ---
 
-```bash
+```yml
 ---
 - hosts: web
   name: Install the apache web service
