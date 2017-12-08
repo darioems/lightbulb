@@ -9,7 +9,7 @@ Want the Presentation Deck?  Its right here:
 ## Ansible Engine Exercises
 
  - [Exercise 1 - Running Ad-hoc commands](1-adhoc)
- - [Exercise 2 - Writing Your First playbook](1-adhoc)
+ - [Exercise 2 - Writing Your First playbook](2-playbook)
 
 ## Survey
 If you attend an in-person workshop, please fill out the survey!
