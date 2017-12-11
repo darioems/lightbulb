@@ -26,7 +26,7 @@ PROJECT|Ansible Workshop Project
 PLAYBOOK|examples/apache-basic-playbook/site.yml
 MACHINE CREDENTIAL|Ansible Workshop Credential
 LIMIT|web
-OPTIONS|<br />- [x] Enable Privilege Escalation
+OPTIONS|- [x] Enable Privilege Escalation
 
 ![Job Template Form](at_jt_detail.png)
 
@@ -59,10 +59,7 @@ Select SAVE [Add button](at_save.png)
 
 ### Step 8:
 
-Back on the main Job Template page, select SAVE image:at_save.png[Add,35,25] again.
-
-
-
+Back on the main Job Template page, select SAVE [Add button](at_save.png) again.
 
 ## Running a Job Template
 
@@ -83,7 +80,7 @@ Alternatively, if you haven't navigated away from the job templates creation pag
 
 ### Step 2:
 
-Click on the rocketship icon [Add button](at_launch_icon.png) for the *Apache Basic Job Template*
+Click on the rocketship icon [Launch button](at_launch_icon.png) for the *Apache Basic Job Template*
 
 ### Step 3:
 
