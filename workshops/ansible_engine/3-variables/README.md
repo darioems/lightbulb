@@ -184,6 +184,7 @@ Your new, improved playbook is done! But don't run it just yet, we'll do that in
 looks the way you intended.  If not, now is the time for us to fix it up. The figure below shows line counts and spacing.
 
 ```yml
+{% raw %}
 ---
 - hosts: web
   name: This is a play within a playbook
@@ -198,9 +199,9 @@ looks the way you intended.  If not, now is the time for us to fix it up. The fi
   tasks:
     - name: httpd packages are present
       yum:
-        name: "\{\{ item \}\}"
+        name: "{{ item }}"
         state: present
-      with_items: "\{\{ httpd_packages \}\}"
+      with_items: "{{ httpd_packages }}"
       notify: restart apache service
 
     - name: site-enabled directory is present
@@ -231,6 +232,7 @@ looks the way you intended.  If not, now is the time for us to fix it up. The fi
         name: httpd
         state: restarted
         enabled: yes
+{% endraw %}        
 ```
 
 ---
