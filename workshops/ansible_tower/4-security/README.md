@@ -118,8 +118,7 @@ PLAYBOOK|800-53.yml
 MACHINE CREDENTIAL|Ansible Workshop Credential
 LIMIT|web
 OPTIONS
-a|<br/>
-- [x] Enable Privilege Escalation
+a|[x] Enable Privilege Escalation
 
 ### Step 8:
 
