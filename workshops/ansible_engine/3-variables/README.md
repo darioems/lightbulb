@@ -62,8 +62,8 @@ Add a play definition and some variables to your playbook.  These include addtio
 
 Add a new task called *install httpd packages*.
 
-[source,bash]
 ```yml
+{% raw %}
   tasks:
     - name: install httpd packages
       yum:
@@ -71,10 +71,11 @@ Add a new task called *install httpd packages*.
         state: present
       with_items: "{{ httpd_packages }}"
       notify: restart apache service
+{% raw %}
 ```
 
 ---
-
+{% raw %}
 **NOTE**
 > What the Helsinki is happening here!?
 
@@ -85,6 +86,7 @@ is a list of those packages +
 - `with_items: "{{ httpd_packages }}` This is your loop which is instructing Ansible to perform this task on
 every `item` in `httpd_packages`
 - `notify: restart apache service` This statement is a `handler`, so we'll come back to it in Section 3.
+{% raw %}
 
 ---
 
