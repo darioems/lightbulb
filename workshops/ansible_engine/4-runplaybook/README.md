@@ -29,7 +29,7 @@ ansible-playbook --private-key#~/.ssh/workshopname-tower -i ../hosts site.yml
 
 If successful, you should see standard output that looks very similar to the following.  If not, just let us know.  We'll help get things fixed up.
 
-![Figure 1: apache-basic-playbook stdout](stdout_2.png)
+![Stdout](stdout_2.png)
 
 
 ---
