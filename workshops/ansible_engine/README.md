@@ -10,6 +10,7 @@ Want the Presentation Deck?  Its right here:
 
  - [Exercise 1 - Running Ad-hoc commands](1-adhoc)
  - [Exercise 2 - Writing Your First playbook](2-playbook)
+ - [Exercise 3 - Using Variables, Loops, and Handlers](3-variables)
 
 ## Survey
 If you attend an in-person workshop, please fill out the survey!
