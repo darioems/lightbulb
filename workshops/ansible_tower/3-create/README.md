@@ -26,7 +26,7 @@ PROJECT|Ansible Workshop Project
 PLAYBOOK|examples/apache-basic-playbook/site.yml
 MACHINE CREDENTIAL|Ansible Workshop Credential
 LIMIT|web
-OPTIONS|- [x] Enable Privilege Escalation
+OPTIONS|<br/>- [x] Enable Privilege Escalation
 
 ![Job Template Form](at_jt_detail.png)
 
