@@ -9,7 +9,7 @@ In this exercise, we are going to use Ansible Tower to run DISA STIG and NIST 80
 
 ### Step 1:
 
-In your wetty window (if you closed it, see the link:/workshops/ansible_tower/setup/[SETUP] step, in your workbook), type the following:
+In your wetty window (if you closed it, see the [SETUP](../setup.md) step, in your workbook), type the following:
 
 ```bash
 sudo ansible-galaxy install rhtps.800-53
@@ -31,7 +31,7 @@ Let's create the needed playbook.  You should have a pretty good understanding o
 sudo vim /var/lib/awx/projects/playbooks/800-53.yml
 ```
 
-Note the use of the link:http://docs.ansible.com/ansible/latest/playbooks_conditionals.html#register-variables[register], link:http://docs.ansible.com/ansible/latest/playbooks_loops.html#standard-loops[with_items], and link:http://docs.ansible.com/ansible/latest/playbooks_conditionals.html#the-when-statement[when] directives.  These are how Ansible implements variable creation, recursion, and conditionals, respectively.
+Note the use of the [register](http://docs.ansible.com/ansible/latest/playbooks_conditionals.html#register-variables), [with_items](http://docs.ansible.com/ansible/latest/playbooks_loops.html#standard-loops), and [when](http://docs.ansible.com/ansible/latest/playbooks_conditionals.html#the-when-statement) directives. These are how Ansible implements variable creation, recursion, and conditionals, respectively.
 
 ```yml
 {% raw %}
