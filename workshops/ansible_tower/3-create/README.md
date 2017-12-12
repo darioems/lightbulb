@@ -11,7 +11,7 @@ Select TEMPLATES
 
 ### Step 2:
 
-Click on ADD [Add button](at_add.png), and select JOB TEMPLATE
+Click on ADD ![Add button](at_add.png), and select JOB TEMPLATE
 
 ### Step 3:
 
