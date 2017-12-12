@@ -55,7 +55,7 @@ curl -k https://localhost/api/v1/config/ \
 
 ### Step 3:
 
-Back in the Tower UI, choose BROWSE [Browse button](at_browse.png) and upload your recently downloaded license file into Tower.
+Back in the Tower UI, choose BROWSE ![Browse button](at_browse.png) and upload your recently downloaded license file into Tower.
 
 ### Step 4:
 
@@ -63,7 +63,7 @@ Select "_I agree to the End User License Agreement_"
 
 ### Step 5:
 
-Click on SUBMIT [Submit button](at_submit.png)
+Click on SUBMIT ![Submit button](at_submit.png)
 
 ## Creating a Credential
 
@@ -74,7 +74,7 @@ There are many [types of credentials](http://docs.ansible.com/ansible-tower/late
 
 ### Step 1:
 
-Select the gear icon [Gear button](at_gear.png)
+Select the gear icon ![Gear button](at_gear.png)
 
 ### Step 2:
 
@@ -82,7 +82,7 @@ Select CREDENTIALS
 
 ### Step 3:
 
-Click on ADD [Add button](at_add.png)
+Click on ADD ![Add button](at_add.png)
 
 ### Step 4:
 
@@ -105,7 +105,7 @@ PRIVATE KEY|paste in secret key
 
 ### Step 5:
 
-Select SAVE [Save button](at_save.png)
+Select SAVE ![Save button](at_save.png)
 
 ## Creating a Project
 
@@ -117,7 +117,7 @@ Click on PROJECTS
 
 ### Step 2:
 
-Select ADD [Add button](at_add.png)
+Select ADD ![Add button](at_add.png)
 
 ### Step 3:
 
@@ -139,7 +139,7 @@ a| - [x] Clean <br />
 
 ### Step 4:
 
-Select SAVE [Save button](at_save.png)
+Select SAVE ![Save button](at_save.png)
 
 ## Creating a Inventory
 
@@ -154,7 +154,7 @@ Click on INVENTORIES
 
 ### Step 2:
 
-Select ADD [Add button](at_add,png)
+Select ADD ![Add button](at_add,png)
 
 ### Step 3:
 
@@ -169,7 +169,7 @@ ORGANIZATION|Default
 
 ### Step 4:
 
-Select SAVE [Save button](at_save.png)
+Select SAVE ![Save button](at_save.png)
 
 ### Step 5:
 

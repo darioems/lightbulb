@@ -74,11 +74,11 @@ Save and quit from editing, and then we will move on to the in-Tower setup.
 
 ### Step 1:
 
-In your Tower window, click on [PROJECTS](at_projects_icon.png)
+In your Tower window, click on ![PROJECTS](at_projects_icon.png)
 
 ### Step 2:
 
-Select ADD [Add button](at_add.png)
+Select ADD ![Add button](at_add.png)
 
 ### Step 3:
 
@@ -94,7 +94,7 @@ PLAYBOOK DIRECTORY|playbooks
 
 ### Step 4:
 
-Select SAVE [Save button](at_save.png)
+Select SAVE ![Save button](at_save.png)
 
 ### Step 5:
 
@@ -102,7 +102,7 @@ In your Tower window, click on `TEMPLATES`
 
 ### Step 6:
 
-Click on ADD [Add button](at_add.png), and select `JOB TEMPLATE`
+Click on ADD ![Add button](at_add.png), and select `JOB TEMPLATE`
 
 ### Step 7:
 
@@ -122,9 +122,9 @@ a|[x] Enable Privilege Escalation
 
 ### Step 8:
 
-Click SAVE [Save button](at_save.png), to store your new template, and we are ready to run it.
+Click SAVE ![Save button](at_save.png), to store your new template, and we are ready to run it.
 
-Click on the rocketship icon [Add button](at_launch_icon.png) next to the `NIST 800-53 Job Template` entry, to launch the job.
+Click on the rocketship icon ![Add button](at_launch_icon.png) next to the `NIST 800-53 Job Template` entry, to launch the job.
 
 You can see what the job looks like, as it is executing, and what the SCAP results look like, when uploaded to your second node, in the panel, below.
 

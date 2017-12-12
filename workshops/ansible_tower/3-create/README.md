@@ -32,7 +32,7 @@ OPTIONS|- [x] Enable Privilege Escalation
 
 ### Step 4:
 
-Click SAVE [Save button](at_save.png) and then select ADD SURVEY [Add](at_addsurvey.png)
+Click SAVE ![Save button](at_save.png) and then select ADD SURVEY ![Add](at_addsurvey.png)
 
 ### Step 5:
 
@@ -51,15 +51,15 @@ DEFAULT ANSWER| Be creative, keep it clean, we're all professionals here
 
 ### Step 6:
 
-Select ADD [Add button](at_add.png)
+Select ADD ![Add button](at_add.png)
 
 ### Step 7:
 
-Select SAVE [Add button](at_save.png)
+Select SAVE ![Add button](at_save.png)
 
 ### Step 8:
 
-Back on the main Job Template page, select SAVE [Add button](at_save.png) again.
+Back on the main Job Template page, select SAVE ![Add button](at_save.png) again.
 
 ## Running a Job Template
 
@@ -80,7 +80,7 @@ Alternatively, if you haven't navigated away from the job templates creation pag
 
 ### Step 2:
 
-Click on the rocketship icon [Launch button](at_launch_icon.png) for the *Apache Basic Job Template*
+Click on the rocketship icon ![Launch button](at_launch_icon.png) for the *Apache Basic Job Template*
 
 ### Step 3:
 
@@ -90,7 +90,7 @@ When prompted, enter your desired test message
 
 ### Step 4:
 
-Select LAUNCH [Survey launch button](at_survey_launch.png)
+Select LAUNCH ![Survey launch button](at_survey_launch.png)
 
 ### Step 5:
 
