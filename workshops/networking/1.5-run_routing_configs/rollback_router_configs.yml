@@ -39,12 +39,6 @@
 
     ##Configuration for R2
     - block:
-      - name: disable GigabitEthernet2 interface
-        net_interface:
-          name: GigabitEthernet2
-          description: interface to host1
-          state: present
-
       - name: remove dhcp configuration for GigabitEthernet2
         ios_config:
           lines:
@@ -65,4 +59,3 @@
         with_items: "{{dns_servers}}"
       when:
         - '"rtr2" in inventory_hostname'
-
