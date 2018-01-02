@@ -4,7 +4,7 @@
     src: student_list.j2
     dest: ./{{ec2_name_prefix}}_generated_student_list.txt
   register: student_list
-  when: users == ""
+  when: users is undefined
 
 # - name: debug generated_student_list
 #   debug:
@@ -14,7 +14,7 @@
 - name: Include dynamically created generated_student_list.txt
   include_vars:
     file: "{{ec2_name_prefix}}_generated_student_list.txt"
-  when: users == ""
+  when: users is undefined
 
 # - name: debug users now
 #   debug:
