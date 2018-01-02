@@ -42,7 +42,7 @@
   set_fact:
     ec2_vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
     ec2_security_group: "{{ ec2_name_prefix }}-insecure_all"
-  when: vpc_net_facts.vpcs|length > 0 and ec2_security_group == ""
+  when: vpc_net_facts.vpcs|length > 0 and ec2_security_group is undefined
 
 - name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORKING MODE)
   set_fact:
@@ -51,7 +51,7 @@
   when:
     - networking
     - vpc_net_facts2.vpcs|length > 0
-    - ec2_security_group2 == ""
+    - ec2_security_group2 is undefined
 
 - name: Deleted EC2 security group for VPC vpc-{{ ec2_name_prefix }}
   ec2_group:
