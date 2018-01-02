@@ -5,6 +5,4 @@ ansible_connection: local
 #control_private_ip: "172.17.1.157"
 #or reference dynamically variables tied to the host directly
 #in this case, its grabbing this from the inventory under lab_inventory:
-host1_private_ip: "{{hostvars['host1']['private_ip']}}"
-control_private_ip: "{{hostvars['control']['private_ip']}}"
 ios_version: "16.06.01"

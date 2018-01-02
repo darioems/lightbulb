@@ -4,12 +4,12 @@
     cidr_block: "{{ec2_subnet}}"
     region: "{{ ec2_region }}"
   register: create_vpc
-  when: ec2_vpc_id == ""
+  when: ec2_vpc_id is undefined
 
 # - name: The VPC-ID for VPC named {{ ec2_name_prefix }}-vpc
 #   debug:
 #     var: create_vpc.vpc.id
-#   when: ec2_vpc_id == ""
+#   when: ec2_vpc_id is undefined
 
 - name: Create AWS VPC {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_net:
@@ -18,7 +18,7 @@
     region: "{{ ec2_region }}"
   register: create_vpc2
   when:
-    - ec2_vpc_id2 == ""
+    - ec2_vpc_id2 is undefined
     - networking
 
 - name: Create EC2 security group for VPC named {{ ec2_name_prefix }}-vpc
@@ -51,7 +51,7 @@
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0
-  when: ec2_vpc_id == "" and ec2_exact_count >= 1
+  when: ec2_vpc_id is undefined and ec2_exact_count >= 1
 
 - name: Create EC2 security group 2 for VPC named {{ ec2_name_prefix }}-vpc (NETWORKING MODE)
   ec2_group:
@@ -85,7 +85,7 @@
         cidr_ip: 0.0.0.0/0
   when:
     - networking
-    - ec2_vpc_id2 == ""
+    - ec2_vpc_id2 is undefined
     - ec2_exact_count >= 1
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc
@@ -97,7 +97,7 @@
     resource_tags:
       Name: "{{ ec2_name_prefix }}-subnet"
   register: create_subnet
-  when: ec2_vpc_id == ""
+  when: ec2_vpc_id is undefined
 
 - name: Create subnet for {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
   ec2_vpc_subnet:
@@ -109,27 +109,27 @@
       Name: "{{ ec2_name_prefix }}-subnet2"
   register: create_subnet2
   when:
-    - ec2_vpc_id2 == ""
+    - ec2_vpc_id2 is undefined
     - networking
 
 # - name: The subnet-id for VPC named {{ ec2_name_prefix }}-vpc
 #   debug:
 #     var: create_subnet.subnet.id
-#   when: ec2_vpc_id == ""
+#   when: ec2_vpc_id is undefined
 
 # - name: The subnet-id for VPC named {{ ec2_name_prefix }}-vpc2 (NETWORKING MODE)
 #   debug:
 #     var: create_subnet2.subnet.id
 #   when:
 #     - networking
-#     - ec2_vpc_id == ""
+#     - ec2_vpc_id is undefined
 
 - name: vpc internet gateway is present for {{ create_vpc.vpc.id }}
   ec2_vpc_igw:
     region: "{{ ec2_region }}"
     vpc_id: "{{ create_vpc.vpc.id }}"
   register: igw
-  when: ec2_vpc_id == ""
+  when: ec2_vpc_id is undefined
 
 - name: vpc internet gateway is present for {{ create_vpc2.vpc.id }} (NETWORKING MODE)
   ec2_vpc_igw:
@@ -138,7 +138,7 @@
   register: igw2
   when:
     - networking
-    - ec2_vpc_id2 == ""
+    - ec2_vpc_id2 is undefined
 
 - name: vpc public subnet route table is present for {{ create_vpc.vpc.id }}
   ec2_vpc_route_table:
@@ -149,7 +149,7 @@
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
-  when: ec2_vpc_id == ""
+  when: ec2_vpc_id is undefined
 
 - name: vpc public subnet route table is present for {{ create_vpc2.vpc.id }} (NETWORKING MODE)
   ec2_vpc_route_table:
@@ -162,14 +162,14 @@
         gateway_id: "{{ igw2.gateway_id }}"
   when:
     - networking
-    - ec2_vpc_id2 == ""
+    - ec2_vpc_id2 is undefined
 
 - name: set variables for instance creation dynamically since VPC was not supplied by user
   set_fact:
     ec2_vpc_id: "{{ create_vpc.vpc.id }}"
     ec2_security_group: "{{ ec2_name_prefix }}-insecure_all"
     ec2_vpc_subnet_id: "{{ create_subnet.subnet.id }}"
-  when: ec2_vpc_id == ""
+  when: ec2_vpc_id is undefined
 
 - name: set variables for instance creation dynamically since VPC was not supplied by user (NETWORKING MODE)
   set_fact:
@@ -178,7 +178,7 @@
     ec2_security_group2: "{{ ec2_name_prefix }}-insecure_all2"
   when:
     - networking
-    - ec2_vpc_id2 == ""
+    - ec2_vpc_id2 is undefined
 
 - name: start ssh agent
   raw: "eval `ssh-agent -s`"
@@ -188,12 +188,12 @@
     name: "{{ ec2_name_prefix }}-key"
     region: "{{ ec2_region }}"
   register: create_key
-  when: ec2_key_name == ""
+  when: ec2_key_name is undefined
 
 # - name: The key for for workshop {{ ec2_name_prefix }}
 #   debug:
 #     var: create_key
-#   when: ec2_key_name == ""
+#   when: ec2_key_name is undefined
 
 - name: save private key
   copy:
@@ -213,7 +213,7 @@
 - name: set keys for instance creation dynamically since key was not supplied by user
   set_fact:
     ec2_key_name: "{{ ec2_name_prefix }}-key"
-  when: ec2_key_name == ""
+  when: ec2_key_name is undefined
 
 - name: debugging all variables for ec2 instance creation VPC-1
   debug:

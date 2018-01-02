@@ -13,7 +13,7 @@ Click on the ![ADD](add.png) button and select **Job Template** (not workflow te
 
 | Field                  | Value                                                                                    |
 | ---------------------- |------------------------------------------------------------------------------------------|
-| **NAME**               | Router Configs Job Templat                                                               |
+| **NAME**               | Router Configs Job Template                                                               |
 | **DESCRIPTION**        | Template for router configurations                                                       |
 | **JOB TYPE**           | Run                                                                                      |
 | **INVENTORY**          | Ansible Workshop Inventory                                                               |

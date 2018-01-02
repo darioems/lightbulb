@@ -2,7 +2,6 @@ secrets.yml
 users.yml
 extra_vars.yml
 *.txt
-*.swp
 .vagrant/*
 TODO
 TODO.md
@@ -11,7 +10,5 @@ bak/
 *.DS_Store
 *.pem
 instructor_inventory.txt
-*.pem
 tools/aws_lab_setup/aws-private.pem
-.DS_Store
 *.html
