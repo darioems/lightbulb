@@ -10,12 +10,5 @@ bak/
 *.DS_Store
 *.pem
 instructor_inventory.txt
-*.pem
-*.pem
-*.pem
-*.pem
 tools/aws_lab_setup/aws-private.pem
-.DS_Store
-*.html
-*.html
 *.html
