@@ -1,8 +1,8 @@
 ##Configuration of static route
-- name: Static route from R1 to R2
+- name: Static route between R1 and R2
   net_static_route:
-    prefix: "{{hostvars.inventory_hostname.private_ip}}"
-    mask: "{{hostvars.inventory_hostname.mask}}"
-    next_hop: "{{hostvars.inventory_hostname.next_hop}}"
+    prefix: "{{private_ip}}"
+    mask: "{{mask}}"
+    next_hop: "{{next_hop}}"
   when:
     - ansible_net_version == ios_version
