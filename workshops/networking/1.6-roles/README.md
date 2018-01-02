@@ -85,16 +85,15 @@ ios_version: "16.06.01"
 ```  
 Fill out host1_private_ip and control_private_ip from the lab_inventory
 
-**Hey, wait just a minute there buster…​ did you just have us put variables in two seperate places?**
-Yes…​ yes we did. Variables can live in quite a few places. Just to name a few:
+**Variables in multiple places?**
+Variables can live in quite a few places. Just to name a few:
  - vars directory
  - defaults directory
  - group_vars directory
  - In the playbook under the `vars:` section
  - In any file which can be specified on the command line using the `--extra_vars` -  option
- - On a boat, in a moat, with a goat (disclaimer: this is a complete lie)
 
-Bottom line, you need to read up on [variable precedence](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) to understand both where to define variables and which locations take precedence. In this exercise, we are using role defaults to define a couple of variables and these are the most malleable. After that, we defined some variables in `/vars` which have a higher precedence than defaults and can’t be overridden as a default variable.
+More information on [variable precedence can be found here](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable). To understand both where to define variables and which locations take precedence. In this exercise, we are using role defaults to define a couple of variables and these are the most malleable. After that, we defined some variables in `/vars` which have a higher precedence than defaults and can’t be overridden as a default variable.
 
 ### Step 6: Add tasks to your role in roles/system/tasks/main.yml
 
