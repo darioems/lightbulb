@@ -4,19 +4,30 @@
  - Ansible Networking mode
 
 ## Ansible Essentials Mode
-The default mode provisions four nodes per user in the `users` list.
-
-* One control node from which Ansible will be executed from and where Ansible Tower can be installed
+The default mode provisions four nodes per user:
+* One control node from which Ansible will be executed from and where Ansible Tower can be installed (named ansible)
 * Three web nodes that coincide with the three nodes in lightbulb's original design
 * And one node where `haproxy` is installed (via lightbulb lesson)
 
 ## Ansible Networking Mode
-(**coming soon**)  
-This provisions the [Ansible Lightbulb - Networking Workshop](../../workshops/networking)
+This provisions the [Ansible Lightbulb - Networking Workshop](../../workshops/networking).  
 
-This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS).
+This mode builds a four node workshop demonstrating Ansible’s capabilities on network equipment (e.g. Cisco Systems IOS):
+* One control node from which Ansible will be executed from and where Ansible Tower can be installed (named `ansible`)
+* Two network nodes (`rtr1` and `rtr2`).
+* One host node named `host1`
+
+The `ansible` node and `rtr1` are in one VPC.  The `host1` node and `rtr2` are in another VPC.  More details of the setup including a diagram can be found on the [networking workshop page](../../workshops/networking).
+
+To enable networking mode edit the vars file and add:
+```
+networking: true
+```
+
+Use the samples-vars-networking.yml as an example.  [Quick instructions for networking mode can be found here](network_quick_instructions.md).
 
 # Table Of Contents
+- [Requirements](#requirements)
 - [AWS Setup](#aws-setup)
   - [Email Options](#email-options)
   - [Lab Setup](#lab-setup)
@@ -25,10 +36,14 @@ This mode builds a four node workshop demonstrating Ansible’s capabilities on 
   - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
 - [AWS Teardown](#aws-teardown)
 
+# Requirements
+
+This provisioner  must be run with Ansible Engine v2.4.2 or higher.
+
+
 # AWS Setup
 The `provision_lab.yml` playbook creates instances, configures them for password authentication, creates an inventory file for each user with their IPs and credentials. An instructor inventory file is also created in the current directory which will let the instructor access the nodes of any student by simply targeting the username as a host group. The lab is created in `us-east-1` by default.  Currently only works with `us-east-1`, `us-west-1`, `eu-west-1`, `ap-southeast-1`, `ap-southeast-2`, `ap-south-1` and `ap-northeast-1`.
 
-**NOTE**: Because of [a bug introduced in Ansible v2.2.1](https://github.com/ansible/lightbulb/issues/112) you will need to run this provisioner with v2.3.2 or higher.
 
 ## Email Options
 This provisioner by default will send email to participants/students containing information about their lab environment including IPs and credentials. This configuration requires that each participant register for the workshop using their full name and email address.   Alternatively, you can use generic accounts for workshops.  This method offers the advantage of enabling the facilitator to handle "walk-ins" and is a simpler method overall in terms of collecting participant information.
@@ -91,7 +106,7 @@ email: no                             # Set this if you wish to disable email
 localsecurity: false                   # skips firewalld installation and SE Linux when turned to false
 ```
 
-For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control.  For example you can use pre-existing AWS VPCs you already created.
+For an example, look at [sample-vars.yml](sample-vars.yml) for a list of all the knobs you can control.  You can use pre-existing AWS VPCs you already created.
 
 2. Create a `users.yml` by copying `sample-users.yml` and adding all your students:
 
