@@ -17,7 +17,7 @@ cd /tmp
 ## Step 3: Download the latest Ansible Tower package
 
 ```bash
-curl -O https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-latest.el7.tar.gz
+curl -O http://bit.ly/ansibletowerbundle
 ```
 
 ## Step 4: Untar and unzip the package file
