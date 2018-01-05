@@ -218,7 +218,7 @@ $ sudo apt-get install ansible
             <p>As open source, Ansible is freely-available thru numerous means and can be installed in minutes with only a few requirements that most system already have. The installation methods listed here are the most commonly used.</p>
             <p>Currently Ansible can be run from any machine with Python 2.6 or 2.7 installed. Python 3 support is in tech preview as of version 2.2. Windows isn’t supported for the control machine.</p>
             <p>The requirements of nodes being managed by Ansible vary based on the type and access used to work with them. Ansible needs a way to communicate, which is normally ssh or winrm though other means such as RESTful APIs and specialized connection types may be necessary. Linux servers will need Python 2.6 or later. Windows serves need PowerShell 3.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_installation.html">the Installation page</a> in the Ansible documenation.
+            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_installation.html">the Installation page</a> in the Ansible documentation.
           </aside>
         </section>
         <section>
@@ -248,7 +248,7 @@ $ sudo apt-get install ansible
           <img src="images/how-ansible-works-diagram-02.svg" />
           <aside class="notes">
             <p>Playbooks are written in YAML and are used to invoke Ansible modules to perform tasks that are executed sequentially i.e top to bottom. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT workflow. Playbooks are like an instruction manual and describe the state of environment.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documenation.</p>
+            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documentation.</p>
           </aside>
         </section>
         <section>
@@ -681,7 +681,7 @@ tasks:
           <p>Plays are ordered sets of tasks to execute against host selections from your inventory. A playbook is a file containing one or more plays.</p>
           <aside class="notes">
             <p>Playbooks are text files that contain one or more plays that are expressed in YAML. A play defines target hosts and a task list that are executed sequentially (i.e top to bottom) to achieve a certain state on those hosts.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documenation.</p>
+            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documentation.</p>
           </aside>
         </section>
         <section>
@@ -776,7 +776,7 @@ tasks:
           <aside class="notes">
             <p>The Ansible play host selector defines which nodes in the inventory the automation is targetting.</p>
             <p>In this example, a single group of &quot;web&quot; is being targetted. Ansible supports targetting intersections, unions and filters of multiple groups or hosts though.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_patterns.html">the host selector Patterns page</a> in the Ansible documenation.</p>
+            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_patterns.html">the host selector Patterns page</a> in the Ansible documentation.</p>
           </aside>
         </section>
         <section>
@@ -807,7 +807,7 @@ tasks:
           </code></pre>
           <aside class="notes">
             <p>Ansible allows you to &quot;become&quot; another user or with elevated rights to execute a task or an entire play (shown above). This is done using existing privilege escalation tools, which you probably already use or have configured, like sudo (the default), su, pfexec, doas, pbrun, dzdo, ksu and others.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/become.html">the Privilege Escalation page</a> in the Ansible documenation.</p>
+            <p>For more details see <a href="http://docs.ansible.com/ansible/become.html">the Privilege Escalation page</a> in the Ansible documentation.</p>
           </aside>
         </section>
         <section>

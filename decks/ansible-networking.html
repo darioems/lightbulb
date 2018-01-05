@@ -80,7 +80,7 @@
             <aside class="notes">
               <p>Ansible has a number of qualities that make it the most rapidly growing automation platform in the world. </p>
               <p><strong>Ansible is simple.</strong> Playbooks are human and machine readable, no special coding skills required &ndash; and even people in your IT organization that don’t know Ansible can read an Ansible playbook and understand what’s happening.</p>
-              <p>This simplicity also means that it&rsquo;s easy to install and get startedto do real work with it quickly &ndash; usually in just minutes. </p>
+              <p>This simplicity also means that it&rsquo;s easy to install and get started to do real work with it quickly &ndash; usually in just minutes. </p>
               <p>Ansible also works like you think &ndash; tasks are always executed in order. All together, the simplicity ensures that you can get started quickly.</p>
               <p><strong>Ansible is powerful.</strong> Simplicity is great, but to be really useful, you also need the powerful features that ensure you can model even the most complex of IT workflows.</p>
               <p>Ansible is complete automation, able to deploy apps, manage orchestration, and configure the infrastructure, networks, operating systems, and services that you’re already using today. </p>
@@ -194,7 +194,7 @@
           <aside class="notes">
             <p>What can you do with Ansible? Nearly anything. Ansible is the Swiss Army knife of DevOps, capable of handling many powerful automation tasks with the flexibility to adapt to many environments and workflows.</p>
             <p>Many folks like to categorize Ansible as a configuration manager, and although yes, Ansible can do that, it&quot;s just the tip of the iceberg. When you couple configuration management with orchestration, you can start to model complicated multi-tier deployments with ease.</p>
-            <p>With Ansible, once soneone on your team automates something, everyone on the team now knows how to do it.</p>
+            <p>With Ansible, once someone on your team automates something, everyone on the team now knows how to do it.</p>
           </aside>
         </section>
         <section>
@@ -216,7 +216,7 @@ $ sudo apt-get install ansible
             <p>As open source, Ansible is freely-available thru numerous means and can be installed in minutes with only a few requirements that most system already have. The installation methods listed here are the most commonly used.</p>
             <p>Currently Ansible can be run from any machine with Python 2.6 or 2.7 installed. Python 3 support is in tech preview as of version 2.2. Windows isn’t supported for the control machine.</p>
             <p>The requirements of nodes being managed by Ansible vary based on the type and access used to work with them. Ansible needs a way to communicate, which is normally ssh or winrm though other means such as RESTful APIs and specialized connection types may be necessary. Linux servers will need Python 2.6 or later. Windows serves need PowerShell 3.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_installation.html">the Installation page</a> in the Ansible documenation.
+            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_installation.html">the Installation page</a> in the Ansible documentation.
           </aside>
         </section>
         <section>
@@ -246,7 +246,7 @@ $ sudo apt-get install ansible
           <img src="images/how-ansible-works-diagram-02.svg" />
           <aside class="notes">
             <p>Playbooks are written in YAML and are used to invoke Ansible modules to perform tasks that are executed sequentially i.e top to bottom. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT workflow. Playbooks are like an instruction manual and describe the state of environment.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documenation.</p>
+            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documentation.</p>
           </aside>
         </section>
         <section>
@@ -435,7 +435,7 @@ ansible ansible_host=34.228.79.198 ansible_ssh_user=ec2-user private_ip=172.16.7
           </code></pre>
           <aside class="notes">
             <p>The example shown here is a more practical and common example of a static inventory file.</p>
-            <p>Static inventory files are expresed in INI format. The headings in brackets are group names, which are used in classifying systems and deciding what systems you are controlling at what times and for what purpose. Hosts can belong to multiple groups and groups can be members of other groups. (The latter is not shown here.)</p>
+            <p>Static inventory files are expressed in INI format. The headings in brackets are group names, which are used in classifying systems and deciding what systems you are controlling at what times and for what purpose. Hosts can belong to multiple groups and groups can be members of other groups. (The latter is not shown here.)</p>
             <p>NOTE: This example contains variables, a topic we haven't touched on just yet. We'll go into them on the next slide.</p>
             <p>Other noteworthy attributes in our example:</p>
             <ul>
@@ -469,7 +469,7 @@ ansible ansible_host=34.228.79.198 ansible_ssh_user=ec2-user private_ip=172.16.7
               <li><b>--help</b><br/>Display the MAN page for the ansible tool</li>
             </ul>
             <aside class="notes">
-              <p>This slide shows essential commanline options for running ad-hoc commands that will be useful in our upcoming workshop assignment.</p>
+              <p>This slide shows essential commandline options for running ad-hoc commands that will be useful in our upcoming workshop assignment.</p>
             </aside>
           </section>
         </section>
@@ -516,7 +516,7 @@ localhost | success >> {
           </code></pre>
           <aside class="notes">
             <p>The second ad-hoc command example from the prior slide provides the following JSON output of a localhost facts run.</p>
-            <p>Facts are bits of information derived from examining a host systems that are stored as variables for later use. An example of this might be the ip address of the host, or what operating system it is running. The facts Ansible will discover about a host is extensive. What's shown here is just a small sample. Run <code>ansible localhost -m setup</code> for a more complete represenation.</p>
+            <p>Facts are bits of information derived from examining a host systems that are stored as variables for later use. An example of this might be the ip address of the host, or what operating system it is running. The facts Ansible will discover about a host is extensive. What's shown here is just a small sample. Run <code>ansible localhost -m setup</code> for a more complete representation.</p>
             <p>Ansible collects facts using the <code>setup</code> module. By default, Ansible will run the <code>setup</code> module before any other tasks are executed in a playbook. These facts can be referenced by subsequent automation tasks on a per host-basis during the playbook run.</p>
           </aside>
         </section>
@@ -698,7 +698,7 @@ tasks:
           <p>Plays are ordered sets of tasks to execute against host selections from your inventory. A playbook is a file containing one or more plays.</p>
           <aside class="notes">
             <p>Playbooks are text files that contain one or more plays that are expressed in YAML. A play defines target hosts and a task list that are executed sequentially (i.e top to bottom) to achieve a certain state on those hosts.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documenation.</p>
+            <p>For more details see <a href="http://docs.ansible.com/ansible/playbooks.html">the Playbook page</a> in the Ansible documentation.</p>
           </aside>
         </section>
         <section>
@@ -775,7 +775,7 @@ tasks:
           <aside class="notes">
             <p>The Ansible play host selector defines which nodes in the inventory the automation is targetting.</p>
             <p>In this example, a single group of &quot;web&quot; is being targetted. Ansible supports targetting intersections, unions and filters of multiple groups or hosts though.</p>
-            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_patterns.html">the host selector Patterns page</a> in the Ansible documenation.</p>
+            <p>For more details see <a href="http://docs.ansible.com/ansible/intro_patterns.html">the host selector Patterns page</a> in the Ansible documentation.</p>
           </aside>
         </section>
         <section>
@@ -811,7 +811,7 @@ tasks:
           <section data-state="title alt">
             <h1>Workshop: <br/>Your First Playbook</h1>
             <aside class="notes">
-              <p>This assignment provides a quick introduction to playbook structure to give them a feel for how Ansible works, but in pratice is too simplistic to be useful.</p>
+              <p>This assignment provides a quick introduction to playbook structure to give them a feel for how Ansible works, but in practice is too simplistic to be useful.</p>
               <p>See <code>workshops/simple_playbook</code> in the Ansible Lightbulb repo.</p>
               <p>Note: If your time is limited, this is a workshop you can skip. We'll cover this and more topics in the next workshop.</p>
             </aside>
