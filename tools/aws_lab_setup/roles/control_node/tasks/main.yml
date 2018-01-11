@@ -79,8 +79,13 @@
         - control
   when: networking is undefined or not networking
 
-- name: Ansible Networking mode
+- name: Ansible NETWORKING MODE
   block:
+    - name: Clear out lightbulb directory spot (NETWORKING MODE)
+     file:
+       state: absent
+       path: /tmp/lightbulb
+
     - name: Clone lightbulb repo (NETWORKING MODE)
       git:
         accept_hostkey: yes
