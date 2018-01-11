@@ -82,9 +82,9 @@
 - name: Ansible NETWORKING MODE
   block:
     - name: Clear out lightbulb directory spot (NETWORKING MODE)
-     file:
-       state: absent
-       path: /tmp/lightbulb
+      file:
+        state: absent
+        path: /tmp/lightbulb
 
     - name: Clone lightbulb repo (NETWORKING MODE)
       git:
