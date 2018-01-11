@@ -23,10 +23,10 @@ As soon as you login, you will prompted to request a license or browse for an ex
 ![Figure 2: Uploading a License](license.png)
 
 ## Step 2: Download the License
-In a separate browser tab, download your license key by browsing to [fakelicense.txt](fakelicense.txt)
+In a seperate browser tab, browse to the [Workshop License](https://www.ansible.com/workshop-license ) link to request a workshop license.
 
 ## Step 3: Browse for License
-Back in the Tower UI, choose ![BROWSE](browse.png) and upload your recently downloaded license file into Tower.
+Back in the Tower UI, choose ![BROWSE](browse.png) and upload your license file that you received via e-mail into Tower.
 
 ## Step 4: Check License
 Select "I agree to the End User License Agreement"

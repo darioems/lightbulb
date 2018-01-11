@@ -67,9 +67,7 @@ To provision the workshop onto AWS use the following directions:
 
         pip install boto boto3
 
-4. Create a `boto` configuration file containing your AWS access key ID and secret access key.
-
-      Use the quickstart directions provided here: [http://boto3.readthedocs.io/en/latest/guide/quickstart.html](http://boto3.readthedocs.io/en/latest/guide/quickstart.html)
+4. Create an [Access Key ID and Secret Access Key](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) (you should be using IAM and [not your AWS account directly](http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html)).  Save the ID and key for later.
 
 5. Install the `passlib` library
 
