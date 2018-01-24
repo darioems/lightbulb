@@ -60,12 +60,7 @@ sudo yum -y install wget
 wget http://bit.ly/ansibletowerbundle
 </h3></pre>
 
-
-<!-- <h3><a href="https://www.ansible.com/license" target="new_2">
-Request Licensing page (Pick the second option: non-Enterprise version for immediate download):</a><br><br></h3>-->
-
-
-<h3><a href="https://network-automation.github.io/lightbulb/workshops/networking/2.2-towerconfigure/fakelicense.txt" target="new_gd_license">Lightbulb license is available here</a><br><br></h3>
+<h3><a href="https://www.ansible.com/workshop-license" target="new_gd_license">Lightbulb license is available here</a><br><br></h3>
 
 <hr>
   </div>
@@ -74,7 +69,7 @@ Request Licensing page (Pick the second option: non-Enterprise version for immed
     <div data-role="collapsible">
       <h1>{{item.username}} - Click to see details!</h1>
 {% for host in ansible_node_facts.instances %}
-{% if item.username in host.tags.Name %}
+{% if item.username == host.tags.Student %}
 To login to the <code>ansible</code> control node use the following for SSH access:<br>
 username:   {{item.username}}<br>
 password:   PROVIDED BY INSTRUCTOR<br>
