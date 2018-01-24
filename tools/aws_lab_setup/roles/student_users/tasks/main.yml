@@ -16,6 +16,11 @@
     file: "{{ec2_name_prefix}}_generated_student_list.txt"
   when: users is undefined
 
+- name: Make sure there is users, if this fails you have no users
+  debug:
+    var: "{{users|length}}"
+
+
 # - name: debug users now
 #   debug:
 #     var: users
