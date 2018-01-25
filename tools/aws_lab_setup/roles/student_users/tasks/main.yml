@@ -20,7 +20,6 @@
   debug:
     var: "{{users|length}}"
 
-
 # - name: debug users now
 #   debug:
 #     var: users

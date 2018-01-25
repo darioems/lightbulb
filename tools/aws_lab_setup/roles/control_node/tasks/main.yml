@@ -138,12 +138,12 @@
       tags:
         - testing
 
-    - name: Put ssh-key in proper for ec2-user
+    - name: Put ssh-key in proper for {{ansible_user}}
       copy:
         src: ./aws-private.pem
-        dest: "/home/ec2-user/.ssh/"
-        owner: "ec2-user"
-        group: "ec2-user"
+        dest: "/home/{{ansible_user}}/.ssh/"
+        owner: "{{ansible_user}}"
+        group: "{{ansible_user}}"
 
     - name: change permissions on ssh-key file
       file:
@@ -152,7 +152,7 @@
 
     - name: change permissions on ssh-key file
       file:
-        path: "/home/ec2-user/.ssh/aws-private.pem"
+        path: "/home/{{ansible_user}}/.ssh/aws-private.pem"
         mode: 0400
 
     - name: copy over ssh config file for student
@@ -162,16 +162,16 @@
         owner: "{{username}}"
         group: "{{username}}"
 
-    - name: copy over ssh config file for ec2-user
+    - name: copy over ssh config file for {{ansible_user}}
       template:
         src: sshconfig_ec2.j2
-        dest: /home/ec2-user/.ssh/config
-        owner: "ec2-user"
-        group: "ec2-user"
+        dest: /home/{{ansible_user}}/.ssh/config
+        owner: "{{ansible_user}}"
+        group: "{{ansible_user}}"
 
-    - name: change permissions on ssh config file for ec2-user
+    - name: change permissions on ssh config file for {{ansible_user}}
       file:
-        path: "/home/ec2-user/.ssh/config"
+        path: "/home/{{ansible_user}}/.ssh/config"
         mode: 0700
 
     - name: change permissions on ssh config file for student

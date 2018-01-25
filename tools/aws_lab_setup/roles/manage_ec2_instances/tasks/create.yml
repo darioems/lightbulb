@@ -12,7 +12,9 @@
     ansible_host: "{{ item.public_ip_address }}"
     ansible_user: "{{ ec2_login_names[ansible_node] }}"
     ansible_port: "{{ ssh_port }}"
-    groups: lab_hosts,control_nodes
+    groups:
+      - lab_hosts
+      - control_nodes
   with_items: "{{ ansible_node_facts.instances }}"
 
 - name: ANSIBLE ESSENTIALS MODE TASKS

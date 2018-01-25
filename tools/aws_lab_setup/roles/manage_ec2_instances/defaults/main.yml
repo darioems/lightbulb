@@ -1,12 +1,5 @@
 ec2_name_prefix: TRAINING
-#ec2_security_group: ""
-#ec2_security_group2: ""
 ec2_region: us-east-1
-#ec2_vpc_id: ""
-#ec2_vpc_id2: ""
-#ec2_vpc_subnet_id: ""
-#ec2_vpc_subnet_id2: ""
-#ec2_key_name: ""
 ec2_exact_count: 1
 ec2_wait: yes
 ec2_subnet: "172.16.0.0/16"
@@ -82,11 +75,13 @@ ec2_regions:
       ubuntu16: ami-b05203d0
       csr-byol: ami-99e5d0f9
   us-west-2:
-    csr-byol: ami-e4d43d9c
-    rhel7:  ami-9fa343e7
+    amis:
+      csr-byol: ami-e4d43d9c
+      rhel7:  ami-9fa343e7
   ca-central-1:
-    csr-byol: ami-6269d706
-    rhel7: ami-9062d0f4
+    amis:
+      csr-byol: ami-6269d706
+      rhel7: ami-9062d0f4
   eu-west-1:
     vpc: vpc-48141c2a
     subnet_id: subnet-70f9f012

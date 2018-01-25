@@ -2,4 +2,4 @@
   when: teardown
 
 - include_tasks: provision.yml
-  when: create_lab
+  when: not teardown

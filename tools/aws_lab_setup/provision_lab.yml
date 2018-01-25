@@ -13,7 +13,6 @@
   gather_facts: no
   vars:
     teardown: false
-    create_lab: true
   roles:
     - manage_ec2_instances
 
@@ -22,7 +21,7 @@
   become: yes
   gather_facts: no
   roles:
-    - reachability
+    - connectivity_test
 
 - name: Configure common options on managed nodes and control nodes
   hosts: "managed_nodes:control_nodes"

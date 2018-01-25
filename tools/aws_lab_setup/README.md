@@ -75,6 +75,8 @@ To provision the workshop onto AWS use the following directions:
 
 6. Clone the lightbulb repo:
 
+If you haven't done so already make sure you have the repo cloned to the machine executing the playbook
+
         git clone https://github.com/ansible/lightbulb.git
         cd lightbulb/tools/aws_lab_setup
 

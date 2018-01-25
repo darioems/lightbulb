@@ -7,7 +7,6 @@
   vars:
     ec2_wait: no
     teardown: true
-    create_lab: false
     s3_state: absent
     state: absent
 
@@ -38,10 +37,10 @@
 
    - name: Remove private key file
      file:
-       path: '{{ playbook_dir }}/*.pem'
+       path: './aws-private.pem'
        state: absent
 
    - name: Remove old keys
-     shell: ssh-add -D
+     command: ssh-add -D
      register: removal
      changed_when: removal.stdout_lines | length > 0
